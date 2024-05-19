@@ -1,4 +1,5 @@
 ﻿namespace Anbunet.Application.Services;
+
 public interface IPasswordManager
 {
     string Hash(string password);

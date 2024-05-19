@@ -20,8 +20,11 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString);
         });
 
-        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddTransient<IPasswordManager, PasswordManager>();
+        services.AddTransient<IJwtProvider, JwtProvider>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

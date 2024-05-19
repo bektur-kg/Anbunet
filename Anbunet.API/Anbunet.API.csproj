@@ -16,11 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="OptionsSetup\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Anbunet.Application\Anbunet.Application.csproj" />
     <ProjectReference Include="..\Anbunet.Infrastructure\Anbunet.Infrastructure.csproj" />
   </ItemGroup>
