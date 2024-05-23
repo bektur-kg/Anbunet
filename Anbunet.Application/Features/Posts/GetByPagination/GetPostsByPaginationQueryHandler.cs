@@ -1,11 +1,10 @@
 ﻿using Anbunet.Application.Abstractions;
 using Anbunet.Application.Contracts.Posts;
-using Anbunet.Application.Features.Posts.GetByPagination;
 using Anbunet.Domain.Abstractions;
 using Anbunet.Domain.Modules.Posts;
 using AutoMapper;
 
-namespace Anbunet.Application.Features.Posts.GetAll;
+namespace Anbunet.Application.Features.Posts.GetByPagination;
 
 public class GetPostsByPaginationQueryHandler
     (
