@@ -1,6 +1,7 @@
 ﻿namespace Anbunet.Domain.Modules.Posts;
 
-public static class PostAttributeConstants
+public abstract class PostAttributeConstants
 {
-    public const int MAX_DESCRIPTION_LENGTH = 500;
+    public const int MAX_DESCRIPTION_LENGTH = 100;
 }
+

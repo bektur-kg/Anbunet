@@ -1,6 +1,8 @@
 ﻿using Anbunet.Application.Services;
+using Anbunet.Domain.Modules.Posts;
 using Anbunet.Domain.Modules.Users;
 using Anbunet.Infrastructure.DbContexts;
+using Anbunet.Infrastructure.Modules.Posts;
 using Anbunet.Infrastructure.Modules.Users;
 using Anbunet.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,7 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IPostRepository, PostRepository>();
 
         return services;
     }
