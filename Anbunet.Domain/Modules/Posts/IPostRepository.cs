@@ -2,4 +2,7 @@
 
 namespace Anbunet.Domain.Modules.Posts;
 
-public interface IPostRepository : IRepository<Post>;
+public interface IPostRepository : IRepository<Post>
+{
+    Task<Post?> GetByIdWithInclude(long id, bool includeUser = false, bool includeComments = false, bool includeLikes = false);
+}
