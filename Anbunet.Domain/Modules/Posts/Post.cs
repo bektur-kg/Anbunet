@@ -14,7 +14,7 @@ public class Post : Entity
     public required string MediaUrl { get; set; }
 
     [MaxLength(PostAttributeConstants.MAX_DESCRIPTION_LENGTH)]
-    public string? Desciption { get; set; }
+    public string? Description { get; set; }
 
     public DateTime CreatedDate { get; set; } = DateTime.Now;
 

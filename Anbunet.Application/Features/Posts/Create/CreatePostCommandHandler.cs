@@ -45,7 +45,8 @@ public class CreatePostCommandHandler
         var newPost = new Post
         {
             UserId = userId,
-            MediaUrl = mediaUrl
+            MediaUrl = mediaUrl,
+            Description = request.Data.Description
         };
 
         postRepository.Add(newPost);
