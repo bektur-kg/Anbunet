@@ -12,7 +12,7 @@ public class CreatePostCommandHandler
         IPostRepository postRepository,
         IHttpContextAccessor httpContextAccessor,
         IUnitOfWork unitOfWork,
-        IPresentationDirectoryPath directoryPath
+        IFileProvider fileProvider
     )
     : ICommandHandler<CreatePostCommand, Result>
 {
@@ -20,32 +20,16 @@ public class CreatePostCommandHandler
 
     public async Task<Result> Handle(CreatePostCommand request, CancellationToken cancellationToken)
     {
-        var directory = directoryPath.Get();
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var file = request.Data.File;
-        var extensions = new string[]
-        {
-            ".jpg", ".mp4", ".jpeg", ".png",
-        };
-        var fileExtension = Path.GetExtension(file.FileName);
 
-        if (!extensions.Contains(fileExtension)) return Result.Failure(PostErrors.NotSupportedFileExtensions);
+        var result = await fileProvider.Create(request.Data.File, cancellationToken);
 
-        var size = file.Length;
-
-        if (size > 1024 * 1024 * 20) return Result.Failure(PostErrors.NotSupportedFileSize);
-
-        var fileName = Guid.NewGuid().ToString() + fileExtension;
-        var path = Path.Combine(directory, "wwwroot");
-        using FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create);
-        await file.CopyToAsync(stream, cancellationToken);
-
-        var mediaUrl = Path.Combine("https://localhost:7199/", fileName);
+        if(!result.IsSuccess) return Result.Failure(result.Error);
 
         var newPost = new Post
         {
             UserId = userId,
-            MediaUrl = mediaUrl,
+            MediaUrl = result.Value,
             Description = request.Data.Description
         };
 

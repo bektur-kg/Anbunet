@@ -24,6 +24,7 @@ public static class DependencyInjection
 
         services.AddTransient<IPasswordManager, PasswordManager>();
         services.AddTransient<IJwtProvider, JwtProvider>();
+        services.AddScoped<IFileProvider, FileProvider>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<IUserRepository, UserRepository>();
