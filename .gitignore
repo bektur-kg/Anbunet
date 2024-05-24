@@ -62,6 +62,10 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
+#Custom
+/wwwroot
+.idea
+
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
 
