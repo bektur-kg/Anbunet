@@ -63,8 +63,13 @@ project.fragment.lock.json
 artifacts/
 
 #Custom
-wwwroot/
 .idea
+wwwroot/*.jpg
+wwwroot/*.jpeg
+wwwroot/*.png
+wwwroot/*.mp4
+
+
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
