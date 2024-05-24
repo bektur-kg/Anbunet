@@ -1,5 +1,9 @@
-﻿namespace Anbunet.Application.Features.Chats.SendMessageToUser;
+﻿using Anbunet.Application.Abstractions;
+using Anbunet.Application.Contracts.Chats;
+using Anbunet.Application.Contracts.Posts;
+using Anbunet.Domain.Abstractions;
 
-public class SendMessageToUserCommand
-{
-}
+namespace Anbunet.Application.Features.Chats.SendMessageToUser;
+
+
+public record SendMessageToUserCommand(MessageToUserRequest Data) : ICommand<Result>;

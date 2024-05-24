@@ -1,5 +1,11 @@
-﻿namespace Anbunet.Application.Features.Chats;
+﻿using AutoMapper;
 
-public class ChatMappings
+namespace Anbunet.Application.Features.Chats;
+
+public class ChatMappings : Profile
 {
+    public ChatMappings() 
+    {
+    
+    }
 }
