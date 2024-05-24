@@ -2,6 +2,6 @@
 
 public class MessageToUserRequest
 {
-    public string User { get; set; }
+    public long RecipientId { get; set; }
     public string Message { get; set; }
 }

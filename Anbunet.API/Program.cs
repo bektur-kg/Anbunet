@@ -1,5 +1,5 @@
-using Anbunet.API.Extensions;
-using Anbunet.API.Hubs;
+using Anbunet.Application.Extensions;
+using Anbunet.Application.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 

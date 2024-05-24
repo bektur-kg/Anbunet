@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace Anbunet.API.Hubs;
+namespace Anbunet.Application.Hubs;
 
 public class ChatHub : Hub
 {

@@ -1,15 +1,12 @@
-﻿using Anbunet.API.Hubs;
+﻿using Anbunet.Application.Hubs;
 using Anbunet.Application.Contracts.Chats;
-using Anbunet.Application.Contracts.Posts;
 using Anbunet.Application.Features.Chats.SendMessageToUser;
-using Anbunet.Application.Features.Posts.Create;
 using Anbunet.Domain.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 
-namespace Anbunet.API.Controllers;
+namespace Anbunet.Application.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class ChatsController(ISender sender,IHubContext<ChatHub> hubContext) : ControllerBase

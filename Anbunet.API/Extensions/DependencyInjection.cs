@@ -1,4 +1,4 @@
-﻿using Anbunet.API.OptionsSetup;
+﻿using Anbunet.Application.OptionsSetup;
 using Anbunet.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 using Anbunet.Application.Extensions;
 using Anbunet.Application.Services;
 
-namespace Anbunet.API.Extensions;
+namespace Anbunet.Application.Extensions;
 
 public static class DependencyInjection
 {
