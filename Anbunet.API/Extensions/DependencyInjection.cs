@@ -76,6 +76,8 @@ public static class DependencyInjection
         services.ConfigureOptions<JwtBearerOptionsSetup>();
         services.AddScoped<IPresentationDirectoryPath, PresentationDirectoryPath>();
 
+        services.AddSignalR();
+
         return services;
     }
 }
