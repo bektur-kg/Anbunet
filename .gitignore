@@ -63,7 +63,7 @@ project.fragment.lock.json
 artifacts/
 
 #Custom
-/wwwroot
+wwwroot/
 .idea
 
 # ASP.NET Scaffolding
