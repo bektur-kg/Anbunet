@@ -17,7 +17,7 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
         if (includeFollowings) query = query.Include(user => user.Followings);
         if (includeComments) query = query.Include(user => user.Comments);
         if (includeActuals) query = query.Include(user => user.Actuals);
-        if (includeStories) query = query.Include(user => user.Stories);
+        if (includeStories) query = query.Include(user => user.Stories.Where(story => story.ExpiryDate > DateTime.UtcNow));
 
         return query.FirstOrDefaultAsync(user => user.Id == userId);
     }

@@ -24,13 +24,13 @@ public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext
         var query = DbContext.Posts.AsQueryable();
 
         if (includeUser) query = query.Include(post => post.User);
-        if (includeLikes) query = query.Include(post => post.Comments);
-        if (includeComments) query = query.Include(post => post.Likes);
+        if (includeLikes) query = query.Include(post => post.Likes);
+        if (includeComments) query = query.Include(post => post.Comments);
 
         return query.FirstOrDefaultAsync(post => post.Id == id);
     }
 
-    public Task<List<Post>> GetStoriesByUserIdWithInclude(long userId, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
+    public Task<List<Post>> GetPostsByUserIdWithInclude(long userId, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
     {
         var query = DbContext.Posts.AsNoTracking();
 

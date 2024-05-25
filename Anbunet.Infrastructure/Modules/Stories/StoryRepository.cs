@@ -12,6 +12,7 @@ public class StoryRepository(AppDbContext dbContext) : Repository<Story>(dbConte
         return DbContext.Stories
             .AsNoTracking()
             .Where(story => story.UserId == userId)
+            .Where(story => story.ExpiryDate > DateTime.UtcNow)
             .ToListAsync();
     }
 }

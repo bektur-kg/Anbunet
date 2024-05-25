@@ -21,7 +21,7 @@ public class GetUserProfileQueryHandler
         var foundUser = await userRepository.GetByIdWithIncludeAsync(request.UserId, includeActuals: true, 
             includeStories: true, includeFollowers: true, includeFollowings: true);
 
-        var userPosts = await postRepository.GetStoriesByUserIdWithInclude(request.UserId, includeLikes: true, includeComments: true);
+        var userPosts = await postRepository.GetPostsByUserIdWithInclude(request.UserId, includeLikes: true, includeComments: true);
 
         if (foundUser is null) return ValueResult<UserDetailedResponse>.Failure(UserErrors.UserNotFound);
 
