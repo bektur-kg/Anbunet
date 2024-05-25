@@ -11,7 +11,7 @@ public class LikesController(ISender sender) : ControllerBase
 {
     private readonly ISender _sender = sender;
 
-    [HttpPost("posts/{id:long}")]
+    [HttpPost("posts/{id:long}/likes")]
     public async Task<ActionResult> Create(long id)
     {
         var command = new CreateLikeCommand(id);

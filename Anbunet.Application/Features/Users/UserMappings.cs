@@ -11,6 +11,7 @@ public class UserMappings : Profile
         CreateMap<User, UserPostResponse>();
         CreateMap<User, UserCommentResponse>();
         CreateMap<User, UserLikeResponse>();
+        CreateMap<User, UserDetailedResponse>();
     }
 }
 
