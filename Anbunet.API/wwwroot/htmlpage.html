@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>METANIT.COM</title>
+</head>
+<body>
+    <div id="loginBlock">
+        Введите группу:<br />
+        <input id="userGroup" type="text" placeholder="Введите группу" />
+        <input id="insertChat" type="button" value="Войти" />
+    </div><br />
+
+
+    <div id="inputForm">
+        Сообщение:<br />
+        <input type="text" id="message" />
+        <input type="button" id="sendBtn" value="Отправить" />
+    </div>
+    <div id="chatroom"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script>
+        let userName = "";
+        let userGroup = "";
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .build();
+
+        // установка имени пользователя и вход в группу
+        document.getElementById("insertChat").addEventListener("click", function (e) {
+            userGroup = document.getElementById("userGroup").value;
+            hubConnection.invoke("Enter", userGroup);
+        });
+
+        // отправка сообщения в группу
+        document.getElementById("sendBtn").addEventListener("click", () => {
+
+            const message = document.getElementById("message").value;
+            hubConnection.invoke("Send", message, userName, userGroup)
+                .catch(error => console.error(error));
+        });
+
+        // получение сообщения для определенной группы
+        hubConnection.on("Receive", (message, user) => {
+
+            // создаем элемент <b> для имени пользователя
+            const userNameElem = document.createElement("b");
+            userNameElem.textContent = `${user}: `;
+
+            // создает элемент <p> для сообщения пользователя
+            const elem = document.createElement("p");
+            elem.appendChild(userNameElem);
+            elem.appendChild(document.createTextNode(message));
+
+            const firstElem = document.getElementById("chatroom").firstChild;
+            document.getElementById("chatroom").insertBefore(elem, firstElem);
+        });
+
+        // получение общего уведомления
+        hubConnection.on("Notify", message => {
+
+            const elem = document.createElement("p");
+            elem.textContent = message;
+
+            const firstElem = document.getElementById("chatroom").firstChild;
+            document.getElementById("chatroom").insertBefore(elem, firstElem);
+        });
+
+        hubConnection.start()
+            .then(() => {
+                document.getElementById("sendBtn").disabled = false;
+                document.getElementById("insertChat").disabled = false
+            })
+            .catch((err) => console.error(err));
+    </script>
+</body>
+</html>

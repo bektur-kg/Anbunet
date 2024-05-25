@@ -1,90 +1,117 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>SignalR Chat</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+    <meta charset="utf-8" />
+    <title>METANIT.COM</title>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-3">Connection Id</div>
-            <div class="col-6"><span id="connectionId"></span></div>
-        </div>
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-2">User</div>
-            <div class="col-4"><input type="text" id="userInput" /></div>
-        </div>
-        <div class="row">
-            <div class="col-2">Message</div>
-            <div class="col-4"><input type="text" id="messageInput" /></div>
-        </div>
-        <div class="row">
-            <div class="col-2">Receiver Id</div>
-            <div class="col-4"><input type="text" id="receiverId" /></div>
-        </div>
+    <div id="loginBlock">
+        Введите логин и пароль:<br />
+        <input id="email" type="text" />
+        <input id="password" type="password" />
+        <input id="loginBtn" type="button" value="Войти" />
+    </div><br />
 
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-6">
-                <input type="button" id="sendToUser" value="Send Message" />&nbsp;&nbsp;
-                <input type="button" id="sendButton" value="Send Message to All" />
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <hr />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
+    <div id="groupBlock">
+        Введите группу:<br />
+        <input id="userGroup" type="text" placeholder="Введите группу" />
+        <input id="insertChat" type="button" value="Войти" />
+    </div><br />
 
+    <div id="inputForm">
+        Введите сообщение и получателя:<br />
+        <input type="text" id="message" placeholder="Введите сообщение" />
+        <input type="button" id="sendBtn" disabled value="Отправить" />
+    </div>
+    <div id="chatroom"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script>
-        var connection = new signalR.HubConnectionBuilder()
-            .withUrl("/chat", { withCredentials: false }) // Убедитесь, что это правильный URL сервера
+        let token;      // токен
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat", { accessTokenFactory: () => token })
             .build();
 
-        // Отключаем кнопку отправки до установления соединения
-        document.getElementById("sendButton").disabled = true;
+        // аутентификация
+        document.getElementById("loginBtn").addEventListener("click", async () => {
 
-        connection.on("ReceiveMessage", function (user, message) {
-            var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            var encodedMsg = user + " says " + msg;
-            var li = document.createElement("li");
-            li.textContent = encodedMsg;
-            document.getElementById("messagesList").appendChild(li);
+            const response = await fetch("/api/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    login: document.getElementById("email").value,
+                    password: document.getElementById("password").value
+                })
+            });
+
+            // если запрос прошел нормально
+            if (response.ok === true) {
+                // получаем данные
+                const data = await response.json();
+                token = data.token;
+                username = data.username;
+                document.getElementById("loginBtn").disabled = true;
+
+                sessionStorage.setItem("jwtToken", token);
+
+                hubConnection.start()       // начинаем соединение с хабом
+                    .then(() => document.getElementById("sendBtn").disabled = false)
+                    .catch(err => console.error(err.toString()));
+            }
+            else {
+                // если произошла ошибка, получаем код статуса
+                console.log(`Status: ${response.status}`);
+            }
         });
 
-        connection.start().then(function () {
-            connection.invoke("GetConnectionId").then(function (id) {
-                document.getElementById("connectionId").innerText = id;
-            });
-            document.getElementById("sendButton").disabled = false;
-        }).catch(function (err) {
-            return console.error(err.toString());
+        document.getElementById("insertChat").addEventListener("click", function (e) {
+            userGroup = document.getElementById("userGroup").value;
+            hubConnection.invoke("Enter", userGroup);
         });
 
-        document.getElementById("sendButton").addEventListener("click", function (event) {
-            var user = document.getElementById("userInput").value;
-            var message = document.getElementById("messageInput").value;
-            connection.invoke("SendMessage", user, message).catch(function (err) {
-                return console.error(err.toString());
+
+        // отправка сообщения в группу
+        document.getElementById("sendBtn").addEventListener("click", async () => {
+            const jwtToken = sessionStorage.getItem("jwtToken"); // Получение JWT-токена из localStorage
+            const response = await fetch("/api/Chats", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${jwtToken}` // Добавление JWT-токена в заголовок Authorization
+                },
+                body: JSON.stringify({
+                    privateChatId: document.getElementById("userGroup").value,
+                    message: document.getElementById("message").value
+                })
             });
-            event.preventDefault();
+
+            // Дальнейшая обработка ответа от сервера
         });
 
-        document.getElementById("sendToUser").addEventListener("click", function (event) {
-            var user = document.getElementById("userInput").value;
-            var receiverConnectionId = document.getElementById("receiverId").value;
-            var message = document.getElementById("messageInput").value;
-            connection.invoke("SendToUser", user, receiverConnectionId, message).catch(function (err) {
-                return console.error(err.toString());
-            });
-            event.preventDefault();
+
+        // получение сообщения от пользователя
+        hubConnection.on("Receive", (message, user) => {
+
+            // создаем элемент <b> для имени пользователя
+            const userNameElem = document.createElement("b");
+            userNameElem.textContent = `${user}: `;
+
+            // создает элемент <p> для сообщения пользователя
+            const elem = document.createElement("p");
+            elem.appendChild(userNameElem);
+            elem.appendChild(document.createTextNode(message));
+
+            const firstElem = document.getElementById("chatroom").firstChild;
+            document.getElementById("chatroom").insertBefore(elem, firstElem);
+        });
+
+        // получени общего уведомления
+        hubConnection.on("Notify", message => {
+
+            const elem = document.createElement("p");
+            elem.textContent = message;
+
+            const firstElem = document.getElementById("chatroom").firstChild;
+            document.getElementById("chatroom").insertBefore(elem, firstElem);
         });
     </script>
 </body>

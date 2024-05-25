@@ -1,4 +1,5 @@
 ﻿using Anbunet.Domain.Modules.Actuals;
+using Anbunet.Domain.Modules.Chats;
 using Anbunet.Domain.Modules.Comments;
 using Anbunet.Domain.Modules.Likes;
 using Anbunet.Domain.Modules.Posts;
@@ -18,6 +19,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Like> Likes => Set<Like>();
     public DbSet<Actual> Actuals => Set<Actual>();
     public DbSet<Story> Stories => Set<Story>();
+    public DbSet<PrivateMessage> PrivateMessages => Set<PrivateMessage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

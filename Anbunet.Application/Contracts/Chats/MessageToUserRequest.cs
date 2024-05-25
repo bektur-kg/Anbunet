@@ -2,6 +2,6 @@
 
 public class MessageToUserRequest
 {
-    public long RecipientId { get; set; }
+    public string PrivateChatId { get; set; }
     public string Message { get; set; }
 }

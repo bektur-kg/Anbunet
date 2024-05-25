@@ -1,11 +1,14 @@
-﻿using Anbunet.Application.Services;
+﻿using Anbunet.Application.Features.Chats;
+using Anbunet.Application.Services;
 using Anbunet.Domain.Modules.Chats;
 using Anbunet.Domain.Modules.Posts;
 using Anbunet.Domain.Modules.Users;
 using Anbunet.Infrastructure.DbContexts;
+using Anbunet.Infrastructure.Modules.Chats;
 using Anbunet.Infrastructure.Modules.Posts;
 using Anbunet.Infrastructure.Modules.Users;
 using Anbunet.Infrastructure.Services;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +33,8 @@ public static class DependencyInjection
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
-        services.AddScoped<IChatRepository, IChatRepository>();
+        services.AddScoped<IChatRepository, ChatRepository>();
+        services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
         return services;
     }

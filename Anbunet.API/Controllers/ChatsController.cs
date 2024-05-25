@@ -11,11 +11,6 @@ namespace Anbunet.Application.Controllers;
 [ApiController]
 public class ChatsController(ISender sender,IHubContext<ChatHub> hubContext) : ControllerBase
 {
-    [HttpPost]
-    public async Task SendMessage(string user, string message)
-    {
-        await hubContext.Clients.All.SendAsync("ReceiveMessage", user, message);
-    }
 
     [HttpPost]
     public async Task<ActionResult<Result>> SendMessageToUser(MessageToUserRequest request)

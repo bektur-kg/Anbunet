@@ -10,25 +10,39 @@ using System.Security.Claims;
 
 namespace Anbunet.Application.Features.Chats.SendMessageToUser;
 
-public class SendMessageToUserCommandHandler
-    (HttpContext httpContext,
-     IHubContext<ChatHub> hubContext
+public class SendMessageToUserCommandHandler(
+     IHubContext<ChatHub> hubContext,
+     IHttpContextAccessor httpContextAccessor
     )
+    
     : ICommandHandler<SendMessageToUserCommand, Result>
+
 {
+    private readonly HttpContext _httpContext = httpContextAccessor.HttpContext!;
+
+    
+
     public async Task<Result> Handle(SendMessageToUserCommand request, CancellationToken cancellationToken)
     {
-        // получение текущего пользователя, который отправил сообщение
-        var senderId = httpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-        var recipientId = request.Data.RecipientId;
+        
+        
+        var groupName = request.Data.PrivateChatId;
         var message = request.Data.Message;
+        var userName = _httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        if (string.IsNullOrEmpty(senderId))
+
+        if (string.IsNullOrEmpty(groupName))
         {
             return Result.Failure(ChatErrors.SenderNotFound);
         }
 
-        var result = await hubContext.Clients.Users(recipientId, senderId).SendAsync("Receive", message, senderId);
+
+
+        await hubContext.Clients.Group(groupName).SendAsync("Receive", message, userName);
+
+
+
         return Result.Success();
     }
+
 }
