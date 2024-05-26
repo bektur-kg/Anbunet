@@ -1,4 +1,5 @@
-﻿using Anbunet.Domain.Modules.Users;
+﻿using Anbunet.Domain.Modules.Posts;
+using Anbunet.Domain.Modules.Users;
 using Anbunet.Infrastructure.DbContexts;
 using Anbunet.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -11,5 +12,7 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
     {
         return DbContext.Users.FirstOrDefaultAsync(user => user.Login == login);
     }
+
+
 }
 

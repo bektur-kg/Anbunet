@@ -1,4 +1,7 @@
-﻿using Anbunet.Domain.Abstractions;
+﻿using Anbunet.Application.Contracts.Follows;
+using Anbunet.Application.Features.Follows.GetFollowers;
+using Anbunet.Application.Features.Follows.GetFollowings;
+using Anbunet.Domain.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +14,7 @@ public class FollowController(ISender sender) : ControllerBase
     private readonly ISender _sender = sender;
 
     [HttpGet("/followers/{userId}")]
-    public async Task<ActionResult<ValueResult<List<FollowResponse>>>> GetAll(long userId)
+    public async Task<ActionResult<ValueResult<List<FollowResponse>>>> GetAllFollowers(long userId)
     {
         var command = new GetUserFollowersCommand(userId);
 
@@ -21,7 +24,7 @@ public class FollowController(ISender sender) : ControllerBase
     }
 
     [HttpGet("/followings/{userId}")]
-    public async Task<ActionResult<ValueResult<List<FollowResponse>>>> GetAll(long userId)
+    public async Task<ActionResult<ValueResult<List<FollowResponse>>>> GetAllFollowings(long userId)
     {
         var command = new GetUserFollowingsCommand(userId);
 

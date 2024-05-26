@@ -23,7 +23,7 @@ public class GetAllLikeCommandHandler
 
         if (foundPost is null) return ValueResult<List<UserLikeResponse>>.Failure(PostErrors.PostNotFound);
 
-        var usersWhoHaveLiked = foundPost.Likes.Select(l => l.User);
+        var usersWhoHaveLiked = foundPost.Likes.Select(l => l.User).ToList();
 
         var result = _mapper.Map<List<UserLikeResponse>>(usersWhoHaveLiked);
 
