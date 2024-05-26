@@ -1,4 +1,5 @@
-﻿using Anbunet.Application.Features.Likes.Create;
+﻿using Anbunet.Application.Contracts.Users;
+using Anbunet.Application.Features.Likes.Create;
 using Anbunet.Application.Features.Likes.Delete;
 using Anbunet.Application.Features.Likes.GetAll;
 using Anbunet.Domain.Abstractions;
@@ -25,7 +26,7 @@ public class LikesController(ISender sender) : ControllerBase
     }
 
     [HttpGet("posts/{id:long}/likes")]
-    public async Task<ActionResult<ValueResult<int>>> GetAll(long id)
+    public async Task<ActionResult<ValueResult<List<UserLikeResponse>>>> GetAll(long id)
     {
         var command = new GetAllLikeCommand(id);
 
