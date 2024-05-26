@@ -1,4 +1,5 @@
-﻿using Anbunet.Application.Features.Likes.Delete;
+﻿using Anbunet.Application.Features.Comments.Delete;
+using Anbunet.Application.Features.Likes.Delete;
 using Anbunet.Domain.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -11,10 +12,10 @@ public class CommentsController(ISender sender) : ControllerBase
 {
     private readonly ISender _sender = sender;
 
-    [HttpDelete("posts/{id:long}")]
+    [HttpDelete("posts/comment/{id:long}")]
     public async Task<ActionResult> Delete(long id)
     {
-        var command = new DeleteCommand(id);
+        var command = new DeleteCommentCommand(id);
 
         var response = await sender.Send(command);
 

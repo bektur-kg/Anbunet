@@ -24,7 +24,7 @@ public class LikesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Created() : BadRequest(response.Error);
     }
 
-    [HttpGet("posts/{id:long}")]
+    [HttpGet("posts/{id:long}/likes")]
     public async Task<ActionResult<ValueResult<int>>> GetAll(long id)
     {
         var command = new GetAllLikeCommand(id);
