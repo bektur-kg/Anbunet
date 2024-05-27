@@ -11,8 +11,7 @@ public class UserMappings : Profile
         CreateMap<User, UserPostResponse>();
         CreateMap<User, UserCommentResponse>();
         CreateMap<User, UserLikeResponse>();
-        CreateMap<UpdateUserRequest, User>()
-           .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+        CreateMap<User, UserDetailedResponse>();
     }
 }
 
