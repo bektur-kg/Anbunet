@@ -1,10 +1,12 @@
 ﻿using Anbunet.Application.Services;
+using Anbunet.Domain.Modules.Chats;
 using Anbunet.Domain.Modules.Comments;
 using Anbunet.Domain.Modules.Likes;
 using Anbunet.Domain.Modules.Posts;
 using Anbunet.Domain.Modules.Stories;
 using Anbunet.Domain.Modules.Users;
 using Anbunet.Infrastructure.DbContexts;
+using Anbunet.Infrastructure.Modules.Chats;
 using Anbunet.Infrastructure.Modules.Comments;
 using Anbunet.Infrastructure.Modules.Likes;
 using Anbunet.Infrastructure.Modules.Posts;
@@ -32,7 +34,7 @@ public static class DependencyInjection
         services.AddTransient<IJwtProvider, JwtProvider>();
         services.AddScoped<IFileProvider, FileProvider>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+        services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ILikeRepository, LikeRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();

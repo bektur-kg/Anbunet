@@ -35,7 +35,7 @@ public class LikesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 
-    [HttpDelete("posts/{id:long}")]
+    [HttpDelete("posts/{id:long}/likes")]
     public async Task<ActionResult> Delete(long id)
     {
         var command = new DeleteLikeCommand(id);
