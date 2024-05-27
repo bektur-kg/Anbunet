@@ -2,6 +2,7 @@
 using Anbunet.Application.Features.Users.GetUserProfile;
 using Anbunet.Application.Features.Users.Login;
 using Anbunet.Application.Features.Users.Register;
+using Anbunet.Application.Features.Users.Update;
 using Anbunet.Domain.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -43,5 +44,14 @@ public class UsersController(ISender sender) : ControllerBase
         var response = await sender.Send(query);
 
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+    }
+
+    [Route("update")]
+    [HttpPatch]
+    public async Task<ActionResult<Result>> UpdateUser(UpdateUserRequest request)
+    {
+        var query = new UpdateUserCommand(request);
+        var response = await sender.Send(query);
+        return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 }

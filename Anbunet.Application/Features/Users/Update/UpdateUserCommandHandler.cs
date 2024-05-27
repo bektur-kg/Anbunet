@@ -22,15 +22,13 @@ public class UpdateUserCommandHandler
     HttpContext httpContext = _httpContextAccessor.HttpContext;
     public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByIdAsync(request.Data.UserId);
-        if (user == null) return Result.Failure(UserErrors.UserNotFound);
 
         var userId = long.Parse(httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        if (userId != user.Id) return Result.Failure(UserErrors.UserIdDoesNotMatch);
+        var user = await _userRepository.GetByIdAsync(userId);
 
-        _mapper.Map(request,user);
+        if (user == null) return Result.Failure(UserErrors.UserNotFound);
+        _mapper.Map(request.Data,user);
 
-        // Сохранение изменений
         _userRepository.Update(user);
         await _unitOfWork.SaveChangesAsync();
 

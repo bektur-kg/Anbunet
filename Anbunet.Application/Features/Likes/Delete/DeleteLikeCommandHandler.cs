@@ -21,7 +21,7 @@ public class DeleteLikeCommandHandler(
 
     public async Task<Result> Handle(DeleteLikeCommand request, CancellationToken cancellationToken)
     {
-        var foundPost = await postRepository.GetByIdWithIncludeAndTracking(request.PostId, includeLikes: true);
+        var foundPost = await postRepository.GetByIdAsync(request.PostId);
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
         if (foundPost is null) return Result.Failure(PostErrors.PostNotFound);

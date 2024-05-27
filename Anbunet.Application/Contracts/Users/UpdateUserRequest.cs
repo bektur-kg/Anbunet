@@ -1,13 +1,11 @@
 ﻿using Anbunet.Domain.Modules.Users;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Anbunet.Application.Contracts.Users;
 
 public record UpdateUserRequest
 {
-    [Required]
-    public long UserId { get; set; }
-
     [EmailAddress]
     [MaxLength(UserAttributeConstants.MAX_EMAIL_LENGTH)]
     public string? Email { get; set; }
@@ -15,8 +13,7 @@ public record UpdateUserRequest
     [MaxLength(UserAttributeConstants.MAX_FULLNAME_LENGTH)]
     public string? Fullname { get; set; }
 
-    [Url]
-    public string? ProfilePicture { get; set; }
+    public IFormFile? ProfilePicture { get; set; }
 
     [MaxLength(UserAttributeConstants.MAX_BIO_LENGTH)]
     public string? Bio { get; set; }
