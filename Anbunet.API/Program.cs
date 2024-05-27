@@ -1,4 +1,6 @@
-using Anbunet.API.Extensions;
+using Anbunet.Application.Extensions;
+using Anbunet.Application.Hubs;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +16,20 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
+app.UseRouting();
+
 app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();   // добавление middleware аутентификации 
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chat");
+});
+
 
 app.MapControllers();
 

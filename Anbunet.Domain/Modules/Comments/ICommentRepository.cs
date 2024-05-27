@@ -8,4 +8,6 @@ public interface ICommentRepository : IRepository<Comment>
     Task<Comment?> GetByIdWithInclude(long id, bool includeUser = false, bool includePost = false);
 
     Task<List<Comment>> GetAllByPostIdAsync(long postId);
+
+    Task<List<Comment>> GetPostCommentsWithInclude(long postId, bool includeUser = false);
 }

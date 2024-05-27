@@ -1,7 +1,7 @@
 ﻿using Anbunet.Infrastructure.Modules.Users;
 using Microsoft.Extensions.Options;
 
-namespace Anbunet.API.OptionsSetup;
+namespace Anbunet.Application.OptionsSetup;
 
 public class JwtOptionsSetup(IConfiguration configuration) : IConfigureOptions<JwtOptions>
 {

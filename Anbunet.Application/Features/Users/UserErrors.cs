@@ -1,4 +1,5 @@
 ﻿using Anbunet.Domain.Abstractions;
+using Anbunet.Domain.Modules.Users;
 
 namespace Anbunet.Application.Features.Users;
 

@@ -4,5 +4,5 @@ using Anbunet.Domain.Abstractions;
 
 namespace Anbunet.Application.Features.Users.Login;
 
-public record LoginUserQuery(LoginUserRequest Data) : IQuery<ValueResult<string>>;
+public record LoginUserQuery(LoginUserRequest Data) : IQuery<ValueResult<UserTokenResponse>>;
 
