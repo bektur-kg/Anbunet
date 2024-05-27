@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Anbunet.API.OptionsSetup;
+namespace Anbunet.Application.OptionsSetup;
 
 public class JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
 {
@@ -25,6 +25,22 @@ public class JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions) : IConfigure
             ValidIssuer = _jwtOptions.Issuer,
             ValidAudience = _jwtOptions.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(secretKey)
+        };
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+
+                // если запрос направлен хабу
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chat"))
+                {
+                    // получаем токен из строки запроса
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
         };
     }
 

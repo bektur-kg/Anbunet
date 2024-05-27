@@ -45,6 +45,51 @@ namespace Anbunet.Infrastructure.Migrations
                     b.ToTable("Actuals");
                 });
 
+            modelBuilder.Entity("Anbunet.Domain.Modules.Chats.Message", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("PrivateMessageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RecipientId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SenderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrivateMessageId");
+
+                    b.ToTable("Message");
+                });
+
+            modelBuilder.Entity("Anbunet.Domain.Modules.Chats.PrivateMessage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("UserIds")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PrivateMessages");
+                });
+
             modelBuilder.Entity("Anbunet.Domain.Modules.Comments.Comment", b =>
                 {
                     b.Property<long>("Id")
@@ -230,6 +275,17 @@ namespace Anbunet.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Anbunet.Domain.Modules.Chats.Message", b =>
+                {
+                    b.HasOne("Anbunet.Domain.Modules.Chats.PrivateMessage", "PrivateMessage")
+                        .WithMany("Messages")
+                        .HasForeignKey("PrivateMessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PrivateMessage");
+                });
+
             modelBuilder.Entity("Anbunet.Domain.Modules.Comments.Comment", b =>
                 {
                     b.HasOne("Anbunet.Domain.Modules.Posts.Post", "Post")
@@ -308,6 +364,11 @@ namespace Anbunet.Infrastructure.Migrations
             modelBuilder.Entity("Anbunet.Domain.Modules.Actuals.Actual", b =>
                 {
                     b.Navigation("Stories");
+                });
+
+            modelBuilder.Entity("Anbunet.Domain.Modules.Chats.PrivateMessage", b =>
+                {
+                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Posts.Post", b =>

@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Anbunet.API.Controllers;
+namespace Anbunet.Application.Controllers;
 
 [ApiController]
 [Route("api/users")]

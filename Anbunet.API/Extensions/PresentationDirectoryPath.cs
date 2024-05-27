@@ -1,6 +1,6 @@
 ﻿using Anbunet.Application.Services;
 
-namespace Anbunet.API.Extensions;
+namespace Anbunet.Application.Extensions;
 
 public class PresentationDirectoryPath : IPresentationDirectoryPath
 {
