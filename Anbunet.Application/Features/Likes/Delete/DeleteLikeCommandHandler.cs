@@ -2,6 +2,7 @@
 using Anbunet.Application.Features.Posts;
 using Anbunet.Application.Services;
 using Anbunet.Domain.Abstractions;
+using Anbunet.Domain.Modules.Likes;
 using Anbunet.Domain.Modules.Posts;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
@@ -10,6 +11,7 @@ namespace Anbunet.Application.Features.Likes.Delete;
 
 public class DeleteLikeCommandHandler(
         IPostRepository postRepository,
+        ILikeRepository likeRepository,
         IUnitOfWork unitOfWork,
         IHttpContextAccessor httpContextAccessor
     )
@@ -24,11 +26,12 @@ public class DeleteLikeCommandHandler(
 
         if (foundPost is null) return Result.Failure(PostErrors.PostNotFound);
 
-        var userLike = foundPost.Likes.FirstOrDefault(like => like.UserId == userId);
+        var likes = await likeRepository.GetPostLikesWithInclude(request.PostId,includeUser: true);
+        var userLike = likes.FirstOrDefault(x=>x.UserId==userId);
 
         if (userLike==null) return Result.Failure(PostErrors.UserDidNotLikeIt);
 
-        foundPost.Likes.Remove(userLike);
+        likeRepository.Remove(userLike);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();
