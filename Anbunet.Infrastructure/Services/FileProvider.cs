@@ -10,6 +10,7 @@ public class FileProvider
         IPresentationDirectoryPath directoryPath
     ) : IFileProvider
 {
+
     public async Task<ValueResult<string>> Create(IFormFile file, CancellationToken cancellationToken)
     {
         var directory = directoryPath.Get();
@@ -33,6 +34,18 @@ public class FileProvider
         var mediaUrl = Path.Combine("https://localhost:7199/", fileName);
 
         return ValueResult<string>.Success(mediaUrl);
+    }
+
+    public async Task<ValueResult<string>> Delete(string fileName)
+    {
+        var directory = directoryPath.Get();
+        var path = Path.Combine(directory, "wwwroot", fileName.Replace("https://localhost:7199/", ""));
+
+        if (!File.Exists(path))
+            return ValueResult<string>.Failure(PostErrors.FileNotFound);
+
+        File.Delete(path);
+        return ValueResult<string>.Success($"File {fileName} deleted successfully.");
     }
 }
 

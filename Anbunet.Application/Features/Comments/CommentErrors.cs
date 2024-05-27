@@ -1,5 +1,4 @@
-﻿
-using Anbunet.Domain.Abstractions;
+﻿using Anbunet.Domain.Abstractions;
 
 namespace Anbunet.Application.Features.Comments;
 
