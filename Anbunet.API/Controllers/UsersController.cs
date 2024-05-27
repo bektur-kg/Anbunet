@@ -43,5 +43,6 @@ public class UsersController(ISender sender) : ControllerBase
         var response = await sender.Send(query);
 
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+
     }
 }
