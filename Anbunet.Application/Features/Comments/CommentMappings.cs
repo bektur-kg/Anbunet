@@ -9,6 +9,7 @@ public class CommentMappings : Profile
     public CommentMappings()
     {
         CreateMap<Comment, CommentResponse>();
+        CreateMap<Comment, CommentRequest>();
     }
 }
 

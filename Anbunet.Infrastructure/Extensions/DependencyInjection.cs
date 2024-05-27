@@ -1,7 +1,9 @@
 ﻿using Anbunet.Application.Services;
+using Anbunet.Domain.Modules.Comments;
 using Anbunet.Domain.Modules.Posts;
 using Anbunet.Domain.Modules.Users;
 using Anbunet.Infrastructure.DbContexts;
+using Anbunet.Infrastructure.Modules.Comments;
 using Anbunet.Infrastructure.Modules.Posts;
 using Anbunet.Infrastructure.Modules.Users;
 using Anbunet.Infrastructure.Services;
@@ -29,6 +31,7 @@ public static class DependencyInjection
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
 
         return services;
     }
