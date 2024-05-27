@@ -20,7 +20,7 @@ public class CreateLikeCommandHandler
     private readonly HttpContext _httpContext = httpContextAccessor.HttpContext!;
 
     public async Task<Result> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
-    { 
+    {
         var foundPost = await postRepository.GetByIdWithIncludeAndTracking(request.PostId, includeLikes: true);
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
