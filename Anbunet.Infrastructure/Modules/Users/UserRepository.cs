@@ -30,6 +30,14 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
             .FirstOrDefaultAsync(user => user.Login == login);
     }
 
+    public Task<List<long>> GetFollowingsIds(long userId)
+    {
+        return DbContext.Users
+            .Where(user => user.Id == userId)
+            .SelectMany(user => user.Followings.Select(f => f.Id))
+            .ToListAsync();
+    }
+
 
 }
 

@@ -28,7 +28,7 @@ public class LikesController(ISender sender) : ControllerBase
     [HttpGet("posts/{id:long}/likes")]
     public async Task<ActionResult<ValueResult<List<UserLikeResponse>>>> GetAll(long id)
     {
-        var command = new GetAllLikeCommand(id);
+        var command = new GetAllLikeQuery(id);
 
         var response = await sender.Send(command);
 

@@ -14,9 +14,9 @@ public class FollowController(ISender sender) : ControllerBase
     private readonly ISender _sender = sender;
 
     [HttpGet("/followers/{userId}")]
-    public async Task<ActionResult<ValueResult<List<FollowRequest>>>> GetAllFollowers(long userId)
+    public async Task<ActionResult<ValueResult<List<FollowResponse>>>> GetAllFollowers(long userId)
     {
-        var command = new GetUserFollowersCommand(userId);
+        var command = new GetUserFollowersQuery(userId);
 
         var response = await sender.Send(command);
 
@@ -24,9 +24,9 @@ public class FollowController(ISender sender) : ControllerBase
     }
 
     [HttpGet("/followings/{userId}")]
-    public async Task<ActionResult<ValueResult<List<FollowRequest>>>> GetAllFollowings(long userId)
+    public async Task<ActionResult<ValueResult<List<FollowResponse>>>> GetAllFollowings(long userId)
     {
-        var command = new GetUserFollowingsCommand(userId);
+        var command = new GetUserFollowingsQuery(userId);
 
         var response = await sender.Send(command);
 

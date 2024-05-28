@@ -10,17 +10,17 @@ using AutoMapper;
 
 namespace Anbunet.Application.Features.Likes.GetAll;
 
-public class GetAllLikeCommandHandler
+public class GetAllLikeQueryHandler
     (
         IPostRepository postRepository,
         ILikeRepository likeRepository,
         IUserRepository userRepository,
         IMapper _mapper
     )
-    : ICommandHandler<GetAllLikeCommand, ValueResult<List<LikeResponse>>>
+    : ICommandHandler<GetAllLikeQuery, ValueResult<List<LikeResponse>>>
 {
 
-    public async Task<ValueResult<List<LikeResponse>>> Handle(GetAllLikeCommand request, CancellationToken cancellationToken)
+    public async Task<ValueResult<List<LikeResponse>>> Handle(GetAllLikeQuery request, CancellationToken cancellationToken)
     {
         var foundPost = await postRepository.GetByIdAsync(request.PostId);
         if (foundPost is null) return ValueResult<List<LikeResponse>>.Failure(PostErrors.PostNotFound);

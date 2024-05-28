@@ -2,6 +2,7 @@
 using Anbunet.Domain.Modules.Posts;
 using Anbunet.Infrastructure.DbContexts;
 using Anbunet.Infrastructure.Services;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Anbunet.Infrastructure.Modules.Posts;
@@ -50,6 +51,20 @@ public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext
         if (includeUser) query = query.Include(post => post.User);
         if (includeComments) query = query.Include(post => post.Comments);
         if (includeLikes) query = query.Include(post => post.Likes);
+
+        query = query.Skip((page - 1) * quantity).Take(quantity);
+
+        return await query.ToListAsync();
+    }
+    public async Task<List<Post>> GetPostsByUserIdsWithInclude(int page, int quantity, List<long> userIds, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
+    {
+        var query = DbContext.Posts.AsQueryable();
+
+        if (includeUser) query = query.Include(post => post.User);
+        if (includeLikes) query = query.Include(post => post.Likes);
+        if (includeComments) query = query.Include(post => post.Comments);
+
+        query =query.Where(post => userIds.Contains(post.UserId));
 
         query = query.Skip((page - 1) * quantity).Take(quantity);
 

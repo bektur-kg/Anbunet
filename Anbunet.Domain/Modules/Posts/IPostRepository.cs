@@ -9,4 +9,5 @@ public interface IPostRepository : IRepository<Post>
 
     Task<List<Post>?> GetPostsByPaginationWithInclude(int page, int quantity, bool includeComments, bool includeLikes, bool includeUser);
     Task<List<Post>> GetPostsByUserIdWithInclude(long userId, bool includeUser = false, bool includeComments = false, bool includeLikes = false);
+    Task<List<Post>> GetPostsByUserIdsWithInclude(int page ,int quantity, List<long> userIds, bool includeUser = false, bool includeComments = false, bool includeLikes = false);
 }
