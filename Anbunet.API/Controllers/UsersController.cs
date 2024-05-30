@@ -3,10 +3,12 @@ using Anbunet.Application.Features.Users.GetUserProfile;
 using Anbunet.Application.Features.Users.Login;
 using Anbunet.Application.Features.Users.Register;
 using Anbunet.Application.Features.Users.Update;
+using Anbunet.Application.Features.Users.UpdateProfilePicture;
 using Anbunet.Domain.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Anbunet.Application.Controllers;
 
@@ -52,6 +54,15 @@ public class UsersController(ISender sender) : ControllerBase
     public async Task<ActionResult<Result>> UpdateUser(UpdateUserRequest request)
     {
         var query = new UpdateUserCommand(request);
+        var response = await sender.Send(query);
+        return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
+    }
+
+    [Route("update_profile_picture")]
+    [HttpPut]
+    public async Task<ActionResult<Result>> UpdateProfilePictureUser([Required]IFormFile request)
+    {
+        var query = new UpdateProfilePictureUserCommand(request);
         var response = await sender.Send(query);
         return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
