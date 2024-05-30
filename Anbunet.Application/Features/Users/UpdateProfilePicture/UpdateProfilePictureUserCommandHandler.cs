@@ -15,8 +15,7 @@ public class UpdateProfilePictureUserCommandHandler
         IUserRepository _userRepository,
         IUnitOfWork _unitOfWork,
         IHttpContextAccessor _httpContextAccessor,
-        IFileProvider _fileProvider,
-        IMapper _mapper
+        IFileProvider _fileProvider
     )
     : ICommandHandler<UpdateProfilePictureUserCommand, Result>
 {
