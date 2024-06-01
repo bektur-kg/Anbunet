@@ -15,18 +15,18 @@ public class GetUserFollowersCommandHandler
         IUserRepository userRepository,
         IMapper _mapper
     )
-    : ICommandHandler<GetUserFollowersCommand, ValueResult<List<FollowRequest>>>
+    : ICommandHandler<GetUserFollowersCommand, ValueResult<List<FollowResponse>>>
 {
-    public async Task<ValueResult<List<FollowRequest>>> Handle(GetUserFollowersCommand request, CancellationToken cancellationToken)
+    public async Task<ValueResult<List<FollowResponse>>> Handle(GetUserFollowersCommand request, CancellationToken cancellationToken)
     {
-        var foundUser = await userRepository.GetByIdAsync(request.userId);
+        var foundUser = await userRepository.GetByIdAsync(request.UserId);
 
-        if (foundUser is null) return ValueResult<List<FollowRequest>>.Failure(UserErrors.UserNotFound);
+        if (foundUser is null) return ValueResult<List<FollowResponse>>.Failure(UserErrors.UserNotFound);
 
         var followers = foundUser.Followers.ToList();
 
-        var result = _mapper.Map<List<FollowRequest>>(followers);
+        var result = _mapper.Map<List<FollowResponse>>(followers);
 
-        return ValueResult<List<FollowRequest>>.Success(result);
+        return ValueResult<List<FollowResponse>>.Success(result);
     }
 }

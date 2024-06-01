@@ -27,6 +27,8 @@ public class GetPostByIdQueryHandler
 
         if (foundPost is null) return ValueResult<PostDetailedResponse>.Failure(PostErrors.PostNotFound);
 
+        foundPost.MediaUrl = "https://localhost:7199/" + foundPost.MediaUrl;
+
         var mappedPost = mapper.Map<PostDetailedResponse>(foundPost);
         var mappedLikes = mapper.Map<List<LikeResponse>>(postLikes);
         var mappedComments = mapper.Map<List<CommentResponse>>(postComments);
@@ -35,11 +37,5 @@ public class GetPostByIdQueryHandler
         mappedPost.Comments = mappedComments;
 
         return ValueResult<PostDetailedResponse>.Success(mappedPost);
-
-
-
-
-
     }
 }
-

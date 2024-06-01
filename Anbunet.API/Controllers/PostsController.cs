@@ -37,14 +37,14 @@ public class PostsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<ActionResult<ValueResult<PostDetailedResponse>>> Update(long id, PostUpdateRequest request)
+    [HttpPatch("{id:long}")]
+    public async Task<ActionResult<Result>> Update(long id, PostUpdateRequest request)
     {
         var query = new UpdatePostCommand(id, request);
 
         var response = await sender.Send(query);
 
-        return response.IsSuccess ? Ok(response.IsSuccess) : BadRequest(response.Error);
+        return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 
     [HttpDelete("{id:long}")]
@@ -54,7 +54,7 @@ public class PostsController(ISender sender) : ControllerBase
 
         var response = await sender.Send(query);
 
-        return response.IsSuccess ? Ok(response.IsSuccess) : BadRequest(response.Error);
+        return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
 
     }
 
