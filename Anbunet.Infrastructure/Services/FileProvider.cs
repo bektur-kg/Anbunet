@@ -31,7 +31,7 @@ public class FileProvider
         var path = Path.Combine(directory, "wwwroot");
         using FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create);
         await file.CopyToAsync(stream, cancellationToken);
-        var mediaUrl = Path.Combine("https://localhost:7199/", fileName);
+        var mediaUrl = Path.Combine(fileName);
 
         return ValueResult<string>.Success(mediaUrl);
     }
@@ -39,7 +39,7 @@ public class FileProvider
     public async Task<ValueResult<string>> Delete(string fileName)
     {
         var directory = directoryPath.Get();
-        var path = Path.Combine(directory, "wwwroot", fileName.Replace("https://localhost:7199/", ""));
+        var path = Path.Combine(directory, "wwwroot", fileName);
 
         if (!File.Exists(path))
             return ValueResult<string>.Failure(PostErrors.FileNotFound);

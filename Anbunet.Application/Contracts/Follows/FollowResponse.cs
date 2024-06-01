@@ -1,6 +1,6 @@
 ﻿namespace Anbunet.Application.Contracts.Follows;
 
-public class FollowRequest
+public class FollowResponse
 {
     public long Id { get; set; }
 

@@ -19,6 +19,8 @@ public class GetPostsByPaginationQueryHandler
 
         if (foundPosts is null) return ValueResult<List<PostDetailedResponse>>.Failure(PostErrors.PostNotFound);
 
+        foundPosts.ForEach(p => p.MediaUrl = ("https://localhost:7199/")+ p.MediaUrl);
+
         var mappedPosts = mapper.Map<List<PostDetailedResponse>>(foundPosts);
 
         return ValueResult<List<PostDetailedResponse>>.Success(mappedPosts);

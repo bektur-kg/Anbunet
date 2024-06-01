@@ -10,6 +10,8 @@ public class PostMappings : Profile
     {
         CreateMap<Post, PostDetailedResponse>();
 
+        CreateMap<Post, PostUpdateRequest>();
+
         CreateMap<Post, ProfilePostResponse>()
             .ForMember(
                 dest => dest.LikesCount,

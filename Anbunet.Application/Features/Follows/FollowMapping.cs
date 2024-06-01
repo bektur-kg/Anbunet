@@ -10,6 +10,8 @@ public class FollowMapping : Profile
 {
     public FollowMapping()
     {
-        CreateMap<User, FollowRequest>();
+        CreateMap<User, FollowResponse>();
+
+        CreateMap<User, FollowCreateRequest>();
     }
 }
