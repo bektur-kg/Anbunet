@@ -5,7 +5,7 @@ namespace Anbunet.Application.Contracts.Comments;
 
 public record CommentRequest
 {
-    public long PostId { get; set; }
+    public required long PostId { get; set; }
 
     [MaxLength(CommentAttributeConstants.MAX_TEXT_LENGTH)]
     public required string Text { get; set; }

@@ -20,12 +20,14 @@ public class UpdatePostCommandHandler
         var post = await postRepository.GetByIdWithInclude(request.Id);
         if (post == null) return Result.Failure(PostErrors.PostNotFound);
 
-        await fileProvider.Delete(request.Data.MediaUrl);
-        var result = await fileProvider.Create(request.Data.File, cancellationToken);
+        if (request.Data.File != null)
+        {
+            await fileProvider.Delete(post.MediaUrl);
+            var result = await fileProvider.Create(request.Data.File, cancellationToken);
 
-        if (!result.IsSuccess) return Result.Failure(result.Error);
-
-        post.MediaUrl = result.Value;
+            if (!result.IsSuccess) return Result.Failure(result.Error);
+            post.MediaUrl = result.Value;
+        }
 
         if(!request.Data.Description.IsNullOrEmpty()) post.Description = request.Data.Description;
 

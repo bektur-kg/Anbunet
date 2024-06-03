@@ -1,4 +1,7 @@
-﻿using Anbunet.Application.Features.Comments.Delete;
+﻿using Anbunet.Application.Contracts.Comments;
+using Anbunet.Application.Features.Comments.CreateComment;
+using Anbunet.Application.Features.Comments.Delete;
+using Anbunet.Application.Features.Comments.GetAllComments;
 using Anbunet.Application.Features.Likes.Delete;
 using Anbunet.Domain.Abstractions;
 using MediatR;
@@ -12,8 +15,28 @@ public class CommentsController(ISender sender) : ControllerBase
 {
     private readonly ISender _sender = sender;
 
+    [HttpGet("posts/{postId:long}/comments")]
+    public async Task<ActionResult<ValueResult<List<CommentResponse>>>> GetAll(long postId)
+    {
+        var query = new GetAllCommentsByPostIdQuery(postId);
+
+        var response = await sender.Send(query);
+
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+    }
+
+    [HttpPost("posts/comment")]
+    public async Task<ActionResult<Result>> Create(CommentRequest dto)
+    {
+        var command = new CreateCommentCommand(dto);
+
+        var response = await sender.Send(command);
+
+        return response.IsSuccess ? Created() : BadRequest(response.Error);
+    }
+
     [HttpDelete("posts/comment/{id:long}")]
-    public async Task<ActionResult> Delete(long id)
+    public async Task<ActionResult<Result>> Delete(long id)
     {
         var command = new DeleteCommentCommand(id);
 
