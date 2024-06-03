@@ -52,6 +52,8 @@ public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext
         if (includeComments) query = query.Include(post => post.Comments);
         if (includeLikes) query = query.Include(post => post.Likes);
 
+        query = query.OrderByDescending(post => post.Likes.Count);
+
         query = query.Skip((page - 1) * quantity).Take(quantity);
 
         return await query.ToListAsync();
@@ -65,6 +67,8 @@ public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext
         if (includeComments) query = query.Include(post => post.Comments);
 
         query =query.Where(post => userIds.Contains(post.UserId));
+
+        query = query.OrderByDescending(post => post.CreatedDate);
 
         query = query.Skip((page - 1) * quantity).Take(quantity);
 
