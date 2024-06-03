@@ -1,5 +1,6 @@
 ﻿using Anbunet.Application.Contracts.Follows;
 using Anbunet.Application.Features.Follows.CreateFollowers;
+using Anbunet.Application.Features.Follows.Delete;
 using Anbunet.Application.Features.Follows.GetFollowers;
 using Anbunet.Application.Features.Follows.GetFollowings;
 using Anbunet.Domain.Abstractions;
@@ -43,5 +44,15 @@ public class FollowController(ISender sender) : ControllerBase
         var response = await sender.Send(command);
 
         return response.IsSuccess ? Ok(response.IsSuccess) : BadRequest(response.Error);
+    }
+
+    [HttpDelete("/following/{userId}")]
+    public async Task<ActionResult<Result>> DeleteFollowing(long userId)
+    {
+        var command = new DeleteFollowingCommand(userId);
+
+        var response = await sender.Send(command);
+
+        return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 }
