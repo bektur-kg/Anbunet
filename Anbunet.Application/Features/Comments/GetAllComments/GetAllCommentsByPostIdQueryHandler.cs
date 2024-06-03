@@ -13,7 +13,7 @@ public class GetAllCommentsByPostIdQueryHandler(
 {
     public async Task<ValueResult<List<CommentResponse>>> Handle(GetAllCommentsByPostIdQuery request, CancellationToken cancellationToken)
     {
-        var comments = await commentRepository.GetAllByPostIdAsync(request.postId);
+        var comments = await commentRepository.GetAllByPostIdAsync(request.PostId);
 
         if (comments.Count == 0) return ValueResult<List<CommentResponse>>.Failure(CommentErrors.CommentNotFound);
 

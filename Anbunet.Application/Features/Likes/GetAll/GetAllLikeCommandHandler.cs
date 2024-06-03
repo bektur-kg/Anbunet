@@ -14,7 +14,6 @@ public class GetAllLikeCommandHandler
     (
         IPostRepository postRepository,
         ILikeRepository likeRepository,
-        IUserRepository userRepository,
         IMapper _mapper
     )
     : ICommandHandler<GetAllLikeCommand, ValueResult<List<LikeResponse>>>

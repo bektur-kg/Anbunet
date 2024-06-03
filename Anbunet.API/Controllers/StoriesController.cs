@@ -1,6 +1,7 @@
 ﻿using Anbunet.Application.Contracts.Stories;
 using Anbunet.Application.Features.Stories.Create;
 using Anbunet.Application.Features.Stories.Delete;
+using Anbunet.Application.Features.Stories.GetAllStories;
 using Anbunet.Application.Features.Stories.GetById;
 using Anbunet.Application.Features.Stories.GetUserStories;
 using MediatR;
@@ -9,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 
-[ApiController]
 [Authorize]
+[Route("api")]
+[ApiController]
 public class StoriesController(ISender sender) : ControllerBase
 {
     [HttpGet("users/{id:long}/stories")]
@@ -23,10 +25,20 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("user/{id:long}/stories")]//change this path
+    [HttpGet("user/stories/{id:long}")]//change this path
     public async Task<ActionResult<List<ProfileStoryResponse>>> GetById(long id)
     {
         var query = new GetStoriesByIdQuery(id);
+
+        var response = await sender.Send(query);
+
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+    }
+
+    [HttpGet("all-stories")]//change this path
+    public async Task<ActionResult<List<ProfileStoryResponse>>> GetAll()
+    {
+        var query = new GetAllStoriesCommand();
 
         var response = await sender.Send(query);
 

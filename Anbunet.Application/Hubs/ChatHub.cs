@@ -12,7 +12,6 @@ public class ChatHub(
     IHttpContextAccessor _httpContextAccessor,
     IChatRepository chatRepository,
     IUnitOfWork unitOfWork
-    
     ) : Hub
 {
     public async Task Enter(string groupName)

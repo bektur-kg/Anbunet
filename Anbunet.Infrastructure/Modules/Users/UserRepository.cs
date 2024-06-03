@@ -23,13 +23,19 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
         return query.FirstOrDefaultAsync(user => user.Id == userId);
     }
 
-    public Task<User?> GetByLoginAsync(string login)
+    public Task<User?> GetUserByLoginAsync(string login)
     {
         return DbContext.Users
             .AsNoTracking()
             .FirstOrDefaultAsync(user => user.Login == login);
     }
 
-
+    public Task<List<User>> GetUsersByLoginAsync(string login)
+    {
+        return DbContext.Users
+            .AsNoTracking()
+            .Where(user => user.Login.Contains(login))
+            .ToListAsync();
+    }
 }
 

@@ -9,7 +9,7 @@ namespace Anbunet.Application.Features.Actuals.GetActualsById;
 public class GetActualsByIdQueryHandler(
         IActualRepository actualRepository,
         IMapper _mapper
-    ) : ICommandHandler<GetActualsByIdQuery, ValueResult<ProfileActualResponse>>
+    ) : IQueryHandler<GetActualsByIdQuery, ValueResult<ProfileActualResponse>>
 {
     public async Task<ValueResult<ProfileActualResponse>> Handle(GetActualsByIdQuery request, CancellationToken cancellationToken)
     {

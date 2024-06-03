@@ -10,11 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 [Authorize]
+[Route("api")]
 [ApiController]
 public class FollowController(ISender sender) : ControllerBase
-    {
-        private readonly ISender _sender = sender;
-
+{
     [HttpGet("/followers/{userId}")]
     public async Task<ActionResult<ValueResult<List<FollowResponse>>>> GetAllFollowers(long userId)
     {
