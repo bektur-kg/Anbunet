@@ -19,6 +19,10 @@ public abstract class Repository<TEntity>(AppDbContext dbContext) : IRepository<
         .Set<TEntity>()
         .AsNoTracking()
         .FirstOrDefaultAsync(entity => entity.Id == id);
+    public Task<TEntity?> GetByIdAsyncAndTracking(long id) => DbContext
+        .Set<TEntity>()
+        .AsQueryable()
+        .FirstOrDefaultAsync(entity => entity.Id == id);
 
     public void Remove(TEntity entity) => DbContext
         .Set<TEntity>()

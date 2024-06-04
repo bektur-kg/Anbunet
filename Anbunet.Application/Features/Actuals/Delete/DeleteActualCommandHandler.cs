@@ -8,6 +8,8 @@ using Anbunet.Domain.Modules.Users;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Anbunet.Domain.Modules.Actuals;
+using Anbunet.Domain.Modules.Stories;
+using System.Transactions;
 
 namespace Anbunet.Application.Features.Actuals.Delete;
 
@@ -25,16 +27,20 @@ public class DeleteActualCommandHandler(
     {
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        var user = await userRepository.GetByIdWithIncludeAsync(userId, includeActuals:true);
+        var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(userId, includeActuals:true);
         if (user == null) return Result.Failure(UserErrors.UserNotFound);
 
-        var actual = await actualRepository.GetByIdAsync(request.acrualId);
+        var actual = await actualRepository.GetByIdWithIncludeAndTracked(request.acrualId,includeStories:true);
         if (actual == null) return Result.Failure(ActualErrors.ActualNotFound);
+
+        foreach (var story in actual.Stories.ToList())
+        {
+            actual.Stories.Remove(story);
+        }
 
         var result = user.Actuals.Remove(actual);
         if (!result) return Result.Failure(ActualErrors.ActualNotFound);
 
-        userRepository.Update(user);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();
