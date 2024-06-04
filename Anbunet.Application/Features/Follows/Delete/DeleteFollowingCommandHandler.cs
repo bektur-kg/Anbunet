@@ -24,17 +24,15 @@ public class DeleteFollowingCommandHandler(
     public async Task<Result> Handle(DeleteFollowingCommand request, CancellationToken cancellationToken)
     {
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-
-        var user = await userRepository.GetByIdWithIncludeAsync(userId, includeFollowings: true);
+        var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(userId, includeFollowings: true);
         if (user == null) return Result.Failure(UserErrors.UserNotFound);
 
-        var following = await userRepository.GetByIdAsync(request.UserId);
+        var following = await userRepository.GetByIdWithIncludeAndTrackingAsync(request.UserId);
         if (following == null) return Result.Failure(UserErrors.UserNotFound);
 
         var result = user.Followings.Remove(following);
         if (!result) return Result.Failure(FollowErrors.FollowingsNotFound);
 
-        userRepository.Update(user);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

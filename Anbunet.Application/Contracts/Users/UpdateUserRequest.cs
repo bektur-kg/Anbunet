@@ -13,8 +13,6 @@ public record UpdateUserRequest
     [MaxLength(UserAttributeConstants.MAX_FULLNAME_LENGTH)]
     public string? Fullname { get; set; }
 
-    public IFormFile? ProfilePicture { get; set; }
-
     [MaxLength(UserAttributeConstants.MAX_BIO_LENGTH)]
     public string? Bio { get; set; }
 

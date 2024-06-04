@@ -52,7 +52,7 @@ public class UsersController(ISender sender) : ControllerBase
 
     [Route("update")]
     [HttpPatch]
-    public async Task<ActionResult<Result>> UpdateUser(UpdateUserRequest request)
+    public async Task<ActionResult<Result>> UpdateUser([FromQuery]UpdateUserRequest request)
     {
         var query = new UpdateUserCommand(request);
         var response = await sender.Send(query);

@@ -34,10 +34,10 @@ public class FollowController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpPost("/follow")]
-    public async Task<ActionResult<Result>> Subscribe(FollowCreateRequest dto)
+    [HttpPost("/follow/{userId}")]
+    public async Task<ActionResult<Result>> Subscribe(long userId)
     {
-        var command = new CreateFollowersCommand(dto);
+        var command = new CreateFollowingCommand(userId);
 
         var response = await sender.Send(command);
 
