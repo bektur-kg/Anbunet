@@ -10,11 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace Anbunet.API.Controllers;
 
 [Authorize]
+[Route("api")]
 [ApiController]
 public class LikesController(ISender sender) : ControllerBase
 {
-    private readonly ISender _sender = sender;
-
     [HttpPost("posts/{id:long}/likes")]
     public async Task<ActionResult> Create(long id)
     {

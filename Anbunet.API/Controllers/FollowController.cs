@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 [Authorize]
+[Route("api")]
 [ApiController]
 public class FollowController(ISender sender) : ControllerBase
 {

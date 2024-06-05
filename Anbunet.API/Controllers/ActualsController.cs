@@ -15,11 +15,9 @@ namespace Anbunet.API.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("user/actual")]
+[Route("api/user/actual")]
 public class ActualsController(ISender sender) : ControllerBase
 {
-    private readonly ISender _sender = sender;
-
     [HttpGet("{actualId:long}")]
     public async Task<ActionResult<ValueResult<ProfileActualResponse>>> GetById(long actualId)
     {

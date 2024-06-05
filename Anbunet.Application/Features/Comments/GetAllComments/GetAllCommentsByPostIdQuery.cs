@@ -4,4 +4,4 @@ using Anbunet.Domain.Abstractions;
 
 namespace Anbunet.Application.Features.Comments.GetAllComments;
 
-public record GetAllCommentsByPostIdQuery(long postId) : ICommand<ValueResult<List<CommentResponse>>>;
+public record GetAllCommentsByPostIdQuery(long PostId) : ICommand<ValueResult<List<CommentResponse>>>;

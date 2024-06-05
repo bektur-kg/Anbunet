@@ -5,4 +5,4 @@ using Anbunet.Domain.Modules.Actuals;
 using Anbunet.Domain.Modules.Users;
 namespace Anbunet.Application.Features.Actuals.GetActualsById;
 
-public record GetActualsByIdQuery(long ActualId) : ICommand<ValueResult<ProfileActualResponse>>;
+public record GetActualsByIdQuery(long ActualId) : IQuery<ValueResult<ProfileActualResponse>>;
