@@ -4,6 +4,7 @@ using Anbunet.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Anbunet.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240603192229_Created_Date_For_User")]
+    partial class Created_Date_For_User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Actuals", (string)null);
+                    b.ToTable("Actuals");
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Chats.Message", b =>
@@ -70,7 +73,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("PrivateMessageId");
 
-                    b.ToTable("Message", (string)null);
+                    b.ToTable("Message");
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Chats.PrivateMessage", b =>
@@ -87,7 +90,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PrivateMessages", (string)null);
+                    b.ToTable("PrivateMessages");
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Comments.Comment", b =>
@@ -118,7 +121,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Likes.Like", b =>
@@ -144,7 +147,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Likes", (string)null);
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Posts.Post", b =>
@@ -173,7 +176,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts", (string)null);
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Stories.Story", b =>
@@ -206,7 +209,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Stories", (string)null);
+                    b.ToTable("Stories");
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Users.User", b =>
@@ -249,7 +252,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("UserUser", b =>
@@ -264,7 +267,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("FollowingsId");
 
-                    b.ToTable("UserUser", (string)null);
+                    b.ToTable("UserUser");
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Actuals.Actual", b =>

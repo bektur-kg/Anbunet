@@ -2,7 +2,6 @@
 
 public interface IReadRepository<TEntity> where TEntity : Entity
 {
-
     /// <summary>
     /// Asynchronously retrieves all entities of type <typeparamref name="TEntity"/>.
     /// </summary>

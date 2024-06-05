@@ -1,5 +1,6 @@
 ﻿using Anbunet.Application.Contracts.Follows;
 using Anbunet.Application.Features.Follows.CreateFollowers;
+using Anbunet.Application.Features.Follows.Delete;
 using Anbunet.Application.Features.Follows.GetFollowers;
 using Anbunet.Application.Features.Follows.GetFollowings;
 
@@ -12,7 +13,7 @@ public class FollowController(ISender sender) : ControllerBase
     [HttpGet("/followers/{userId}")]
     public async Task<ActionResult<ValueResult<List<FollowResponse>>>> GetAllFollowers(long userId)
     {
-        var command = new GetUserFollowersCommand(userId);
+        var command = new GetUserFollowersQuery(userId);
 
         var response = await sender.Send(command);
 
@@ -22,20 +23,30 @@ public class FollowController(ISender sender) : ControllerBase
     [HttpGet("/followings/{userId}")]
     public async Task<ActionResult<ValueResult<List<FollowResponse>>>> GetAllFollowings(long userId)
     {
-        var command = new GetUserFollowingsCommand(userId);
+        var command = new GetUserFollowingsQuery(userId);
 
         var response = await sender.Send(command);
 
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpPost("/follow")]
-    public async Task<ActionResult<Result>> Subscribe(FollowCreateRequest dto)
+    [HttpPost("/follow/{userId}")]
+    public async Task<ActionResult<Result>> Subscribe(long userId)
     {
-        var command = new CreateFollowersCommand(dto);
+        var command = new CreateFollowingCommand(userId);
 
         var response = await sender.Send(command);
 
         return response.IsSuccess ? Ok(response.IsSuccess) : BadRequest(response.Error);
+    }
+
+    [HttpDelete("/following/{userId}")]
+    public async Task<ActionResult<Result>> DeleteFollowing(long userId)
+    {
+        var command = new DeleteFollowingCommand(userId);
+
+        var response = await sender.Send(command);
+
+        return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 }

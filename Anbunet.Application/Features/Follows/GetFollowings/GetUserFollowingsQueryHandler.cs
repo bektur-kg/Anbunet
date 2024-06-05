@@ -8,16 +8,16 @@ using AutoMapper;
 
 namespace Anbunet.Application.Features.Follows.GetFollowings;
 
-public class GetUserFollowingsCommandHandler
+public class GetUserFollowingsQueryHandler
 (
         IUserRepository userRepository,
         IMapper _mapper
     )
-    : IQueryHandler<GetUserFollowingsCommand, ValueResult<List<FollowResponse>>>
+    : ICommandHandler<GetUserFollowingsQuery, ValueResult<List<FollowResponse>>>
 {
-    public async Task<ValueResult<List<FollowResponse>>> Handle(GetUserFollowingsCommand request, CancellationToken cancellationToken)
+    public async Task<ValueResult<List<FollowResponse>>> Handle(GetUserFollowingsQuery request, CancellationToken cancellationToken)
     {
-        var foundUser = await userRepository.GetByIdAsync(request.UserId);
+        var foundUser = await userRepository.GetByIdWithIncludeAsync(request.userId,includeFollowings:true);
 
         if (foundUser is null) return ValueResult<List<FollowResponse>>.Failure(UserErrors.UserNotFound);
 

@@ -4,4 +4,4 @@ using Anbunet.Domain.Abstractions;
 
 namespace Anbunet.Application.Features.Follows.CreateFollowers;
 
-public record CreateFollowersCommand(FollowCreateRequest Data) : ICommand<Result>;
+public record CreateFollowingCommand(long userId) : ICommand<Result>;

@@ -1,4 +1,4 @@
-﻿using Anbunet.Domain.Modules.Users;
+using Anbunet.Domain.Modules.Users;
 
 namespace Anbunet.Domain.Modules.Stories;
 
@@ -14,5 +14,5 @@ public class Story : Entity
     public DateTime ExpiryDate { get; set; } = DateTime.UtcNow.AddHours(24);
 
     public User? User { get; set; }
-}
 
+}

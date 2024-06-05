@@ -4,6 +4,7 @@ using Anbunet.Application.Features.Posts.Delete;
 using Anbunet.Application.Features.Posts.GetById;
 using Anbunet.Application.Features.Posts.Update;
 using Anbunet.Application.Features.Posts.GetByPagination;
+using Anbunet.Application.Features.Posts.GetFollowersByPagination;
 
 namespace Anbunet.Application.Controllers;
 
@@ -57,6 +58,16 @@ public class PostsController(ISender sender) : ControllerBase
     public async Task<ActionResult<ValueResult<List<PostDetailedResponse>>>> GetByPagination(int page, int quantity)
     {
         var query = new GetPostsByPaginationQuery(page, quantity);
+
+        var response = await sender.Send(query);
+
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+    }
+
+    [HttpGet("followers")]
+    public async Task<ActionResult<ValueResult<List<PostDetailedResponse>>>> GetFollowersByPagination(int page, int quantity)
+    {
+        var query = new GetFollowingPostsByPaginationQuery(page, quantity);
 
         var response = await sender.Send(query);
 

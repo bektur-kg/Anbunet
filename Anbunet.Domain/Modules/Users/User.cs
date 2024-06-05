@@ -28,7 +28,7 @@ public class User : Entity
 
     public Gender Gender { get; set; } = Gender.None;
 
-    public DateTime CreatedDate { get; } = DateTime.UtcNow;
+    public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
     public List<Post> Posts { get; set; } = [];
 

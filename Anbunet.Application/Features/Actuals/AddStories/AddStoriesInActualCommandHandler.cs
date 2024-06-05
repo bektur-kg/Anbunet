@@ -17,13 +17,14 @@ public class AddStoriesInActualCommandHandler
 {
     public async Task<Result> Handle(AddStoriesInActualCommand request, CancellationToken cancellationToken)
     {
-        var stories = await storyRepository.GetByIdAsync(request.Data.StoryId);
-        if (stories == null) return Result.Failure(StoriesErrors.StoriesNotFound);
+        var story = await storyRepository.GetByIdAsync(request.Data.StoryId);
+        if (story == null) return Result.Failure(StoriesErrors.StoriesNotFound);
 
-        var actual = await actualRepository.GetByIdWithInclude(request.Data.ActualId);
+        var actual = await actualRepository.GetByIdWithInclude(request.Data.ActualId, includeStories:true);
         if (actual == null) return Result.Failure(ActualErrors.ActualNotFound);
+        if (actual.Stories.Any(a=>a.Id==story.Id)) return Result.Failure(ActualErrors.ThereIsAlreadySuchStory);
 
-        actual.Stories.Add(stories);
+        actual.Stories.Add(story);
         actualRepository.Update(actual);
         await unitOfWork.SaveChangesAsync();
 

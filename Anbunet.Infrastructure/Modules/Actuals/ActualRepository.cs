@@ -17,4 +17,14 @@ public class ActualRepository(AppDbContext dbContext) : Repository<Actual>(dbCon
 
         return await query.FirstOrDefaultAsync(actual => actual.Id == id);
     }
+
+    public async Task<Actual?> GetByIdWithIncludeAndTracked(long id, bool includeUser = false, bool includeStories = false)
+    {
+        var query = DbContext.Actuals.AsQueryable();
+
+        if (includeUser) query = query.Include(actual => actual.User);
+        if (includeStories) query = query.Include(actual => actual.Stories);
+
+        return await query.FirstOrDefaultAsync(actual => actual.Id == id);
+    }
 }

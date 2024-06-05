@@ -11,22 +11,22 @@ using System.Security.Claims;
 
 namespace Anbunet.Application.Features.Follows.CreateFollowers;
 
-public class CreateFollowersCommandHandler
+public class CreateFollowingCommandHandler
 (
         IUserRepository userRepository,
         IHttpContextAccessor httpContextAccessor,
         IUnitOfWork unitOfWork
     )
-    : ICommandHandler<CreateFollowersCommand, Result>
+    : ICommandHandler<CreateFollowingCommand, Result>
 {
     private readonly HttpContext _httpContext = httpContextAccessor.HttpContext!;
 
-    public async Task<Result> Handle(CreateFollowersCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateFollowingCommand request, CancellationToken cancellationToken)
     {
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var currentUser = await userRepository.GetByIdWithIncludeAsync(userId, includeFollowings: true);
+        var currentUser = await userRepository.GetByIdAsync(userId);
 
-        var user = await userRepository.GetByIdWithIncludeAsync(request.Data.UserId, includeFollowers: true);
+        var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(request.userId, includeFollowers: true);
         if (user == null || currentUser == null) return Result.Failure(UserErrors.UserNotFound);
 
         if (user.Followers.Any(u => u.Id == userId)) return Result.Failure(FollowErrors.FollowerIsAlreadySubscribe);
