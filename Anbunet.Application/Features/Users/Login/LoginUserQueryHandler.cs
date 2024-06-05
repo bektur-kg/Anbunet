@@ -16,7 +16,7 @@ public class LoginUserQueryHandler
 {
     public async Task<ValueResult<UserTokenResponse>> Handle(LoginUserQuery request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetUserByLoginAsync(request.Data.Login);
+        var user = await userRepository.GetByLoginAsync(request.Data.Login);
 
         if (user is null) return ValueResult<UserTokenResponse>.Failure(UserErrors.UserNotFound);
 
