@@ -2,10 +2,6 @@
 using Anbunet.Application.Features.Likes.Create;
 using Anbunet.Application.Features.Likes.Delete;
 using Anbunet.Application.Features.Likes.GetAll;
-using Anbunet.Domain.Abstractions;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 

@@ -4,9 +4,6 @@ using Anbunet.Application.Features.Stories.Delete;
 using Anbunet.Application.Features.Stories.GetAllStories;
 using Anbunet.Application.Features.Stories.GetById;
 using Anbunet.Application.Features.Stories.GetUserStories;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 
@@ -25,7 +22,7 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("user/stories/{id:long}")]//change this path
+    [HttpGet("user/stories/{id:long}")]//todo change this path
     public async Task<ActionResult<List<ProfileStoryResponse>>> GetById(long id)
     {
         var query = new GetStoriesByIdQuery(id);

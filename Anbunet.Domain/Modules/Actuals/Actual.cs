@@ -1,7 +1,6 @@
 ﻿using Anbunet.Domain.Abstractions;
 using Anbunet.Domain.Modules.Stories;
 using Anbunet.Domain.Modules.Users;
-using System.ComponentModel.DataAnnotations;
 
 namespace Anbunet.Domain.Modules.Actuals;
 

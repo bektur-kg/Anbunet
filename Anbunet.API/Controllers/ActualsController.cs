@@ -5,11 +5,6 @@ using Anbunet.Application.Features.Actuals.Delete;
 using Anbunet.Application.Features.Actuals.DeleteStory;
 using Anbunet.Application.Features.Actuals.GetActualsById;
 using Anbunet.Application.Features.Actuals.Update;
-using Anbunet.Application.Features.Follows.Delete;
-using Anbunet.Domain.Abstractions;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 
