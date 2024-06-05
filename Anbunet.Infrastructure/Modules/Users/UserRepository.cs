@@ -54,5 +54,12 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
     }
 
 
+    public Task<List<User>> GetUsersByLoginAsync(string login)
+    {
+        return DbContext.Users
+            .AsNoTracking()
+            .Where(user => user.Login.Contains(login))
+            .ToListAsync();
+    }
 }
 

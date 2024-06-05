@@ -10,11 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 [Authorize]
+[Route("api")]
 [ApiController]
 public class CommentsController(ISender sender) : ControllerBase
 {
-    private readonly ISender _sender = sender;
-
     [HttpGet("posts/{postId:long}/comments")]
     public async Task<ActionResult<ValueResult<List<CommentResponse>>>> GetAll(long postId)
     {

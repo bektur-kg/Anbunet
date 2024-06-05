@@ -42,7 +42,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Actuals");
+                    b.ToTable("Actuals", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Chats.Message", b =>
@@ -70,7 +70,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("PrivateMessageId");
 
-                    b.ToTable("Message");
+                    b.ToTable("Message", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Chats.PrivateMessage", b =>
@@ -87,7 +87,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PrivateMessages");
+                    b.ToTable("PrivateMessages", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Comments.Comment", b =>
@@ -118,7 +118,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Likes.Like", b =>
@@ -144,7 +144,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Posts.Post", b =>
@@ -173,7 +173,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Stories.Story", b =>
@@ -206,7 +206,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Stories");
+                    b.ToTable("Stories", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Users.User", b =>
@@ -249,7 +249,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("UserUser", b =>
@@ -264,7 +264,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("FollowingsId");
 
-                    b.ToTable("UserUser");
+                    b.ToTable("UserUser", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Actuals.Actual", b =>

@@ -6,4 +6,5 @@ namespace Anbunet.Domain.Modules.Actuals;
 public interface IActualRepository : IRepository<Actual>
 {
     Task<Actual?> GetByIdWithInclude(long id, bool includeUser = false, bool includeStories = false);
+    Task<Actual?> GetByIdWithIncludeAndTracked(long id, bool includeUser = false, bool includeStories = false);
 }

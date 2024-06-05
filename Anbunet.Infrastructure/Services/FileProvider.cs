@@ -29,7 +29,7 @@ public class FileProvider
 
         var fileName = Guid.NewGuid().ToString() + fileExtension;
         var path = Path.Combine(directory, "wwwroot");
-        using FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create);
+        using FileStream stream = new(Path.Combine(path, fileName), FileMode.Create);
         await file.CopyToAsync(stream, cancellationToken);
         var mediaUrl = Path.Combine(fileName);
 

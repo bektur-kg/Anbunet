@@ -14,20 +14,10 @@ using Anbunet.Application.Features.Posts.GetFollowersByPagination;
 namespace Anbunet.Application.Controllers;
 
 [ApiController]
-[Route("posts")]
+[Route("api/posts")]
 [Authorize]
 public class PostsController(ISender sender) : ControllerBase
-{  
-    [HttpPost]
-    public async Task<ActionResult<Result>> Create(PostCreateRequest dto)
-    {
-        var command = new CreatePostCommand(dto);
-
-        var response = await sender.Send(command);
-
-        return response.IsSuccess ? Created() : BadRequest(response.Error);
-    }
-
+{
     [HttpGet("{id:long}")]
     public async Task<ActionResult<ValueResult<PostDetailedResponse>>> GetById(long id)
     {
@@ -36,6 +26,16 @@ public class PostsController(ISender sender) : ControllerBase
         var response = await sender.Send(query);
 
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Result>> Create(PostCreateRequest dto)
+    {
+        var command = new CreatePostCommand(dto);
+
+        var response = await sender.Send(command);
+
+        return response.IsSuccess ? Created() : BadRequest(response.Error);
     }
 
     [HttpPatch("{id:long}")]

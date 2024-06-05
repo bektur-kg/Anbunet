@@ -14,7 +14,6 @@ public class GetAllLikeQueryHandler
     (
         IPostRepository postRepository,
         ILikeRepository likeRepository,
-        IUserRepository userRepository,
         IMapper _mapper
     )
     : ICommandHandler<GetAllLikeQuery, ValueResult<List<LikeResponse>>>

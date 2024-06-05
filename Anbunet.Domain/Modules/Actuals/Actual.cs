@@ -12,7 +12,7 @@ public class Actual : Entity
 
     public long UserId { get; set; }
 
-    public List<Story> Stories { get; set; } = [];
+    public List<Story>? Stories { get; set; } = [];
 
     public User? User { get; set; }
 }
