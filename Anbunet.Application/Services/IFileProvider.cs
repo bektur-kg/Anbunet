@@ -7,5 +7,5 @@ public interface IFileProvider
 {
     Task<ValueResult<string>> Create(IFormFile file, CancellationToken cancellationToken);
 
-    Task<ValueResult<string>> Delete(string fileName);
+    Task<Result> Delete(string fileName);
 }

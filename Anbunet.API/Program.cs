@@ -1,7 +1,3 @@
-using Anbunet.Application.Extensions;
-using Anbunet.Application.Hubs;
-using System;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.RegisterServices(builder.Configuration);

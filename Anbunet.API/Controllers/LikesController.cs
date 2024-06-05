@@ -2,19 +2,14 @@
 using Anbunet.Application.Features.Likes.Create;
 using Anbunet.Application.Features.Likes.Delete;
 using Anbunet.Application.Features.Likes.GetAll;
-using Anbunet.Domain.Abstractions;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 
 [Authorize]
+[Route("api")]
 [ApiController]
 public class LikesController(ISender sender) : ControllerBase
 {
-    private readonly ISender _sender = sender;
-
     [HttpPost("posts/{id:long}/likes")]
     public async Task<ActionResult> Create(long id)
     {
@@ -28,7 +23,7 @@ public class LikesController(ISender sender) : ControllerBase
     [HttpGet("posts/{id:long}/likes")]
     public async Task<ActionResult<ValueResult<List<UserLikeResponse>>>> GetAll(long id)
     {
-        var command = new GetAllLikeCommand(id);
+        var command = new GetAllLikeQuery(id);
 
         var response = await sender.Send(command);
 

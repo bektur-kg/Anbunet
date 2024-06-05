@@ -9,13 +9,13 @@ namespace Anbunet.Application.Features.Comments.GetAllComments;
 public class GetAllCommentsByPostIdQueryHandler(
         ICommentRepository commentRepository,
         IMapper mapper
-    ) : ICommandHandler<GetAllCommentsByPostIdQuery, ValueResult<List<CommentResponse>>>
+    ) : IQueryHandler<GetAllCommentsByPostIdQuery, ValueResult<List<CommentResponse>>>
 {
     public async Task<ValueResult<List<CommentResponse>>> Handle(GetAllCommentsByPostIdQuery request, CancellationToken cancellationToken)
     {
-        var comments = await commentRepository.GetAllByPostIdAsync(request.postId);
+        var comments = await commentRepository.GetPostCommentsWithInclude(request.PostId, includeUser:true);
 
-        if (comments is null) return ValueResult<List<CommentResponse>>.Failure(CommentErrors.CommentNotFound);
+        if (comments.Count == 0) return ValueResult<List<CommentResponse>>.Failure(CommentErrors.CommentNotFound);
 
         var mappedComment = mapper.Map<List<CommentResponse>>(comments);
 

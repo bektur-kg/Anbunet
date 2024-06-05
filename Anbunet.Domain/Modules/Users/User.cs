@@ -1,10 +1,8 @@
-﻿using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Actuals;
+﻿using Anbunet.Domain.Modules.Actuals;
 using Anbunet.Domain.Modules.Comments;
 using Anbunet.Domain.Modules.Likes;
 using Anbunet.Domain.Modules.Posts;
 using Anbunet.Domain.Modules.Stories;
-using System.ComponentModel.DataAnnotations;
 
 namespace Anbunet.Domain.Modules.Users;
 
@@ -30,7 +28,7 @@ public class User : Entity
 
     public Gender Gender { get; set; } = Gender.None;
 
-    public DateTime CreatedDate { get; } = DateTime.UtcNow;
+    public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
     public List<Post> Posts { get; set; } = [];
 

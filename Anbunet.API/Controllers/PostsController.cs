@@ -4,29 +4,15 @@ using Anbunet.Application.Features.Posts.Delete;
 using Anbunet.Application.Features.Posts.GetById;
 using Anbunet.Application.Features.Posts.Update;
 using Anbunet.Application.Features.Posts.GetByPagination;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using Anbunet.Application.Features.Posts.GetFollowersByPagination;
 
 namespace Anbunet.Application.Controllers;
 
 [ApiController]
-[Route("posts")]
+[Route("api/posts")]
 [Authorize]
 public class PostsController(ISender sender) : ControllerBase
-{  
-    [HttpPost]
-    public async Task<ActionResult<Result>> Create(PostCreateRequest dto)
-    {
-        var command = new CreatePostCommand(dto);
-
-        var response = await sender.Send(command);
-
-        return response.IsSuccess ? Created() : BadRequest(response.Error);
-    }
-
+{
     [HttpGet("{id:long}")]
     public async Task<ActionResult<ValueResult<PostDetailedResponse>>> GetById(long id)
     {
@@ -37,14 +23,24 @@ public class PostsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpPut("{id:long}")]
-    public async Task<ActionResult<ValueResult<PostDetailedResponse>>> Update(long id, PostUpdateRequest request)
+    [HttpPost]
+    public async Task<ActionResult<Result>> Create(PostCreateRequest dto)
+    {
+        var command = new CreatePostCommand(dto);
+
+        var response = await sender.Send(command);
+
+        return response.IsSuccess ? Created() : BadRequest(response.Error);
+    }
+
+    [HttpPatch("{id:long}")]
+    public async Task<ActionResult<Result>> Update(long id, PostUpdateRequest request)
     {
         var query = new UpdatePostCommand(id, request);
 
         var response = await sender.Send(query);
 
-        return response.IsSuccess ? Ok(response.IsSuccess) : BadRequest(response.Error);
+        return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 
     [HttpDelete("{id:long}")]
@@ -54,7 +50,7 @@ public class PostsController(ISender sender) : ControllerBase
 
         var response = await sender.Send(query);
 
-        return response.IsSuccess ? Ok(response.IsSuccess) : BadRequest(response.Error);
+        return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
 
     }
 
@@ -62,6 +58,16 @@ public class PostsController(ISender sender) : ControllerBase
     public async Task<ActionResult<ValueResult<List<PostDetailedResponse>>>> GetByPagination(int page, int quantity)
     {
         var query = new GetPostsByPaginationQuery(page, quantity);
+
+        var response = await sender.Send(query);
+
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+    }
+
+    [HttpGet("followers")]
+    public async Task<ActionResult<ValueResult<List<PostDetailedResponse>>>> GetFollowersByPagination(int page, int quantity)
+    {
+        var query = new GetFollowingPostsByPaginationQuery(page, quantity);
 
         var response = await sender.Send(query);
 

@@ -1,7 +1,6 @@
 ﻿using Anbunet.Domain.Abstractions;
 using Anbunet.Domain.Modules.Stories;
 using Anbunet.Domain.Modules.Users;
-using System.ComponentModel.DataAnnotations;
 
 namespace Anbunet.Domain.Modules.Actuals;
 
@@ -12,7 +11,7 @@ public class Actual : Entity
 
     public long UserId { get; set; }
 
-    public List<Story> Stories { get; set; } = [];
+    public List<Story>? Stories { get; set; } = [];
 
     public User? User { get; set; }
 }

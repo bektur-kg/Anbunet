@@ -35,11 +35,5 @@ public class GetPostByIdQueryHandler
         mappedPost.Comments = mappedComments;
 
         return ValueResult<PostDetailedResponse>.Success(mappedPost);
-
-
-
-
-
     }
 }
-

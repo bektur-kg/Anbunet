@@ -1,6 +1,4 @@
 ﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Users;
-using Anbunet.Application.Features.Users.Register;
 using Anbunet.Application.Services;
 using Anbunet.Domain.Abstractions;
 using Anbunet.Domain.Modules.Users;
@@ -19,10 +17,9 @@ public class UpdateUserCommandHandler
     )
     : ICommandHandler<UpdateUserCommand, Result>
 {
-    HttpContext httpContext = _httpContextAccessor.HttpContext;
+    private readonly HttpContext httpContext = _httpContextAccessor.HttpContext!;
     public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-
         var userId = long.Parse(httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         var user = await _userRepository.GetByIdAsync(userId);
 

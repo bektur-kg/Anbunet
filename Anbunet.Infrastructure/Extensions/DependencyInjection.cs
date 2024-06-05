@@ -16,6 +16,8 @@ using Anbunet.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Anbunet.Domain.Modules.Actuals;
+using Anbunet.Infrastructure.Modules.Actuals;
 
 namespace Anbunet.Infrastructure.Extensions;
 
@@ -34,12 +36,12 @@ public static class DependencyInjection
         services.AddTransient<IJwtProvider, JwtProvider>();
         services.AddScoped<IFileProvider, FileProvider>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IActualRepository, ActualRepository>();
         services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ILikeRepository, LikeRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
-        services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IStoryRepository, StoryRepository>();
 
         return services;

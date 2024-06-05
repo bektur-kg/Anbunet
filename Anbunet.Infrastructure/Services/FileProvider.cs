@@ -29,23 +29,23 @@ public class FileProvider
 
         var fileName = Guid.NewGuid().ToString() + fileExtension;
         var path = Path.Combine(directory, "wwwroot");
-        using FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create);
+        using FileStream stream = new(Path.Combine(path, fileName), FileMode.Create);
         await file.CopyToAsync(stream, cancellationToken);
-        var mediaUrl = Path.Combine("https://localhost:7199/", fileName);
+        var mediaUrl = Path.Combine("https://localhost:7199/" + fileName);
 
         return ValueResult<string>.Success(mediaUrl);
     }
 
-    public async Task<ValueResult<string>> Delete(string fileName)
+    public async Task<Result> Delete(string fileName)
     {
         var directory = directoryPath.Get();
-        var path = Path.Combine(directory, "wwwroot", fileName.Replace("https://localhost:7199/", ""));
+        var path = Path.Combine(directory, "wwwroot", "https://localhost:7199/" + fileName);
 
         if (!File.Exists(path))
-            return ValueResult<string>.Failure(PostErrors.FileNotFound);
+            return Result.Failure(PostErrors.FileNotFound);
 
         File.Delete(path);
-        return ValueResult<string>.Success($"File {fileName} deleted successfully.");
+        return Result.Success();
     }
 }
 

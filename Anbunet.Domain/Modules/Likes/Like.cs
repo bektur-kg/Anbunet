@@ -1,5 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Posts;
+﻿using Anbunet.Domain.Modules.Posts;
 using Anbunet.Domain.Modules.Users;
 
 namespace Anbunet.Domain.Modules.Likes;

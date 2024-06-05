@@ -70,7 +70,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasIndex("PrivateMessageId");
 
-                    b.ToTable("Message");
+                    b.ToTable("Message", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Chats.PrivateMessage", b =>
@@ -87,7 +87,7 @@ namespace Anbunet.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PrivateMessages");
+                    b.ToTable("PrivateMessages", (string)null);
                 });
 
             modelBuilder.Entity("Anbunet.Domain.Modules.Comments.Comment", b =>
@@ -220,6 +220,9 @@ namespace Anbunet.Infrastructure.Migrations
                     b.Property<string>("Bio")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(100)
