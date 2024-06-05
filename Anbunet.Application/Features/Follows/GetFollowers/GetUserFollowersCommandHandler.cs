@@ -15,7 +15,7 @@ public class GetUserFollowersCommandHandler
         IUserRepository userRepository,
         IMapper _mapper
     )
-    : ICommandHandler<GetUserFollowersCommand, ValueResult<List<FollowResponse>>>
+    : IQueryHandler<GetUserFollowersCommand, ValueResult<List<FollowResponse>>>
 {
     public async Task<ValueResult<List<FollowResponse>>> Handle(GetUserFollowersCommand request, CancellationToken cancellationToken)
     {

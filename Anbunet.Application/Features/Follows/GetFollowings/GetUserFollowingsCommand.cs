@@ -5,4 +5,4 @@ using Anbunet.Domain.Abstractions;
 namespace Anbunet.Application.Features.Follows.GetFollowings;
 
 
-public record GetUserFollowingsCommand(long userId) : ICommand<ValueResult<List<FollowResponse>>>;
+public record GetUserFollowingsCommand(long UserId) : IQuery<ValueResult<List<FollowResponse>>>;

@@ -2,10 +2,6 @@
 using Anbunet.Application.Features.Actuals.AddStories;
 using Anbunet.Application.Features.Actuals.CreateActuals;
 using Anbunet.Application.Features.Actuals.GetActualsById;
-using Anbunet.Domain.Abstractions;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 

@@ -32,8 +32,6 @@ public class CreateFollowersCommandHandler
         if (user.Followers.Any(u => u.Id == userId)) return Result.Failure(FollowErrors.FollowerIsAlreadySubscribe);
 
         user.Followers.Add(currentUser);
-        currentUser.Followings.Add(user);
-        userRepository.Update(user);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

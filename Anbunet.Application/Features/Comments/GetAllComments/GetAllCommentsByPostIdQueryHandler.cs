@@ -9,7 +9,7 @@ namespace Anbunet.Application.Features.Comments.GetAllComments;
 public class GetAllCommentsByPostIdQueryHandler(
         ICommentRepository commentRepository,
         IMapper mapper
-    ) : ICommandHandler<GetAllCommentsByPostIdQuery, ValueResult<List<CommentResponse>>>
+    ) : IQueryHandler<GetAllCommentsByPostIdQuery, ValueResult<List<CommentResponse>>>
 {
     public async Task<ValueResult<List<CommentResponse>>> Handle(GetAllCommentsByPostIdQuery request, CancellationToken cancellationToken)
     {

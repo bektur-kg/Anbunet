@@ -2,11 +2,6 @@
 using Anbunet.Application.Features.Follows.CreateFollowers;
 using Anbunet.Application.Features.Follows.GetFollowers;
 using Anbunet.Application.Features.Follows.GetFollowings;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 [Authorize]

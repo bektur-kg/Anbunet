@@ -16,7 +16,7 @@ public class GetAllLikeCommandHandler
         ILikeRepository likeRepository,
         IMapper _mapper
     )
-    : ICommandHandler<GetAllLikeCommand, ValueResult<List<LikeResponse>>>
+    : IQueryHandler<GetAllLikeCommand, ValueResult<List<LikeResponse>>>
 {
 
     public async Task<ValueResult<List<LikeResponse>>> Handle(GetAllLikeCommand request, CancellationToken cancellationToken)

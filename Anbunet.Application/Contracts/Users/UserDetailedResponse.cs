@@ -7,6 +7,8 @@ namespace Anbunet.Application.Contracts.Users;
 
 public record UserDetailedResponse
 {
+    public long UserId { get; set; }
+
     public required string Login { get; set; }
 
     public string? Email { get; set; }

@@ -5,4 +5,4 @@ using Anbunet.Domain.Abstractions;
 
 namespace Anbunet.Application.Features.Likes.GetAll;
 
-public record GetAllLikeCommand(long PostId) : ICommand<ValueResult<List<LikeResponse>>>;
+public record GetAllLikeCommand(long PostId) : IQuery<ValueResult<List<LikeResponse>>>;

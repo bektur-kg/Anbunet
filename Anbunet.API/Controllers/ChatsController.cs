@@ -1,10 +1,5 @@
-﻿using Anbunet.Application.Hubs;
-using Anbunet.Application.Contracts.Chats;
+﻿using Anbunet.Application.Contracts.Chats;
 using Anbunet.Application.Features.Chats.SendMessageToUser;
-using Anbunet.Domain.Abstractions;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 
 namespace Anbunet.Application.Controllers;
 [Route("api/[controller]")]

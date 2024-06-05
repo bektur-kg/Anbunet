@@ -4,9 +4,6 @@ using Anbunet.Application.Features.Users.GetUserProfile;
 using Anbunet.Application.Features.Users.Login;
 using Anbunet.Application.Features.Users.Register;
 using Anbunet.Application.Features.Users.Update;
-using Anbunet.Domain.Abstractions;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.Application.Controllers;
 
