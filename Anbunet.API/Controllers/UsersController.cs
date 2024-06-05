@@ -1,5 +1,6 @@
 ﻿using Anbunet.Application.Contracts.Users;
 using Anbunet.Application.Features.Users.GetCurrentUserProfile;
+using Anbunet.Application.Features.Users.GettingUsersByLogin;
 using Anbunet.Application.Features.Users.GetUserProfile;
 using Anbunet.Application.Features.Users.Login;
 using Anbunet.Application.Features.Users.Register;
@@ -8,6 +9,7 @@ using Anbunet.Application.Features.Users.UpdatePassword;
 using Anbunet.Application.Features.Users.UpdateProfilePicture;
 using Anbunet.Domain.Abstractions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
