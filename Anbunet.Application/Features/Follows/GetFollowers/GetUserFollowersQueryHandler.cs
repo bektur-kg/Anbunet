@@ -16,7 +16,7 @@ public class GetUserFollowersQueryHandler
 {
     public async Task<ValueResult<List<FollowResponse>>> Handle(GetUserFollowersQuery request, CancellationToken cancellationToken)
     {
-        var foundUser = await userRepository.GetByIdWithIncludeAndTrackingAsync(request.userId, includeFollowers:true);
+        var foundUser = await userRepository.GetByIdWithIncludeAsync(request.userId, includeFollowers:true);
 
         if (foundUser is null) return ValueResult<List<FollowResponse>>.Failure(UserErrors.UserNotFound);
 

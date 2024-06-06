@@ -32,8 +32,6 @@ public class UpdateActualCommandHandler(
 
         actual.Name = request.Data.Name;
 
-        actualRepository.Update(actual);
-
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

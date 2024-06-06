@@ -15,4 +15,6 @@ public interface IReadRepository<TEntity> where TEntity : Entity
     /// <param name="id">The identifier of the entity to retrieve.</param>
     /// <returns>The task result contains the entity if found; otherwise, <c>null</c>.</returns>
     Task<TEntity?> GetByIdAsync(long id);
+
+    Task<TEntity?> GetByIdAsyncAndTracking(long id);
 }

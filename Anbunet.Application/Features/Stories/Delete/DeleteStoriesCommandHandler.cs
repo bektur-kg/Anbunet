@@ -20,7 +20,7 @@ public class DeleteStoriesCommandHandler
     public async Task<Result> Handle(DeleteStoriesCommand request, CancellationToken cancellationToken)
     {
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var stories = await storyRepository.GetByIdAsync(request.Id);
+        var stories = await storyRepository.GetByIdAsyncAndTracking(request.Id);
 
         if (stories == null) return Result.Failure(StoriesErrors.StoriesNotFound);
         if (stories.UserId != userId) return Result.Failure(StoriesErrors.YouCanDeleteOnlyYourStory);
