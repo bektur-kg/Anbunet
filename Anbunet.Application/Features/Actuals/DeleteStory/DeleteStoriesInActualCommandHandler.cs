@@ -1,6 +1,4 @@
 ﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Features.Follows.Delete;
-using Anbunet.Application.Features.Follows;
 using Anbunet.Application.Features.Users;
 using Anbunet.Application.Services;
 using Anbunet.Domain.Abstractions;
@@ -36,7 +34,7 @@ public class DeleteStoriesInActualCommandHandler(
         var actual = actualRepository.GetByIdWithIncludeAndTracked(request.Data.ActualId, includeStories: true).Result;
         if (actual == null) return Result.Failure(ActualErrors.ActualNotFound);
 
-        var story = await storyRepository.GetByIdAsyncAndTracking(request.Data.StoryId);
+        var story = await storyRepository.GetByIdAsync(request.Data.StoryId);
         if (story == null) return Result.Failure(ActualErrors.ActualNotFound);
         var result = actual.Stories.Remove(story);
         if (!result) return Result.Failure(StoriesErrors.StoriesNotFound);

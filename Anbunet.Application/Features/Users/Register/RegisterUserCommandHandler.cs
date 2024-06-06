@@ -15,7 +15,7 @@ public class RegisterUserCommandHandler
 {
     public async Task<Result> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        var foundUser = await userRepository.GetByLoginAsync(request.Data.Login);
+        var foundUser = await userRepository.GetUserByLoginAsync(request.Data.Login);
 
         if (foundUser != null) return Result.Failure(UserErrors.LoginAlreadyExists);
 

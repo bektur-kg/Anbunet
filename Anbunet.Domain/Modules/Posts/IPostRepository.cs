@@ -44,4 +44,6 @@ public interface IPostRepository : IRepository<Post>
     /// <param name="includeLikes">Whether to include related likes data.</param>
     /// <returns>The task result contains a list of posts associated with the specified user.</returns>
     Task<List<Post>> GetPostsByUserIdWithInclude(long userId, bool includeUser = false, bool includeComments = false, bool includeLikes = false);
+
+    Task<List<Post>> GetPostsByUserIdsWithInclude(int page, int quantity, List<long> userIds, bool includeUser = false, bool includeComments = false, bool includeLikes = false);
 }
