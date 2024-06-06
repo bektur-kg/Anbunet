@@ -47,7 +47,7 @@ public class UsersController(ISender sender) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ValueResult<UserDetailedResponse>>> GetUsersByLogin(string login)
+    public async Task<ActionResult<ValueResult<UsersSearchResponse>>> GetUsersByLogin(string login)
     {
         var query = new GettingUsersByLoginQuery(login);
 

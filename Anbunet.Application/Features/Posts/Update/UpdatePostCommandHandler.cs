@@ -17,7 +17,7 @@ public class UpdatePostCommandHandler
 
     public async Task<Result> Handle(UpdatePostCommand request, CancellationToken cancellationToken)
     {
-        var post = await postRepository.GetByIdWithInclude(request.Id);
+        var post = await postRepository.GetByIdWithIncludeAndTracking(request.Id);
         if (post == null) return Result.Failure(PostErrors.PostNotFound);
 
         if (request.Data.File != null)

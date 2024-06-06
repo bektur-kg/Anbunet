@@ -30,7 +30,5 @@ public record UserDetailedResponse
     public List<ProfilePostResponse> Posts { get; set; } = [];
 
     public List<ProfileActualResponse> Actuals { get; set; } = [];
-
-    public List<ProfileStoryResponse> Stories { get; set; } = [];
 }
 

@@ -9,8 +9,8 @@ public class StoryMappings : Profile
     public StoryMappings()
     {
         CreateMap<Story, ProfileStoryResponse>();
-
         CreateMap<Story, CreateStoryRequest>();
+        CreateMap<Story, ActualStoryResponse>();
     }
 }
 

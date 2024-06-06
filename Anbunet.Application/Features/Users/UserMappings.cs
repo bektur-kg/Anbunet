@@ -12,6 +12,8 @@ public class UserMappings : Profile
         CreateMap<User, UserCommentResponse>();
         CreateMap<User, UserLikeResponse>();
         CreateMap<User, UserDetailedResponse>();
+        CreateMap<User, UsersSearchResponse>();
+
         CreateMap<UpdateUserRequest, User>()
            .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));

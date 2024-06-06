@@ -52,10 +52,10 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Created() : BadRequest(response.Error);
     }
 
-    [HttpDelete("user/{id:long}/stories")]//change this path
+    [HttpDelete("user/stories/{id:long}")]//change this path
     public async Task<ActionResult<List<ProfileStoryResponse>>> Delete(long id)
     {
-        var command = new DeleteStoriesCommand(id);
+        var command = new DeleteStoryCommand(id);
 
         var response = await sender.Send(command);
 
