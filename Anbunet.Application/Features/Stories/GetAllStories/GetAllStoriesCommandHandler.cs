@@ -11,7 +11,7 @@ public class GetAllStoriesCommandHandler
         IStoryRepository storyRepository,
         IMapper mapper
     )
-    : ICommandHandler<GetAllStoriesCommand, ValueResult<List<ProfileStoryResponse>>>
+    : IQueryHandler<GetAllStoriesCommand, ValueResult<List<ProfileStoryResponse>>>
 {
     public async Task<ValueResult<List<ProfileStoryResponse>>> Handle(GetAllStoriesCommand request, CancellationToken cancellationToken)
     {

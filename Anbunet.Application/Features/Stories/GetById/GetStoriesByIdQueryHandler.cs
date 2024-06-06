@@ -13,7 +13,7 @@ public class GetStoriesByIdQueryHandler
         IStoryRepository storyRepository,
         IMapper mapper
     )
-    : ICommandHandler<GetStoriesByIdQuery, ValueResult<ProfileStoryResponse>>
+    : IQueryHandler<GetStoriesByIdQuery, ValueResult<ProfileStoryResponse>>
 {
     public async Task<ValueResult<ProfileStoryResponse>> Handle(GetStoriesByIdQuery request, CancellationToken cancellationToken)
     {
@@ -21,7 +21,6 @@ public class GetStoriesByIdQueryHandler
 
         if (stories == null) return ValueResult<ProfileStoryResponse>.Failure(StoriesErrors.StoriesNotFound);
 
-        stories.MediaUrl = "https://localhost:7199/" + stories.MediaUrl;
         var mappedStories = mapper.Map<ProfileStoryResponse>(stories);
         
         return ValueResult<ProfileStoryResponse>.Success(mappedStories);

@@ -26,7 +26,7 @@ public class CreateActualsCommmandHandler
     public async Task<Result> Handle(CreateActualsCommmand request, CancellationToken cancellationToken)
     {
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var user = await userRepository.GetByIdWithIncludeAsync(userId);
+        var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(userId);
         if (user == null) return Result.Failure(UserErrors.UserNotFound);
 
         var actual = new Actual()

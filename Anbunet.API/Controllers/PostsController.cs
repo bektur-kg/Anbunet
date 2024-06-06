@@ -4,11 +4,6 @@ using Anbunet.Application.Features.Posts.Delete;
 using Anbunet.Application.Features.Posts.GetById;
 using Anbunet.Application.Features.Posts.Update;
 using Anbunet.Application.Features.Posts.GetByPagination;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Anbunet.Application.Features.Posts.GetFollowersByPagination;
 
 namespace Anbunet.Application.Controllers;

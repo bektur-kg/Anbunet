@@ -1,11 +1,8 @@
 ﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Follows;
-using Anbunet.Application.Features.Follows.GetFollowers;
 using Anbunet.Application.Features.Users;
 using Anbunet.Application.Services;
 using Anbunet.Domain.Abstractions;
 using Anbunet.Domain.Modules.Users;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 

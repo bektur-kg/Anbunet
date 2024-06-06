@@ -18,7 +18,7 @@ public class GetUserProfileQueryHandler
 {
     public async Task<ValueResult<UserDetailedResponse>> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
     {
-        var foundUser = await userRepository.GetByIdWithIncludeAsync(request.UserId, includeActuals: true, 
+        var foundUser = await userRepository.GetByIdWithIncludeAndTrackingAsync(request.UserId, includeActuals: true, 
             includeStories: true, includeFollowers: true, includeFollowings: true);
 
         var userPosts = await postRepository.GetPostsByUserIdWithInclude(request.UserId, includeLikes: true, includeComments: true);

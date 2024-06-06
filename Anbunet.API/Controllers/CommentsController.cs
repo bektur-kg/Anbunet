@@ -2,11 +2,6 @@
 using Anbunet.Application.Features.Comments.CreateComment;
 using Anbunet.Application.Features.Comments.Delete;
 using Anbunet.Application.Features.Comments.GetAllComments;
-using Anbunet.Application.Features.Likes.Delete;
-using Anbunet.Domain.Abstractions;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Anbunet.API.Controllers;
 [Authorize]

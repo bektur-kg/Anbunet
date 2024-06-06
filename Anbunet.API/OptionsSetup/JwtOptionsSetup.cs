@@ -1,5 +1,4 @@
 ﻿using Anbunet.Infrastructure.Modules.Users;
-using Microsoft.Extensions.Options;
 
 namespace Anbunet.Application.OptionsSetup;
 

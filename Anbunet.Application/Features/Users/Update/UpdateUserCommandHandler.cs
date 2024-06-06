@@ -1,6 +1,4 @@
 ﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Users;
-using Anbunet.Application.Features.Users.Register;
 using Anbunet.Application.Services;
 using Anbunet.Domain.Abstractions;
 using Anbunet.Domain.Modules.Users;

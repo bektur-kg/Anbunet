@@ -1,7 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Actuals;
 using Anbunet.Domain.Modules.Users;
-using System.ComponentModel.DataAnnotations;
 
 namespace Anbunet.Domain.Modules.Stories;
 
@@ -19,4 +16,3 @@ public class Story : Entity
     public User? User { get; set; }
 
 }
-
