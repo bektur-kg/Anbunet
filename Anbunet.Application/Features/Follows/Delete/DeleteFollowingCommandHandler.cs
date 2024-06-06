@@ -1,11 +1,7 @@
 ﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Features.Likes.Delete;
-using Anbunet.Application.Features.Posts;
 using Anbunet.Application.Features.Users;
 using Anbunet.Application.Services;
 using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Likes;
-using Anbunet.Domain.Modules.Posts;
 using Anbunet.Domain.Modules.Users;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
