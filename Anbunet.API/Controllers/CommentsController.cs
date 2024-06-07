@@ -2,6 +2,7 @@
 using Anbunet.Application.Features.Comments.CreateComment;
 using Anbunet.Application.Features.Comments.Delete;
 using Anbunet.Application.Features.Comments.GetAllComments;
+using Anbunet.Application.Features.Comments.Update;
 
 namespace Anbunet.API.Controllers;
 [Authorize]
@@ -23,6 +24,16 @@ public class CommentsController(ISender sender) : ControllerBase
     public async Task<ActionResult<Result>> Create(CommentRequest dto)
     {
         var command = new CreateCommentCommand(dto);
+
+        var response = await sender.Send(command);
+
+        return response.IsSuccess ? Created() : BadRequest(response.Error);
+    }
+
+    [HttpPut("posts/comment")]
+    public async Task<ActionResult<Result>> Update(UpdateCommentRequest dto)
+    {
+        var command = new UpdateCommentCommand(dto);
 
         var response = await sender.Send(command);
 
