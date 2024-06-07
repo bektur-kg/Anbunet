@@ -23,6 +23,8 @@ public class CreateFollowingCommandHandler
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         var currentUser = await userRepository.GetByIdAsync(userId);
 
+        if (userId == request.userId) return Result.Failure(FollowErrors.CurrentUserCantFollowToHimself);
+                
         var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(request.userId, includeFollowers: true);
         if (user == null || currentUser == null) return Result.Failure(UserErrors.UserNotFound);
 

@@ -32,10 +32,10 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("all-stories")]//change this path
-    public async Task<ActionResult<List<ProfileStoryResponse>>> GetAll()
+    [HttpGet("following/stories")]//change this path
+    public async Task<ActionResult<List<FollowingStoriesResponse>>> GetFollowingStories()
     {
-        var query = new GetAllStoriesCommand();
+        var query = new GetFollowingStoriesQuery();
 
         var response = await sender.Send(query);
 
