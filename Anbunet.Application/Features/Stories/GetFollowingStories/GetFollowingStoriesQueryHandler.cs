@@ -29,13 +29,13 @@ public class GetFollowingStoriesQueryHandler
         foreach ( var user in currentUser.Followings )
         {
             var userIncludeStories = await userRepository.GetByIdWithIncludeAsync(user.Id, includeStories: true);
-
+            if (userIncludeStories.Stories.Count == 0) continue;
+            userIncludeStories.Stories = userIncludeStories.Stories.OrderByDescending(s=>s.CreatedDate).ToList();
             var userResponse = mapper.Map<FollowingStoriesResponse>(userIncludeStories);
-            //userResponse.Stories = mapper.Map<List<ProfileStoryResponse>>(userIncludeStories.Stories);
             followingStories.Add(userResponse);
         }
 
-        if (followingStories.Count == 0) return ValueResult<List<FollowingStoriesResponse>>.Failure(StoriesErrors.StoriesNotFound);
+        followingStories = followingStories.OrderByDescending( f => f.Stories.Max(s=>s.Id)).ToList();
 
         return ValueResult<List<FollowingStoriesResponse>>.Success(followingStories);
     }
