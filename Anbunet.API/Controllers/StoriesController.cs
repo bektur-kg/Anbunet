@@ -3,6 +3,7 @@ using Anbunet.Application.Features.Stories.Create;
 using Anbunet.Application.Features.Stories.Delete;
 using Anbunet.Application.Features.Stories.GetAllStories;
 using Anbunet.Application.Features.Stories.GetById;
+using Anbunet.Application.Features.Stories.GetMyselfStories;
 using Anbunet.Application.Features.Stories.GetUserStories;
 
 namespace Anbunet.API.Controllers;
@@ -16,6 +17,16 @@ public class StoriesController(ISender sender) : ControllerBase
     public async Task<ActionResult<List<ProfileStoryResponse>>> GetUserStories(long id)
     {
         var query = new GetUserStoriesQuery(id);
+
+        var response = await sender.Send(query);
+
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+    }
+
+    [HttpGet("user/stories")]
+    public async Task<ActionResult<List<ProfileStoryResponse>>> GetMyselfStories()
+    {
+        var query = new GetMyselfStoriesQuery();
 
         var response = await sender.Send(query);
 
