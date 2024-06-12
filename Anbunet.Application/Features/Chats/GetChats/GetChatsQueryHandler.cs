@@ -47,7 +47,7 @@ public class GetChatsQueryHandler(
             }
             resultChats.Add(resultChat);
         }
-        if (resultChats.Count > 0) return ValueResult<List<ChatResponse>>.Success([]);
+        if (resultChats.Count == 0) return ValueResult<List<ChatResponse>>.Success([]);
 
         return ValueResult<List<ChatResponse>>.Success(resultChats);
     }

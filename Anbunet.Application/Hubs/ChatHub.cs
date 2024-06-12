@@ -3,37 +3,41 @@ using Anbunet.Domain.Modules.Chats;
 using Anbunet.Domain.Modules.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
-using System.Collections.Concurrent;
-using System.Security.Claims;
 
 namespace Anbunet.Application.Hubs;
+
+public interface IChatClient
+{
+    public Task SendMessageUser(string userName, string message);
+}
 
 public class ChatHub(
     IHttpContextAccessor _httpContextAccessor,
     IChatRepository chatRepository,
     IUserRepository userRepository,
     IUnitOfWork unitOfWork
-    ) : Hub
+    ) : Hub<IChatClient>
 {
-    public async Task Initial()
+    private readonly HttpContext httpContext = _httpContextAccessor.HttpContext;
+    public async Task JoinChat(string currenUserId)
     {
-        var userId = long.Parse(Context.UserIdentifier);
+        var userId = long.Parse(currenUserId);
 
-        var user = userRepository.GetByIdWithIncludeAsync(userId,includeChats:true);
+        var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(userId, includeChats:true);
 
-        await Clients.Caller.SendAsync("Initial", user);
-    }
-    public async Task Send(string message, string groupName)
-    {
-        var userName = Context.UserIdentifier;
-        await Clients.Group(groupName).SendAsync("Receive", message, userName);
-    }
-    
+        var chats = user.Chats.ToList();
+        if (chats != null)
+        {
+            foreach (var chat in chats)
+            {
+                await Groups.AddToGroupAsync(Context.ConnectionId, chat.Id.ToString());
+                await Clients
+                    .Group(chat.Id.ToString())
+                    .SendMessageUser("Admin", $"{user.Login} connected to chat number {chat.Id}");
+            }
+        }
 
-    public override async Task OnConnectedAsync()
-    {
-        await Clients.All.SendAsync("Notify", $"Приветствуем {Context.UserIdentifier}");
-        await base.OnConnectedAsync();
+        
     }
 
 }
