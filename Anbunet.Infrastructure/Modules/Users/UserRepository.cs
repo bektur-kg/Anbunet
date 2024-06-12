@@ -9,10 +9,11 @@ namespace Anbunet.Infrastructure.Modules.Users;
 public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext), IUserRepository
 {
     public Task<User?> GetByIdWithIncludeAsync(long userId, bool includePosts = false, bool includeFollowers = false, bool includeFollowings = false, 
-        bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false)
+        bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false, bool includeChats= false)
     {
         var query = DbContext.Users.AsNoTracking();
 
+        if (includeChats) query = query.Include(user => user.Chats);
         if (includePosts) query = query.Include(user => user.Posts);
         if (includeFollowers) query = query.Include(user => user.Followers);
         if (includeFollowings) query = query.Include(user => user.Followings);
@@ -24,10 +25,10 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
     }
 
     public Task<User?> GetByIdWithIncludeAndTrackingAsync(long userId, bool includePosts = false, bool includeFollowers = false, bool includeFollowings = false,
-    bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false)
+    bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false, bool includeChats = false)
     {
         var query = DbContext.Users.AsQueryable();
-
+        if (includeChats) query = query.Include(user => user.Chats);
         if (includePosts) query = query.Include(user => user.Posts);
         if (includeFollowers) query = query.Include(user => user.Followers);
         if (includeFollowings) query = query.Include(user => user.Followings);
@@ -59,7 +60,7 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
     {
         return DbContext.Users
             .AsNoTracking()
-            .Where(user => user.Login.Contains(login))
+            .Where(user => user.Login.ToLower().Contains(login.ToLower()))
             .ToListAsync();
     }
 }

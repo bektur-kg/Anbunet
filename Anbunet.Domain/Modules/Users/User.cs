@@ -1,4 +1,5 @@
 ﻿using Anbunet.Domain.Modules.Actuals;
+using Anbunet.Domain.Modules.Chats;
 using Anbunet.Domain.Modules.Comments;
 using Anbunet.Domain.Modules.Likes;
 using Anbunet.Domain.Modules.Posts;
@@ -43,5 +44,6 @@ public class User : Entity
     public List<Actual> Actuals { get; set; } = [];
 
     public List<Story> Stories { get; set; } = [];
+    public List<Chat> Chats { get; set; } = [];
 }
 

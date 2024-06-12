@@ -1,4 +1,6 @@
-﻿namespace Anbunet.Domain.Modules.Chats;
+﻿using Anbunet.Domain.Modules.Users;
+
+namespace Anbunet.Domain.Modules.Chats;
 
 public class Message : Entity
 {
@@ -8,7 +10,9 @@ public class Message : Entity
 
     public string Text { get; set; }
 
-    public long PrivateMessageId { get; set; }
+    public long ChatId { get; set; }
 
-    public PrivateMessage PrivateMessage { get; set; }
+    public Chat Chat { get; set; }
+
+    public List<User> Users { get; set; }
 }

@@ -3,6 +3,7 @@ using Anbunet.Application.Abstractions;
 using Anbunet.Domain.Modules.Users;
 using Anbunet.Domain.Abstractions;
 using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Anbunet.Application.Features.Users.GettingUsersByLogin;
 
@@ -15,9 +16,9 @@ public class GettingUsersByLoginQueryHandler
 {
     public async Task<ValueResult<List<UsersSearchResponse>>> Handle(GettingUsersByLoginQuery request, CancellationToken cancellationToken)
     {
-        var users = await userRepository.GetUsersByLoginAsync(request.Login);
+        if(request.Login.IsNullOrEmpty()) return ValueResult<List<UsersSearchResponse>>.Success(new());
 
-        if (users.Count == 0) return ValueResult<List<UsersSearchResponse>>.Failure(UserErrors.UserNotFound);
+        var users = await userRepository.GetUsersByLoginAsync(request.Login);
 
         var mappedUsers = mapper.Map<List<UsersSearchResponse>>(users);
 

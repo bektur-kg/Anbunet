@@ -11,14 +11,17 @@ namespace Anbunet.Application.Hubs;
 public class ChatHub(
     IHttpContextAccessor _httpContextAccessor,
     IChatRepository chatRepository,
+    IUserRepository userRepository,
     IUnitOfWork unitOfWork
     ) : Hub
 {
-    public async Task Enter(string groupName)
+    public async Task Initial()
     {
-        var username = Context.UserIdentifier;
-        await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-        await Clients.All.SendAsync("Notify", $"{username} вошел в чат в группу {groupName}");
+        var userId = long.Parse(Context.UserIdentifier);
+
+        var user = userRepository.GetByIdWithIncludeAsync(userId,includeChats:true);
+
+        await Clients.Caller.SendAsync("Initial", user);
     }
     public async Task Send(string message, string groupName)
     {

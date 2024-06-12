@@ -29,9 +29,9 @@ public interface IUserRepository : IRepository<User>
     /// <param name="includeStories">Whether to include related stories data.</param>
     /// <returns>The task result contains the user if found; otherwise, <c>null</c>.</returns>
     Task<User?> GetByIdWithIncludeAndTrackingAsync(long userId, bool includePosts = false, bool includeFollowers = false, bool includeFollowings = false,
-        bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false);
+        bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false, bool includeChats = false);
     Task<User?> GetByIdWithIncludeAsync(long userId, bool includePosts = false, bool includeFollowers = false, bool includeFollowings = false,
-    bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false);
+    bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false, bool includeChats = false);
 
     Task<List<long>> GetFollowingsIds(long userId);
 }

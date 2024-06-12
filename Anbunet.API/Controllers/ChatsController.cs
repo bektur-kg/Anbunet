@@ -1,5 +1,7 @@
 ﻿using Anbunet.Application.Contracts.Chats;
-using Anbunet.Application.Features.Chats.SendMessageToUser;
+using Anbunet.Application.Features.Chats.Create;
+using Anbunet.Application.Features.Chats.GetChats;
+using Anbunet.Domain.Abstractions;
 
 namespace Anbunet.Application.Controllers;
 [Route("api/[controller]")]
@@ -7,10 +9,20 @@ namespace Anbunet.Application.Controllers;
 public class ChatsController(ISender sender,IHubContext<ChatHub> hubContext) : ControllerBase
 {
 
-    [HttpPost]
-    public async Task<ActionResult<Result>> SendMessageToUser(MessageToUserRequest request)
+    [HttpGet]
+    public async Task<ActionResult<ValueResult<List<ChatResponse>>>> GetChats()
     {
-        var command = new SendMessageToUserCommand(request);
+        var command = new GetChatsQuery();
+
+        var response = await sender.Send(command);
+
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Result>> CreateChat(CreateChatRequest request)
+    {
+        var command = new CreateChatCommand(request.UserId);
 
         var response = await sender.Send(command);
 

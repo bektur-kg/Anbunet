@@ -1,4 +1,5 @@
-﻿using Anbunet.Application.Contracts.Users;
+﻿using Anbunet.Application.Contracts.Chats;
+using Anbunet.Application.Contracts.Users;
 using Anbunet.Domain.Modules.Users;
 using AutoMapper;
 
@@ -13,6 +14,7 @@ public class UserMappings : Profile
         CreateMap<User, UserLikeResponse>();
         CreateMap<User, UserDetailedResponse>();
         CreateMap<User, UsersSearchResponse>();
+        CreateMap<User, UserChatResponse>();
 
         CreateMap<UpdateUserRequest, User>()
            .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())
