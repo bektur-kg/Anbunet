@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System.Security.Claims;
 
 namespace Anbunet.Application.Features.Chats;
 

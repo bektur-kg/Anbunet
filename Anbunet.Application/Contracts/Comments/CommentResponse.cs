@@ -1,6 +1,4 @@
-﻿using Anbunet.Application.Contracts.Users;
-
-namespace Anbunet.Application.Contracts.Comments;
+﻿namespace Anbunet.Application.Contracts.Comments;
 
 public class CommentResponse
 {
@@ -12,4 +10,3 @@ public class CommentResponse
 
     public UserCommentResponse? User { get; set; }
 }
-

@@ -1,11 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Stories;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Stories.Delete;
+﻿namespace Anbunet.Application.Features.Stories.Delete;
 
 public class DeleteStoryCommandHandler
     (

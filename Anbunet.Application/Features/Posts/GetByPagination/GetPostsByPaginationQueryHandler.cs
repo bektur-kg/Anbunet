@@ -1,10 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Posts;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Posts;
-using AutoMapper;
-
-namespace Anbunet.Application.Features.Posts.GetByPagination;
+﻿namespace Anbunet.Application.Features.Posts.GetByPagination;
 
 public class GetPostsByPaginationQueryHandler
     (
@@ -15,7 +9,7 @@ public class GetPostsByPaginationQueryHandler
 {
     public async Task<ValueResult<List<PostDetailedResponse>>> Handle(GetPostsByPaginationQuery request, CancellationToken cancellationToken)
     {
-        var foundPosts = await postRepository.GetPostsByPaginationWithInclude(request.Page, request.Quantity, includeComments: true, includeLikes: true, includeUser: true);
+        var foundPosts = await postRepository.GetPostsByPaginationWithIncludeAsync(request.Page, request.Quantity, includeComments: true, includeLikes: true, includeUser: true);
 
         if (foundPosts is null) return ValueResult<List<PostDetailedResponse>>.Failure(PostErrors.PostNotFound);
 

@@ -1,15 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Features.Follows.CreateFollowers;
-using Anbunet.Application.Features.Users;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Actuals;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Actuals.CreateActuals;
+﻿namespace Anbunet.Application.Features.Actuals.CreateActuals;
 
 public class CreateActualsCommmandHandler
 (
@@ -17,7 +6,6 @@ public class CreateActualsCommmandHandler
         IUserRepository userRepository,
         IHttpContextAccessor httpContextAccessor,
         IUnitOfWork unitOfWork
-        //IMapper _mapper
     )
     : ICommandHandler<CreateActualsCommmand, Result>
 {
@@ -35,7 +23,7 @@ public class CreateActualsCommmandHandler
             Name = request.Data.Name
         };
 
-        actualRepository.Add(actual);
+        actualRepository.AddAsync(actual);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

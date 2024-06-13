@@ -1,8 +1,4 @@
-﻿using Anbunet.Domain.Modules.Comments;
-using Anbunet.Domain.Modules.Likes;
-using Anbunet.Domain.Modules.Users;
-
-namespace Anbunet.Domain.Modules.Posts;
+﻿namespace Anbunet.Domain.Modules.Posts;
 
 public class Post : Entity
 {
@@ -22,4 +18,3 @@ public class Post : Entity
 
     public List<Like> Likes { get; set; } = [];
 }
-

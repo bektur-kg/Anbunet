@@ -1,7 +1,4 @@
-﻿using Anbunet.Domain.Modules.Posts;
-using Anbunet.Domain.Modules.Users;
-
-namespace Anbunet.Domain.Modules.Likes;
+﻿namespace Anbunet.Domain.Modules.Likes;
 
 public class Like : Entity
 {
@@ -15,4 +12,3 @@ public class Like : Entity
 
     public User? User { get; set; }
 }
-

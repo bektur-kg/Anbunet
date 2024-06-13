@@ -1,9 +1,4 @@
-﻿using Anbunet.Application.Contracts.Actuals;
-using Anbunet.Application.Contracts.Posts;
-using Anbunet.Application.Contracts.Stories;
-using Anbunet.Domain.Modules.Users;
-
-namespace Anbunet.Application.Contracts.Users;
+﻿namespace Anbunet.Application.Contracts.Users;
 
 public record UserDetailedResponse
 {
@@ -31,4 +26,3 @@ public record UserDetailedResponse
 
     public List<ProfileActualResponse> Actuals { get; set; } = [];
 }
-

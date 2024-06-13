@@ -1,12 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Stories;
-using Anbunet.Application.Features.Users;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Stories;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-
-namespace Anbunet.Application.Features.Stories.GetUserStories;
+﻿namespace Anbunet.Application.Features.Stories.GetUserStories;
 
 public class GetUserStoriesQueryHanler
     (
@@ -29,5 +21,3 @@ public class GetUserStoriesQueryHanler
         return ValueResult<List<ProfileStoryResponse>>.Success(mappedStories);
     }
 }
-
- 

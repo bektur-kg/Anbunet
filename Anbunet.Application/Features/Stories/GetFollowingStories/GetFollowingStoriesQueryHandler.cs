@@ -1,17 +1,7 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Stories;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Stories;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Stories.GetAllStories;
+﻿namespace Anbunet.Application.Features.Stories.GetAllStories;
 
 public class GetFollowingStoriesQueryHandler
     (
-        IStoryRepository storyRepository,
         IHttpContextAccessor httpContextAccessor,
         IUserRepository userRepository,
         IMapper mapper
@@ -29,7 +19,6 @@ public class GetFollowingStoriesQueryHandler
         foreach ( var user in currentUser.Followings )
         {
             var userIncludeStories = await userRepository.GetByIdWithIncludeAsync(user.Id, includeStories: true);
-            if (userIncludeStories.Stories.Count == 0) continue;
             userIncludeStories.Stories = userIncludeStories.Stories.OrderByDescending(s=>s.CreatedDate).ToList();
             var userResponse = mapper.Map<FollowingStoriesResponse>(userIncludeStories);
             followingStories.Add(userResponse);

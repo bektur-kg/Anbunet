@@ -1,8 +1,4 @@
-﻿using Anbunet.Domain.Modules.Users;
-using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
-
-namespace Anbunet.Application.Contracts.Users;
+﻿namespace Anbunet.Application.Contracts.Users;
 
 public record UpdateUserRequest
 {

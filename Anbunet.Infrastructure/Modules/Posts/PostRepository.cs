@@ -1,15 +1,8 @@
-﻿using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Infrastructure.DbContexts;
-using Anbunet.Infrastructure.Services;
-using Azure.Core;
-using Microsoft.EntityFrameworkCore;
-
-namespace Anbunet.Infrastructure.Modules.Posts;
+﻿namespace Anbunet.Infrastructure.Modules.Posts;
 
 public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext), IPostRepository
 {
-    public Task<Post?> GetByIdWithInclude(long id, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
+    public Task<Post?> GetByIdWithIncludeAsync(long id, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
     {
         var query = DbContext.Posts.AsNoTracking();
 
@@ -20,7 +13,7 @@ public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext
         return query.FirstOrDefaultAsync(post => post.Id == id);
     }
     
-    public Task<Post?> GetByIdWithIncludeAndTracking(long id, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
+    public Task<Post?> GetByIdWithIncludeAndTrackingAsync(long id, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
     {
         var query = DbContext.Posts.AsQueryable();
 
@@ -31,7 +24,7 @@ public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext
         return query.FirstOrDefaultAsync(post => post.Id == id);
     }
 
-    public Task<List<Post>> GetPostsByUserIdWithInclude(long userId, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
+    public Task<List<Post>> GetPostsByUserIdWithIncludeAsync(long userId, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
     {
         var query = DbContext.Posts.AsNoTracking();
 
@@ -44,7 +37,7 @@ public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext
             .ToListAsync();
     }
 
-    public async Task<List<Post>?> GetPostsByPaginationWithInclude(int page, int quantity, bool includeComments, bool includeLikes, bool includeUser)
+    public async Task<List<Post>?> GetPostsByPaginationWithIncludeAsync(int page, int quantity, bool includeComments, bool includeLikes, bool includeUser)
     {
         var query = DbContext.Posts.AsQueryable();
 
@@ -58,7 +51,8 @@ public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext
 
         return await query.ToListAsync();
     }
-    public async Task<List<Post>> GetPostsByUserIdsWithInclude(int page, int quantity, List<long> userIds, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
+
+    public async Task<List<Post>> GetPostsByUserIdsWithIncludeAsync(int page, int quantity, List<long> userIds, bool includeUser = false, bool includeComments = false, bool includeLikes = false)
     {
         var query = DbContext.Posts.AsQueryable();
 
@@ -75,4 +69,3 @@ public class PostRepository(AppDbContext dbContext) : Repository<Post>(dbContext
         return await query.ToListAsync();
     }
 }
-

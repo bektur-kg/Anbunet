@@ -23,7 +23,7 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("user/stories")]
+    [HttpGet("users/stories")]
     public async Task<ActionResult<List<ProfileStoryResponse>>> GetMyselfStories()
     {
         var query = new GetMyselfStoriesQuery();
@@ -33,7 +33,7 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("user/stories/{id:long}")]//todo change this path
+    [HttpGet("users/stories/{id:long}")]
     public async Task<ActionResult<List<ProfileStoryResponse>>> GetById(long id)
     {
         var query = new GetStoriesByIdQuery(id);
@@ -43,7 +43,7 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("following/stories")]//change this path
+    [HttpGet("following-users/stories")]
     public async Task<ActionResult<List<FollowingStoriesResponse>>> GetFollowingStories()
     {
         var query = new GetFollowingStoriesQuery();
@@ -53,7 +53,7 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpPost("users/profile/stories")]
+    [HttpPost("users/current/stories")]
     public async Task<ActionResult<List<ProfileStoryResponse>>> CreateStory(CreateStoryRequest dto)
     {
         var command = new CreateStoryCommand(dto);
@@ -63,7 +63,7 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Created() : BadRequest(response.Error);
     }
 
-    [HttpDelete("user/stories/{id:long}")]//change this path
+    [HttpDelete("users/current/stories/{id:long}")]
     public async Task<ActionResult<List<ProfileStoryResponse>>> Delete(long id)
     {
         var command = new DeleteStoryCommand(id);

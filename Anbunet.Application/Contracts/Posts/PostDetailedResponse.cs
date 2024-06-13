@@ -1,8 +1,4 @@
-﻿using Anbunet.Application.Contracts.Comments;
-using Anbunet.Application.Contracts.Likes;
-using Anbunet.Application.Contracts.Users;
-
-namespace Anbunet.Application.Contracts.Posts;
+﻿namespace Anbunet.Application.Contracts.Posts;
 
 public record PostDetailedResponse
 {
@@ -20,4 +16,3 @@ public record PostDetailedResponse
 
     public List<LikeResponse> Likes { get; set; } = [];
 }
-

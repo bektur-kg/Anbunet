@@ -1,12 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Users.Update;
+﻿namespace Anbunet.Application.Features.Users.Update;
 
 public class UpdateUserCommandHandler
     (

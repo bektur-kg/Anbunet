@@ -1,6 +1,4 @@
-﻿using Anbunet.Infrastructure.Modules.Users;
-
-namespace Anbunet.Application.OptionsSetup;
+﻿namespace Anbunet.Application.OptionsSetup;
 
 public class JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
 {

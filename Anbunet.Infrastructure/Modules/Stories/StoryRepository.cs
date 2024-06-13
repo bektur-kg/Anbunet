@@ -1,9 +1,4 @@
-﻿using Anbunet.Domain.Modules.Stories;
-using Anbunet.Infrastructure.DbContexts;
-using Anbunet.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
-
-namespace Anbunet.Infrastructure.Modules.Stories;
+﻿namespace Anbunet.Infrastructure.Modules.Stories;
 
 public class StoryRepository(AppDbContext dbContext) : Repository<Story>(dbContext), IStoryRepository
 {
@@ -16,4 +11,3 @@ public class StoryRepository(AppDbContext dbContext) : Repository<Story>(dbConte
             .ToListAsync();
     }
 }
-

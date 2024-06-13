@@ -1,10 +1,5 @@
-﻿using Anbunet.Application.Services;
-using Anbunet.Domain.Modules.Chats;
-using Anbunet.Domain.Modules.Users;
-using Microsoft.AspNetCore.Http;
+﻿using Anbunet.Domain.Modules.Chats;
 using Microsoft.AspNetCore.SignalR;
-using System.Collections.Concurrent;
-using System.Security.Claims;
 
 namespace Anbunet.Application.Hubs;
 

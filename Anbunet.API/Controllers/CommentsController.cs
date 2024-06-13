@@ -5,6 +5,7 @@ using Anbunet.Application.Features.Comments.GetAllComments;
 using Anbunet.Application.Features.Comments.Update;
 
 namespace Anbunet.API.Controllers;
+
 [Authorize]
 [Route("api")]
 [ApiController]
@@ -20,27 +21,27 @@ public class CommentsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpPost("posts/comment")]
-    public async Task<ActionResult<Result>> Create(CommentRequest dto)
+    [HttpPost("posts/{postId}/comments")]
+    public async Task<ActionResult<Result>> Create(long postId, CommentRequest dto)
     {
-        var command = new CreateCommentCommand(dto);
+        var command = new CreateCommentCommand(postId, dto);
 
         var response = await sender.Send(command);
 
         return response.IsSuccess ? Created() : BadRequest(response.Error);
     }
 
-    [HttpPut("posts/comment")]
-    public async Task<ActionResult<Result>> Update(UpdateCommentRequest dto)
+    [HttpPut("posts/comments/{commentId}")]
+    public async Task<ActionResult<Result>> Update(long commentId, UpdateCommentRequest dto)
     {
-        var command = new UpdateCommentCommand(dto);
+        var command = new UpdateCommentCommand(commentId, dto);
 
         var response = await sender.Send(command);
 
         return response.IsSuccess ? Created() : BadRequest(response.Error);
     }
 
-    [HttpDelete("posts/comment/{id:long}")]
+    [HttpDelete("posts/comments/{id:long}")]
     public async Task<ActionResult<Result>> Delete(long id)
     {
         var command = new DeleteCommentCommand(id);

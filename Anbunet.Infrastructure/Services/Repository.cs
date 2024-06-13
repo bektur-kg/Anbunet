@@ -1,8 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-using Anbunet.Infrastructure.DbContexts;
-using Microsoft.EntityFrameworkCore;
-
-namespace Anbunet.Infrastructure.Services;
+﻿namespace Anbunet.Infrastructure.Services;
 
 /// <inheritdoc cref="IRepository{TEntity}" />
 public abstract class Repository<TEntity>(AppDbContext dbContext) : IRepository<TEntity> where TEntity : Entity
@@ -10,7 +6,7 @@ public abstract class Repository<TEntity>(AppDbContext dbContext) : IRepository<
     protected AppDbContext DbContext = dbContext;
 
     /// <inheritdoc />
-    public void Add(TEntity entity) => DbContext.Add(entity);
+    public void AddAsync(TEntity entity) => DbContext.Add(entity);
 
     /// <inheritdoc />
     public Task<List<TEntity>> GetAllAsync() => DbContext
@@ -23,6 +19,8 @@ public abstract class Repository<TEntity>(AppDbContext dbContext) : IRepository<
         .Set<TEntity>()
         .AsNoTracking()
         .FirstOrDefaultAsync(entity => entity.Id == id);
+
+    /// <inheritdoc />
     public Task<TEntity?> GetByIdAsyncAndTracking(long id) => DbContext
         .Set<TEntity>()
         .AsQueryable()

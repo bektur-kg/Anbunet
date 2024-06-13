@@ -1,15 +1,4 @@
-﻿using Anbunet.Domain.Modules.Actuals;
-using Anbunet.Domain.Modules.Chats;
-using Anbunet.Domain.Modules.Comments;
-using Anbunet.Domain.Modules.Likes;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Domain.Modules.Stories;
-using Anbunet.Domain.Modules.Users;
-using Azure;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-
-namespace Anbunet.Infrastructure.DbContexts;
+﻿namespace Anbunet.Infrastructure.DbContexts;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {

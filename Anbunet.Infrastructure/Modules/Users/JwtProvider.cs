@@ -1,6 +1,4 @@
-﻿using Anbunet.Application.Services;
-using Anbunet.Domain.Modules.Users;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -35,4 +33,3 @@ public sealed class JwtProvider(IOptions<JwtOptions> jwtOptions) : IJwtProvider
         return tokenValue;
     }
 }
-

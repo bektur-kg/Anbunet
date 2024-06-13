@@ -1,16 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Actuals;
-using Anbunet.Application.Contracts.Posts;
-using Anbunet.Application.Contracts.Users;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Actuals;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Users.GetCurrentUserProfile;
+﻿namespace Anbunet.Application.Features.Users.GetCurrentUserProfile;
 
 public class GetCurrentUserProfileQueryHandler
     (
@@ -22,7 +10,7 @@ public class GetCurrentUserProfileQueryHandler
     )
     : IQueryHandler<GetCurrentUserProfileQuery, ValueResult<UserDetailedResponse>>
 {
-    private readonly HttpContext _httpContext = httpContextAccessor.HttpContext;
+    private readonly HttpContext _httpContext = httpContextAccessor.HttpContext!;
 
     public async Task<ValueResult<UserDetailedResponse>> Handle(GetCurrentUserProfileQuery request, CancellationToken cancellationToken)
     {
@@ -31,8 +19,8 @@ public class GetCurrentUserProfileQueryHandler
         var foundUser = await userRepository.GetByIdWithIncludeAsync(currentUserId, includeActuals: true, includeFollowers: true,
             includeFollowings: true);
 
-        var userPosts = await postRepository.GetPostsByUserIdWithInclude(currentUserId, includeLikes: true, includeComments: true);
-        var userActuals = await actualRepository.GetActualsByUserIdWithInclude(currentUserId, includeStories: true);
+        var userPosts = await postRepository.GetPostsByUserIdWithIncludeAsync(currentUserId, includeLikes: true, includeComments: true);
+        var userActuals = await actualRepository.GetActualsByUserIdWithIncludeAsync(currentUserId, includeStories: true);
 
         if (foundUser is null) return ValueResult<UserDetailedResponse>.Failure(UserErrors.UserNotFound);
 
@@ -49,4 +37,3 @@ public class GetCurrentUserProfileQueryHandler
         return ValueResult<UserDetailedResponse>.Success(mappedUser);
     }
 }
-

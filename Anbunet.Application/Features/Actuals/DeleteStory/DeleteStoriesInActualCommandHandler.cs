@@ -1,15 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Features.Users;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-using Anbunet.Domain.Modules.Actuals;
-using Anbunet.Domain.Modules.Stories;
-using Anbunet.Application.Features.Stories;
-
-namespace Anbunet.Application.Features.Actuals.DeleteStory;
+﻿namespace Anbunet.Application.Features.Actuals.DeleteStory;
 
 public class DeleteStoriesInActualCommandHandler(
         IUserRepository userRepository,
@@ -20,7 +9,7 @@ public class DeleteStoriesInActualCommandHandler(
     )
     : ICommandHandler<DeleteStoriesInActualCommand, Result>
 {
-    public readonly HttpContext _httpContext = httpContextAccessor.HttpContext;
+    public readonly HttpContext _httpContext = httpContextAccessor.HttpContext!;
 
     public async Task<Result> Handle(DeleteStoriesInActualCommand request, CancellationToken cancellationToken)
     {
@@ -31,7 +20,7 @@ public class DeleteStoriesInActualCommandHandler(
 
         var userActual = user.Actuals.FirstOrDefault(a => a.Id == request.Data.ActualId);
         if (userActual == null) return Result.Failure(ActualErrors.ActualNotFound);
-        var actual = actualRepository.GetByIdWithIncludeAndTracked(request.Data.ActualId, includeStories: true).Result;
+        var actual = actualRepository.GetByIdWithIncludeAndTrackedAsync(request.Data.ActualId, includeStories: true).Result;
         if (actual == null) return Result.Failure(ActualErrors.ActualNotFound);
 
         var story = await storyRepository.GetByIdAsyncAndTracking(request.Data.StoryId);
@@ -44,5 +33,4 @@ public class DeleteStoriesInActualCommandHandler(
 
         return Result.Success();
     }
-
 }

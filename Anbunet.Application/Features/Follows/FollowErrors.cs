@@ -1,6 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-
-namespace Anbunet.Application.Features.Follows;
+﻿namespace Anbunet.Application.Features.Follows;
 
 public abstract class FollowErrors
 {

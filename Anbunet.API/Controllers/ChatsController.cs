@@ -2,6 +2,7 @@
 using Anbunet.Application.Features.Chats.SendMessageToUser;
 
 namespace Anbunet.Application.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
 public class ChatsController(ISender sender,IHubContext<ChatHub> hubContext) : ControllerBase

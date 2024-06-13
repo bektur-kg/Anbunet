@@ -58,7 +58,7 @@ public class UsersController(ISender sender) : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("profile")]
+    [HttpGet("current")]
     public async Task<ActionResult<ValueResult<string>>> GetCurrentUserProfile()
     {
         var query = new GetCurrentUserProfileQuery();
@@ -80,7 +80,7 @@ public class UsersController(ISender sender) : ControllerBase
     }
 
     [Authorize]
-    [Route("update_profile_picture")]
+    [Route("picture")]
     [HttpPut]
     public async Task<ActionResult<Result>> UpdateProfilePictureUser(UserUpdateProfilePicture request)
     {
@@ -90,7 +90,7 @@ public class UsersController(ISender sender) : ControllerBase
     }
 
     [Authorize]
-    [Route("update_password")]
+    [Route("password")]
     [HttpPut]
     public async Task<ActionResult<Result>> UpdatePasswordUser([Required] UserUpdatePasswordRequest request)
     {

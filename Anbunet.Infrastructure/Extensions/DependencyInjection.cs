@@ -1,22 +1,9 @@
-﻿using Anbunet.Application.Services;
-using Anbunet.Domain.Modules.Comments;
-using Anbunet.Domain.Modules.Chats;
-using Anbunet.Domain.Modules.Likes;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Domain.Modules.Stories;
-using Anbunet.Domain.Modules.Users;
-using Anbunet.Infrastructure.DbContexts;
-using Anbunet.Infrastructure.Modules.Comments;
+﻿using Anbunet.Infrastructure.Modules.Comments;
 using Anbunet.Infrastructure.Modules.Chats;
 using Anbunet.Infrastructure.Modules.Likes;
 using Anbunet.Infrastructure.Modules.Posts;
 using Anbunet.Infrastructure.Modules.Stories;
 using Anbunet.Infrastructure.Modules.Users;
-using Anbunet.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Anbunet.Domain.Modules.Actuals;
 using Anbunet.Infrastructure.Modules.Actuals;
 
 namespace Anbunet.Infrastructure.Extensions;
@@ -47,4 +34,3 @@ public static class DependencyInjection
         return services;
     }
 }
-

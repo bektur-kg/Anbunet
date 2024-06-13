@@ -1,10 +1,4 @@
-﻿using Anbunet.Domain.Modules.Actuals;
-using Anbunet.Domain.Modules.Comments;
-using Anbunet.Domain.Modules.Likes;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Domain.Modules.Stories;
-
-namespace Anbunet.Domain.Modules.Users;
+﻿namespace Anbunet.Domain.Modules.Users;
 
 public class User : Entity
 {
@@ -44,4 +38,3 @@ public class User : Entity
 
     public List<Story> Stories { get; set; } = [];
 }
-

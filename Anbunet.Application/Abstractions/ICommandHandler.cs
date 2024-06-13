@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Anbunet.Application.Abstractions;
+﻿namespace Anbunet.Application.Abstractions;
 
 public interface ICommandHandler<TCommand>
     : IRequestHandler<TCommand>

@@ -1,6 +1,4 @@
-﻿using Anbunet.Domain.Modules.Users;
-
-namespace Anbunet.Application.Services;
+﻿namespace Anbunet.Application.Services;
 
 public interface IJwtProvider
 {

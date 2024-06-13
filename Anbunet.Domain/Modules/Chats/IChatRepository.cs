@@ -1,6 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-
-namespace Anbunet.Domain.Modules.Chats;
+﻿namespace Anbunet.Domain.Modules.Chats;
 
 public interface IChatRepository : IRepository<PrivateMessage>
 {

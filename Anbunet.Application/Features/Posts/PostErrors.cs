@@ -1,7 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-
-namespace Anbunet.Application.Features.Posts;
+﻿namespace Anbunet.Application.Features.Posts;
 
 public abstract class PostErrors
 {

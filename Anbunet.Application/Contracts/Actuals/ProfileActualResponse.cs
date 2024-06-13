@@ -1,6 +1,4 @@
-﻿using Anbunet.Application.Contracts.Stories;
-
-namespace Anbunet.Application.Contracts.Actuals;
+﻿namespace Anbunet.Application.Contracts.Actuals;
 
 public record ProfileActualResponse
 {
@@ -9,4 +7,3 @@ public record ProfileActualResponse
 
     public List<ActualStoryResponse> Stories { get; set; } = [];
 }
-

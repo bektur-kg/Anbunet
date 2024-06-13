@@ -12,4 +12,3 @@ public class ProfilePostResponse
 
     public long LikesCount { get; set; }
 }
-

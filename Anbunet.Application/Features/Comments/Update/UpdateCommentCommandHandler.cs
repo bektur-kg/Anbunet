@@ -1,20 +1,10 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Features.Posts;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Comments;
-using Anbunet.Domain.Modules.Posts;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Comments.Update;
+﻿namespace Anbunet.Application.Features.Comments.Update;
 
 public class UpdateCommentCommandHandler
     (
         ICommentRepository commentRepository,
         IHttpContextAccessor httpContextAccessor,
         IUnitOfWork unitOfWork
-        //IMapper mapper
     )
     : ICommandHandler<UpdateCommentCommand, Result>
 {
@@ -24,7 +14,7 @@ public class UpdateCommentCommandHandler
     {
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        var comment = await commentRepository.GetByIdWithInclude(request.Data.CommentId);
+        var comment = await commentRepository.GetByIdWithIncludeAsync(request.CommentId);
         if (comment is null || comment.UserId != userId) return Result.Failure(CommentErrors.CommentNotFound);
 
         comment.Text = request.Data.Text;

@@ -1,6 +1,4 @@
-﻿using Anbunet.Application.Services;
-
-namespace Anbunet.Infrastructure.Modules.Users;
+﻿namespace Anbunet.Infrastructure.Modules.Users;
 
 public class PasswordManager : IPasswordManager
 {
@@ -14,4 +12,3 @@ public class PasswordManager : IPasswordManager
         return BCrypt.Net.BCrypt.EnhancedVerify(password, passwordHash);
     }
 }
-

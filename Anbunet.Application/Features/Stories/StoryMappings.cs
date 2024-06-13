@@ -1,9 +1,4 @@
-﻿using Anbunet.Application.Contracts.Stories;
-using Anbunet.Domain.Modules.Stories;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-
-namespace Anbunet.Application.Features.Stories;
+﻿namespace Anbunet.Application.Features.Stories;
 
 public class StoryMappings : Profile
 {
@@ -16,4 +11,3 @@ public class StoryMappings : Profile
 
     }
 }
-

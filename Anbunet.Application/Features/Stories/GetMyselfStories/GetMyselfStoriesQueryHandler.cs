@@ -1,14 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Stories;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Stories;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using System.Net.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Stories.GetMyselfStories;
+﻿namespace Anbunet.Application.Features.Stories.GetMyselfStories;
 
 public class GetMyselfStoriesQueryHandler
     (

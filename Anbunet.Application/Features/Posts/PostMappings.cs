@@ -1,8 +1,4 @@
-﻿using Anbunet.Application.Contracts.Posts;
-using Anbunet.Domain.Modules.Posts;
-using AutoMapper;
-
-namespace Anbunet.Application.Features.Posts;
+﻿namespace Anbunet.Application.Features.Posts;
 
 public class PostMappings : Profile
 {
@@ -23,4 +19,3 @@ public class PostMappings : Profile
             );
     }
 }
-

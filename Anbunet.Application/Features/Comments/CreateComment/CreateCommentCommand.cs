@@ -1,7 +1,3 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Comments;
-using Anbunet.Domain.Abstractions;
+﻿namespace Anbunet.Application.Features.Comments.CreateComment;
 
-namespace Anbunet.Application.Features.Comments.CreateComment;
-
-public record CreateCommentCommand(CommentRequest Data) : ICommand<Result>;
+public record CreateCommentCommand(long PostId, CommentRequest Data) : ICommand<Result>;

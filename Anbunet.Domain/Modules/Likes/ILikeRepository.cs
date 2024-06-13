@@ -1,6 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-
-namespace Anbunet.Domain.Modules.Likes;
+﻿namespace Anbunet.Domain.Modules.Likes;
 
 public interface ILikeRepository : IRepository<Like>
 {
@@ -11,5 +9,5 @@ public interface ILikeRepository : IRepository<Like>
     /// <param name="postId">The identifier of the post.</param>
     /// <param name="includeUser">Whether to include related user data.</param>
     /// <returns>The task result contains a list of likes associated with the specified post.</returns>
-    Task<List<Like>> GetPostLikesWithInclude(long postId, bool includeUser = false);
+    Task<List<Like>> GetPostLikesWithIncludeAsync(long postId, bool includeUser = false);
 }

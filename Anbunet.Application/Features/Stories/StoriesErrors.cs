@@ -1,6 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-
-namespace Anbunet.Application.Features.Stories;
+﻿namespace Anbunet.Application.Features.Stories;
 
 public abstract class StoriesErrors
 {
