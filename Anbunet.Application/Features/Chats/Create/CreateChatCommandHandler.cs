@@ -38,7 +38,7 @@ public class CreateChatCommandHandler
         };
 
         chatRepository.Add(chat);
-        unitOfWork.SaveChangesAsync();
+        await unitOfWork.SaveChangesAsync();
         return Result.Success();
 
     }

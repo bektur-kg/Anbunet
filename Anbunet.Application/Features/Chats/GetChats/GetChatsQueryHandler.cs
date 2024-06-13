@@ -26,15 +26,15 @@ public class GetChatsQueryHandler(
     {
         var currentUserId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        var foundUser = await userRepository.GetByIdWithIncludeAsync(currentUserId, includeChats:true);
+        var foundUser = await userRepository.GetByIdWithIncludeAsync(currentUserId, includeChats: true);
 
         var chats = foundUser.Chats.ToList();
 
         List<ChatResponse> resultChats = new List<ChatResponse>() { };
 
-        foreach ( var chat in chats)
+        foreach (var chat in chats)
         {
-            var item  = await chatRepository.GetByIdWithIncludeAndTrackingAsync(chat.Id,includeMessage:true,includeUsers:true);
+            var item = await chatRepository.GetByIdWithIncludeAndTrackingAsync(chat.Id, includeMessage: true, includeUsers: true);
 
             var resultChat = mapper.Map<ChatResponse>(item);
             if (item.Users.FirstOrDefault().Id == currentUserId)
