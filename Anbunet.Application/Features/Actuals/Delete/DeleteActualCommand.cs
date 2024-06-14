@@ -1,7 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Domain.Abstractions;
+﻿namespace Anbunet.Application.Features.Actuals.Delete;
 
-namespace Anbunet.Application.Features.Actuals.Delete;
-
-public record DeleteActualCommand(long acrualId) : ICommand<Result>;
+public record DeleteActualCommand(long ActualId) : ICommand<Result>;
 

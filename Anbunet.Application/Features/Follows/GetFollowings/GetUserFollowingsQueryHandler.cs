@@ -1,12 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Follows;
-using Anbunet.Application.Features.Follows.GetFollowers;
-using Anbunet.Application.Features.Users;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-
-namespace Anbunet.Application.Features.Follows.GetFollowings;
+﻿namespace Anbunet.Application.Features.Follows.GetFollowings;
 
 public class GetUserFollowingsQueryHandler
 (
@@ -17,7 +9,7 @@ public class GetUserFollowingsQueryHandler
 {
     public async Task<ValueResult<List<FollowResponse>>> Handle(GetUserFollowingsQuery request, CancellationToken cancellationToken)
     {
-        var foundUser = await userRepository.GetByIdWithIncludeAsync(request.userId,includeFollowings:true);
+        var foundUser = await userRepository.GetByIdWithIncludeAsync(request.UserId,includeFollowings:true);
 
         if (foundUser is null) return ValueResult<List<FollowResponse>>.Failure(UserErrors.UserNotFound);
 

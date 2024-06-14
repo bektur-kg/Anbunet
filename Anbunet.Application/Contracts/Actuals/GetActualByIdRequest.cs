@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Anbunet.Application.Contracts.Actuals;
+﻿namespace Anbunet.Application.Contracts.Actuals;
 
 public record GetActualByIdRequest
 {

@@ -1,11 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Posts;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Posts.Create;
+﻿namespace Anbunet.Application.Features.Posts.Create;
 
 public class CreatePostCommandHandler
     (
@@ -22,7 +15,7 @@ public class CreatePostCommandHandler
     {
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        var result = await fileProvider.Create(request.Data.File, cancellationToken);
+        var result = await fileProvider.CreateAsync(request.Data.File, cancellationToken);
 
         if(!result.IsSuccess) return Result.Failure(result.Error);
 
@@ -33,10 +26,9 @@ public class CreatePostCommandHandler
             Description = request.Data.Description
         };
 
-        postRepository.Add(newPost);
+        postRepository.AddAsync(newPost);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();
     }
 }
-

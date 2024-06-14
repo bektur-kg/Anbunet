@@ -1,10 +1,4 @@
-﻿using Anbunet.Domain.Modules.Chats;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Infrastructure.DbContexts;
-using Anbunet.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
-
-namespace Anbunet.Infrastructure.Modules.Chats;
+﻿namespace Anbunet.Infrastructure.Modules.Chats;
 
 public class ChatRepository(AppDbContext dbContext) : Repository<PrivateMessage>(dbContext), IChatRepository
 {

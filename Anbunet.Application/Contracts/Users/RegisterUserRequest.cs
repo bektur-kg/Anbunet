@@ -1,7 +1,4 @@
-﻿using Anbunet.Domain.Modules.Users;
-using System.ComponentModel.DataAnnotations;
-
-namespace Anbunet.Application.Contracts.Users;
+﻿namespace Anbunet.Application.Contracts.Users;
 
 public record RegisterUserRequest
 {
@@ -10,4 +7,3 @@ public record RegisterUserRequest
 
     public required string Password { get; set; }
 }
-

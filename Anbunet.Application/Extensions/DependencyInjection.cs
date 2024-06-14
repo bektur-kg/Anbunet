@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
-
-namespace Anbunet.Application.Extensions;
+﻿namespace Anbunet.Application.Extensions;
 
 public static class DependencyInjection
 {
@@ -12,4 +9,3 @@ public static class DependencyInjection
             .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     }
 }
-

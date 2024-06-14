@@ -1,8 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Stories;
-using Anbunet.Domain.Modules.Users;
-
-namespace Anbunet.Domain.Modules.Actuals;
+﻿namespace Anbunet.Domain.Modules.Actuals;
 
 public class Actual : Entity
 {
@@ -15,4 +11,3 @@ public class Actual : Entity
 
     public User? User { get; set; }
 }
-

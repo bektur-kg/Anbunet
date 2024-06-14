@@ -1,8 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Domain.Modules.Users;
-
-namespace Anbunet.Domain.Modules.Comments;
+﻿namespace Anbunet.Domain.Modules.Comments;
 
 public class Comment : Entity
 {
@@ -19,4 +15,3 @@ public class Comment : Entity
 
     public User? User { get; set; }
 }
-

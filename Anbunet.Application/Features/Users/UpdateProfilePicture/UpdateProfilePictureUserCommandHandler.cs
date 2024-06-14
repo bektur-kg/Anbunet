@@ -1,14 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Features.Posts;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Users.UpdateProfilePicture;
+﻿namespace Anbunet.Application.Features.Users.UpdateProfilePicture;
 
 public class UpdateProfilePictureUserCommandHandler
     (
@@ -19,7 +9,7 @@ public class UpdateProfilePictureUserCommandHandler
     )
     : ICommandHandler<UpdateProfilePictureUserCommand, Result>
 {
-    HttpContext httpContext = _httpContextAccessor.HttpContext;
+    HttpContext httpContext = _httpContextAccessor.HttpContext!;
 
     public async Task<Result> Handle(UpdateProfilePictureUserCommand request, CancellationToken cancellationToken)
     {
@@ -27,14 +17,13 @@ public class UpdateProfilePictureUserCommandHandler
         var user = await _userRepository.GetByIdAsync(userId);
 
         var mediaUrl = user.ProfilePicture;
-        if ( mediaUrl != null ) await _fileProvider.Delete(mediaUrl);
+        if ( mediaUrl != null ) await _fileProvider.DeleteAsync(mediaUrl);
 
-        var result = await _fileProvider.Create(request.file, cancellationToken);
+        var result = await _fileProvider.CreateAsync(request.File, cancellationToken);
 
         if (!result.IsSuccess) return Result.Failure(result.Error);
 
         user.ProfilePicture = result.Value;
-
 
         _userRepository.Update(user);
         await _unitOfWork.SaveChangesAsync();

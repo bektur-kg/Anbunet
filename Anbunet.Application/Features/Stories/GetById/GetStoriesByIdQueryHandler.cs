@@ -1,12 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Stories;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Stories;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-
-namespace Anbunet.Application.Features.Stories.GetById;
+﻿namespace Anbunet.Application.Features.Stories.GetById;
 
 public class GetStoriesByIdQueryHandler
     (

@@ -1,8 +1,4 @@
-﻿using Anbunet.Domain.Modules.Posts;
-using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
-
-namespace Anbunet.Application.Contracts.Posts;
+﻿namespace Anbunet.Application.Contracts.Posts;
 
 public record PostUpdateRequest
 {

@@ -6,5 +6,3 @@ public class JwtOptions
     public required string Audience { get; init; }
     public required string SecretKey { get; init; }
 }
-
-

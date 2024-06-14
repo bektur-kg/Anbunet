@@ -1,9 +1,4 @@
-﻿using Anbunet.Application.Features.Posts;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Microsoft.AspNetCore.Http;
-
-namespace Anbunet.Infrastructure.Services;
+﻿namespace Anbunet.Infrastructure.Services;
 
 public class FileProvider
     (
@@ -11,7 +6,7 @@ public class FileProvider
     ) : IFileProvider
 {
 
-    public async Task<ValueResult<string>> Create(IFormFile file, CancellationToken cancellationToken)
+    public async Task<ValueResult<string>> CreateAsync(IFormFile file, CancellationToken cancellationToken)
     {
         var directory = directoryPath.Get();
         var extensions = new string[]
@@ -36,7 +31,7 @@ public class FileProvider
         return ValueResult<string>.Success(mediaUrl);
     }
 
-    public async Task<Result> Delete(string fileName)
+    public async Task<Result> DeleteAsync(string fileName)
     {
         var directory = directoryPath.Get();
         var path = Path.Combine(directory, "wwwroot", "https://localhost:7199/" + fileName);
@@ -48,4 +43,3 @@ public class FileProvider
         return Result.Success();
     }
 }
-

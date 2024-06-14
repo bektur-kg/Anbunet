@@ -1,22 +1,14 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-using Microsoft.AspNetCore.Http;
-using System.Net.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Users.UpdatePassword;
+﻿namespace Anbunet.Application.Features.Users.UpdatePassword;
 
 public class UpdatePasswordUserCommandHandler(
         IUserRepository _userRepository,
         IPasswordManager _passwordManager,
         IUnitOfWork _unitOfWork,
-        IHttpContextAccessor _httpContextAccessor,
-        IFileProvider _fileProvider)
-        : ICommandHandler<UpdatePasswordUserCommand, Result>
+        IHttpContextAccessor _httpContextAccessor
+    )   : ICommandHandler<UpdatePasswordUserCommand, Result>
 {
-    private readonly HttpContext httpContext = _httpContextAccessor.HttpContext;
+    private readonly HttpContext httpContext = _httpContextAccessor.HttpContext!;
+
     public async Task<Result> Handle(UpdatePasswordUserCommand request, CancellationToken cancellationToken)
     {
         var userId = long.Parse(httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);

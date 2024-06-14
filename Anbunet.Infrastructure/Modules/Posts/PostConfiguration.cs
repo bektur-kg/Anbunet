@@ -1,9 +1,4 @@
-﻿using Anbunet.Domain.Modules.Posts;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
-
-namespace Anbunet.Infrastructure.Modules.Posts;
+﻿namespace Anbunet.Infrastructure.Modules.Posts;
 
 public class PostConfiguration : IEntityTypeConfiguration<Post>
 {
@@ -20,4 +15,3 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
             .HasForeignKey(l => l.PostId);
     }
 }
-

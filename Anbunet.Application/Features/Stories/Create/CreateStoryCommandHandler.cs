@@ -1,11 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Stories;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Stories.Create;
+﻿namespace Anbunet.Application.Features.Stories.Create;
 
 public class CreateStoryCommandHandler
     (
@@ -16,13 +9,13 @@ public class CreateStoryCommandHandler
     ) 
     : ICommandHandler<CreateStoryCommand, Result>
 {
-    private readonly HttpContext httpContext = httpContextAccessor.HttpContext;
+    private readonly HttpContext httpContext = httpContextAccessor.HttpContext!;
 
     public async Task<Result> Handle(CreateStoryCommand request, CancellationToken cancellationToken)
     {
         var userId = long.Parse(httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        var fileResponse = await fileProvider.Create(request.Data.File, cancellationToken);
+        var fileResponse = await fileProvider.CreateAsync(request.Data.File, cancellationToken);
 
         if (!fileResponse.IsSuccess) return Result.Failure(fileResponse.Error);
 
@@ -32,10 +25,9 @@ public class CreateStoryCommandHandler
             UserId = userId,
         };
 
-        storyRepository.Add(newStory);
+        storyRepository.AddAsync(newStory);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();
     }
 }
-

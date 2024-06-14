@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Anbunet.Application.Contracts.Follows;
+﻿namespace Anbunet.Application.Contracts.Follows;
 
 public record FollowCreateRequest
 {

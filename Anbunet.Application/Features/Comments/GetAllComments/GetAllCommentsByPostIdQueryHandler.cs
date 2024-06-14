@@ -1,10 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Comments;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Comments;
-using AutoMapper;
-
-namespace Anbunet.Application.Features.Comments.GetAllComments;
+﻿namespace Anbunet.Application.Features.Comments.GetAllComments;
 
 public class GetAllCommentsByPostIdQueryHandler(
         ICommentRepository commentRepository,
@@ -13,10 +7,10 @@ public class GetAllCommentsByPostIdQueryHandler(
 {
     public async Task<ValueResult<List<CommentResponse>>> Handle(GetAllCommentsByPostIdQuery request, CancellationToken cancellationToken)
     {
-        var comments = await commentRepository.GetPostCommentsWithInclude(request.PostId, includeUser:true);
+        var comments = await commentRepository.GetPostCommentsWithIncludeAsync(request.PostId, includeUser:true);
 
         var mappedComment = mapper.Map<List<CommentResponse>>(comments);
 
         return ValueResult<List<CommentResponse>>.Success(mappedComment);
     }
-} 
+}

@@ -10,7 +10,7 @@ namespace Anbunet.API.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/user/actual")]
+[Route("api/user/actuals")]
 public class ActualsController(ISender sender) : ControllerBase
 {
     [HttpGet("{actualId:long}")]
@@ -23,10 +23,10 @@ public class ActualsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpPost("story")]//change the path
-    public async Task<ActionResult<Result>> AddStory(AddStoriesRequest dto)
+    [HttpPost("{storyId}/story")]
+    public async Task<ActionResult<Result>> AddStory(long storyId, AddStoriesRequest dto)
     {
-        var query = new AddStoriesInActualCommand(dto);
+        var query = new AddStoriesInActualCommand(storyId, dto);
 
         var response = await sender.Send(query);
 
@@ -43,17 +43,17 @@ public class ActualsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.IsSuccess) : BadRequest(response.Error);
     }
 
-    [HttpDelete]
-    public async Task<ActionResult<Result>> Delete(long acrualId)
+    [HttpDelete("{actualId}")]
+    public async Task<ActionResult<Result>> Delete(long actualId)
     {
-        var command = new DeleteActualCommand(acrualId);
+        var command = new DeleteActualCommand(actualId);
 
         var response = await sender.Send(command);
 
         return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 
-    [HttpDelete("story")]
+    [HttpDelete("story")] // todo change for gettting actual id and story id from querry
     public async Task<ActionResult<Result>> DeleteStory(DeleteStoriesRequest request)
     {
         var query = new DeleteStoriesInActualCommand(request);
@@ -63,7 +63,7 @@ public class ActualsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.IsSuccess) : BadRequest(response.Error);
     }
 
-    [HttpPut]
+    [HttpPut] // todo change for getting actualId for getting from querry
     public async Task<ActionResult<Result>> Update(UpdateActualRequest request)
     {
         var query = new UpdateActualCommand(request);

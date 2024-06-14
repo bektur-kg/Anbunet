@@ -1,9 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-
-namespace Anbunet.Application.Features.Users.Register;
+﻿namespace Anbunet.Application.Features.Users.Register;
 
 public class RegisterUserCommandHandler
     (
@@ -27,10 +22,9 @@ public class RegisterUserCommandHandler
             PasswordHash = hashedPassword
         };
 
-        userRepository.Add(newUser);
+        userRepository.AddAsync(newUser);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();
     }
 }
-

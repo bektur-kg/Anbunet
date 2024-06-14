@@ -1,10 +1,4 @@
-﻿using Anbunet.Domain.Modules.Posts;
-using Anbunet.Domain.Modules.Users;
-using Anbunet.Infrastructure.DbContexts;
-using Anbunet.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
-
-namespace Anbunet.Infrastructure.Modules.Users;
+﻿namespace Anbunet.Infrastructure.Modules.Users;
 
 public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext), IUserRepository
 {
@@ -38,7 +32,6 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
         return query.FirstOrDefaultAsync(user => user.Id == userId);
     }
 
-
     public Task<User?> GetByLoginAsync(string login)
     {
         return DbContext.Users
@@ -46,14 +39,13 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
             .FirstOrDefaultAsync(user => user.Login == login);
     }
 
-    public Task<List<long>> GetFollowingsIds(long userId)
+    public Task<List<long>> GetFollowingsIdsAsync(long userId)
     {
         return DbContext.Users
             .Where(user => user.Id == userId)
             .SelectMany(user => user.Followings.Select(f => f.Id))
             .ToListAsync();
     }
-
 
     public Task<List<User>> GetUsersByLoginAsync(string login)
     {
@@ -63,4 +55,3 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
             .ToListAsync();
     }
 }
-

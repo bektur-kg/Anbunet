@@ -1,13 +1,4 @@
-﻿using System.Security.Claims;
-using Anbunet.Application.Abstractions;
-using Anbunet.Application.Features.Posts;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Likes;
-using Anbunet.Domain.Modules.Posts;
-using Microsoft.AspNetCore.Http;
-
-namespace Anbunet.Application.Features.Likes.Create;
+﻿namespace Anbunet.Application.Features.Likes.Create;
 
 public class CreateLikeCommandHandler 
     (
@@ -21,7 +12,7 @@ public class CreateLikeCommandHandler
 
     public async Task<Result> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
     { 
-        var foundPost = await postRepository.GetByIdWithIncludeAndTracking(request.PostId, includeLikes: true);
+        var foundPost = await postRepository.GetByIdWithIncludeAndTrackingAsync(request.PostId, includeLikes: true);
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
         if (foundPost is null) return Result.Failure(PostErrors.PostNotFound);
@@ -41,4 +32,3 @@ public class CreateLikeCommandHandler
         return Result.Success();
     }
 }
-

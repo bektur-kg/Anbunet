@@ -1,12 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Features.Users;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-
-namespace Anbunet.Application.Features.Follows.Delete;
+﻿namespace Anbunet.Application.Features.Follows.Delete;
 
 public class DeleteFollowingCommandHandler(
         IUserRepository userRepository,
@@ -15,7 +7,7 @@ public class DeleteFollowingCommandHandler(
     )
     : ICommandHandler<DeleteFollowingCommand, Result>
 {
-    public readonly HttpContext _httpContext = httpContextAccessor.HttpContext;
+    public readonly HttpContext _httpContext = httpContextAccessor.HttpContext!;
 
     public async Task<Result> Handle(DeleteFollowingCommand request, CancellationToken cancellationToken)
     {

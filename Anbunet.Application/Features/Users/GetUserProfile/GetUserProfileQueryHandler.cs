@@ -1,12 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Posts;
-using Anbunet.Application.Contracts.Users;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-
-namespace Anbunet.Application.Features.Users.GetUserProfile;
+﻿namespace Anbunet.Application.Features.Users.GetUserProfile;
 
 public class GetUserProfileQueryHandler
     (
@@ -21,7 +13,7 @@ public class GetUserProfileQueryHandler
         var foundUser = await userRepository.GetByIdWithIncludeAsync(request.UserId, includeActuals: true, 
             includeStories: true, includeFollowers: true, includeFollowings: true);
 
-        var userPosts = await postRepository.GetPostsByUserIdWithInclude(request.UserId, includeLikes: true, includeComments: true);
+        var userPosts = await postRepository.GetPostsByUserIdWithIncludeAsync(request.UserId, includeLikes: true, includeComments: true);
 
         if (foundUser is null) return ValueResult<UserDetailedResponse>.Failure(UserErrors.UserNotFound);
 
@@ -35,4 +27,3 @@ public class GetUserProfileQueryHandler
         return ValueResult<UserDetailedResponse>.Success(mappedUser);
     }
 }
-

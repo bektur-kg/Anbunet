@@ -11,10 +11,13 @@ global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 global using Anbunet.Application.Hubs;
-global using Anbunet.Application.OptionsSetup;
-global using Anbunet.Application.Extensions;
 global using Anbunet.Application.Services;
+global using Anbunet.Application.Extensions;
+global using Anbunet.Application.OptionsSetup;
+
 global using Anbunet.Domain.Abstractions;
+
 global using Anbunet.Infrastructure.Extensions;
+global using Anbunet.Infrastructure.Modules.Users;
 
 global using MediatR;

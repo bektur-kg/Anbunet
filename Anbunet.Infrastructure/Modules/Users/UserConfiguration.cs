@@ -1,9 +1,4 @@
-﻿using Anbunet.Domain.Modules.Users;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
-
-namespace Anbunet.Infrastructure.Modules.Users;
+﻿namespace Anbunet.Infrastructure.Modules.Users;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {
@@ -31,4 +26,3 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(s => s.UserId);
     }
 }
-

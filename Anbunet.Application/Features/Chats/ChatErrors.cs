@@ -1,6 +1,4 @@
-﻿using Anbunet.Domain.Abstractions;
-
-namespace Anbunet.Application.Features.Chats;
+﻿namespace Anbunet.Application.Features.Chats;
 
 public abstract class ChatErrors
 {

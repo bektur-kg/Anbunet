@@ -9,11 +9,11 @@ using Anbunet.Application.Features.Posts.GetFollowersByPagination;
 namespace Anbunet.Application.Controllers;
 
 [ApiController]
-[Route("api/posts")]
+[Route("api")]
 [Authorize]
 public class PostsController(ISender sender) : ControllerBase
 {
-    [HttpGet("{id:long}")]
+    [HttpGet("posts/{id:long}")]
     public async Task<ActionResult<ValueResult<PostDetailedResponse>>> GetById(long id)
     {
         var query = new GetPostByIdQuery(id);
@@ -23,7 +23,7 @@ public class PostsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpPost]
+    [HttpPost("posts")]
     public async Task<ActionResult<Result>> Create(PostCreateRequest dto)
     {
         var command = new CreatePostCommand(dto);
@@ -33,7 +33,7 @@ public class PostsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Created() : BadRequest(response.Error);
     }
 
-    [HttpPatch("{id:long}")]
+    [HttpPatch("posts/{id:long}")]
     public async Task<ActionResult<Result>> Update(long id, PostUpdateRequest request)
     {
         var query = new UpdatePostCommand(id, request);
@@ -43,7 +43,7 @@ public class PostsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 
-    [HttpDelete("{id:long}")]
+    [HttpDelete("posts/{id:long}")]
     public async Task<ActionResult<Result>> Delete(long id)
     {
         var query = new DeletePostCommand(id);
@@ -54,7 +54,7 @@ public class PostsController(ISender sender) : ControllerBase
 
     }
 
-    [HttpGet]
+    [HttpGet("popular-posts")]
     public async Task<ActionResult<ValueResult<List<PostDetailedResponse>>>> GetByPagination(int page, int quantity)
     {
         var query = new GetPostsByPaginationQuery(page, quantity);
@@ -64,7 +64,7 @@ public class PostsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("followers")]
+    [HttpGet("followings/posts")]
     public async Task<ActionResult<ValueResult<List<PostDetailedResponse>>>> GetFollowersByPagination(int page, int quantity)
     {
         var query = new GetFollowingPostsByPaginationQuery(page, quantity);

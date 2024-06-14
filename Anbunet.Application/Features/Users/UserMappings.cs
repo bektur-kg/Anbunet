@@ -1,8 +1,4 @@
-﻿using Anbunet.Application.Contracts.Users;
-using Anbunet.Domain.Modules.Users;
-using AutoMapper;
-
-namespace Anbunet.Application.Features.Users;
+﻿namespace Anbunet.Application.Features.Users;
 
 public class UserMappings : Profile
 {
@@ -19,4 +15,3 @@ public class UserMappings : Profile
            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
     }
 }
-

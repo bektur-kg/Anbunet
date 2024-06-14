@@ -1,6 +1,4 @@
-﻿using Anbunet.Application.Contracts.Users;
-
-namespace Anbunet.Application.Contracts.Likes;
+﻿namespace Anbunet.Application.Contracts.Likes;
 
 public record LikeResponse
 {
@@ -10,4 +8,3 @@ public record LikeResponse
 
     public UserLikeResponse? User { get; set; }
 }
-

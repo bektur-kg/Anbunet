@@ -1,8 +1,4 @@
-﻿using Anbunet.Application.Contracts.Comments;
-using Anbunet.Domain.Modules.Comments;
-using AutoMapper;
-
-namespace Anbunet.Application.Features.Comments;
+﻿namespace Anbunet.Application.Features.Comments;
 
 public class CommentMappings : Profile
 {
@@ -13,4 +9,3 @@ public class CommentMappings : Profile
         CreateMap<Comment, CommentRequest>();
     }
 }
-

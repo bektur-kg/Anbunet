@@ -1,10 +1,4 @@
-﻿using Anbunet.Domain.Modules.Comments;
-using Anbunet.Domain.Modules.Posts;
-using Anbunet.Infrastructure.DbContexts;
-using Anbunet.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
-
-namespace Anbunet.Infrastructure.Modules.Comments;
+﻿namespace Anbunet.Infrastructure.Modules.Comments;
 
 public class CommentRepository(AppDbContext dbContext) : Repository<Comment>(dbContext), ICommentRepository
 {
@@ -17,7 +11,7 @@ public class CommentRepository(AppDbContext dbContext) : Repository<Comment>(dbC
         return query.Where(c => c.PostId == postId).ToListAsync();
     }
 
-    public Task<Comment?> GetByIdWithInclude(long id, bool includeUser = false, bool includePost = false)
+    public Task<Comment?> GetByIdWithIncludeAsync(long id, bool includeUser = false, bool includePost = false)
     {
         var query = DbContext.Comments.AsQueryable();
 
@@ -27,7 +21,7 @@ public class CommentRepository(AppDbContext dbContext) : Repository<Comment>(dbC
         return query.FirstOrDefaultAsync(comment => comment.Id == id);
     }
 
-    public Task<List<Comment>> GetPostCommentsWithInclude(long postId, bool includeUser = false)
+    public Task<List<Comment>> GetPostCommentsWithIncludeAsync(long postId, bool includeUser = false)
     {
         var query = DbContext.Comments.AsNoTracking();
 

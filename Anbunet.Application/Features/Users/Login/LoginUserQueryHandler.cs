@@ -1,10 +1,4 @@
-﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Users;
-using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
-using Anbunet.Domain.Modules.Users;
-
-namespace Anbunet.Application.Features.Users.Login;
+﻿namespace Anbunet.Application.Features.Users.Login;
 
 public class LoginUserQueryHandler
     (
@@ -31,4 +25,3 @@ public class LoginUserQueryHandler
         return ValueResult<UserTokenResponse>.Success(response);
     }
 }
-
