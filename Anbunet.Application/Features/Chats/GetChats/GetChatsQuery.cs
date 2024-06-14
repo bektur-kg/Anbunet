@@ -5,4 +5,4 @@ using Anbunet.Domain.Abstractions;
 
 namespace Anbunet.Application.Features.Chats.GetChats;
 
-public record GetChatsQuery() : IQuery<ValueResult<List<ChatResponse>>>;
+public record GetChatsQuery() : IQuery<ValueResult<List<ContactResponse>>>;

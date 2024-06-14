@@ -7,6 +7,7 @@ public class Message : Entity
     public long SenderId { get; set; }
 
     public long RecipientId { get; set; }
+    public DateTime DateTime { get; set; }
 
     public string Text { get; set; }
 

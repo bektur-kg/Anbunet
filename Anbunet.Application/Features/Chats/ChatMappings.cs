@@ -10,7 +10,7 @@ public class ChatMappings : Profile
 {
     public ChatMappings() 
     {
-        CreateMap<Chat, ChatResponse>();
+        CreateMap<Chat, ContactResponse>();
 
     }
 }

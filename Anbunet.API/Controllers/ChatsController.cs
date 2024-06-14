@@ -10,7 +10,7 @@ public class ChatsController(ISender sender,IHubContext<ChatHub> hubContext) : C
 {
 
     [HttpGet]
-    public async Task<ActionResult<ValueResult<List<ChatResponse>>>> GetChats()
+    public async Task<ActionResult<ValueResult<List<ContactResponse>>>> GetChats()
     {
         var command = new GetChatsQuery();
 

@@ -18,11 +18,11 @@ public class GetChatsQueryHandler(
         IUserRepository userRepository,
         IHttpContextAccessor httpContextAccessor,
         IMapper mapper
-    ) : IQueryHandler<GetChatsQuery, ValueResult<List<ChatResponse>>>
+    ) : IQueryHandler<GetChatsQuery, ValueResult<List<ContactResponse>>>
 {
     private readonly HttpContext _httpContext = httpContextAccessor.HttpContext;
 
-    public async Task<ValueResult<List<ChatResponse>>> Handle(GetChatsQuery request, CancellationToken cancellationToken)
+    public async Task<ValueResult<List<ContactResponse>>> Handle(GetChatsQuery request, CancellationToken cancellationToken)
     {
         var currentUserId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
@@ -30,13 +30,13 @@ public class GetChatsQueryHandler(
 
         var chats = foundUser.Chats.ToList();
 
-        List<ChatResponse> resultChats = new List<ChatResponse>() { };
+        List<ContactResponse> resultChats = new List<ContactResponse>() { };
 
         foreach (var chat in chats)
         {
             var item = await chatRepository.GetByIdWithIncludeAndTrackingAsync(chat.Id, includeMessage: true, includeUsers: true);
 
-            var resultChat = mapper.Map<ChatResponse>(item);
+            var resultChat = mapper.Map<ContactResponse>(item);
             if (item.Users.FirstOrDefault().Id == currentUserId)
             {
                 resultChat.User = mapper.Map<UserChatResponse>(item.Users.LastOrDefault());
@@ -47,8 +47,8 @@ public class GetChatsQueryHandler(
             }
             resultChats.Add(resultChat);
         }
-        if (resultChats.Count == 0) return ValueResult<List<ChatResponse>>.Success([]);
+        if (resultChats.Count == 0) return ValueResult<List<ContactResponse>>.Success([]);
 
-        return ValueResult<List<ChatResponse>>.Success(resultChats);
+        return ValueResult<List<ContactResponse>>.Success(resultChats);
     }
 }
