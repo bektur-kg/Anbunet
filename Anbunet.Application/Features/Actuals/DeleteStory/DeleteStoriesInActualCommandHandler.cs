@@ -1,6 +1,4 @@
 ﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Features.Follows.Delete;
-using Anbunet.Application.Features.Follows;
 using Anbunet.Application.Features.Users;
 using Anbunet.Application.Services;
 using Anbunet.Domain.Abstractions;

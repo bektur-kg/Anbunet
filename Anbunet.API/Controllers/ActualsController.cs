@@ -23,7 +23,7 @@ public class ActualsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpPost("add-story")]//change the path
+    [HttpPost("story")]//change the path
     public async Task<ActionResult<Result>> AddStory(AddStoriesRequest dto)
     {
         var query = new AddStoriesInActualCommand(dto);
@@ -53,7 +53,7 @@ public class ActualsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 
-    [HttpDelete("add-story")]
+    [HttpDelete("story")]
     public async Task<ActionResult<Result>> DeleteStory(DeleteStoriesRequest request)
     {
         var query = new DeleteStoriesInActualCommand(request);

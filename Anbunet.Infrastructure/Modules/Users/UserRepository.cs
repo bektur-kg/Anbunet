@@ -24,7 +24,7 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
     }
 
     public Task<User?> GetByIdWithIncludeAndTrackingAsync(long userId, bool includePosts = false, bool includeFollowers = false, bool includeFollowings = false,
-        bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false)
+    bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false)
     {
         var query = DbContext.Users.AsQueryable();
 
@@ -37,6 +37,7 @@ public class UserRepository(AppDbContext dbContext) : Repository<User>(dbContext
 
         return query.FirstOrDefaultAsync(user => user.Id == userId);
     }
+
 
     public Task<User?> GetByLoginAsync(string login)
     {

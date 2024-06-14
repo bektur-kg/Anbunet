@@ -1,4 +1,5 @@
 ﻿using Anbunet.Application.Contracts.Users;
+using Anbunet.Application.Features.Users.GetCurrentUserProfile;
 using Anbunet.Application.Features.Users.GettingUsersByLogin;
 using Anbunet.Application.Features.Users.GetUserProfile;
 using Anbunet.Application.Features.Users.Login;
@@ -33,6 +34,7 @@ public class UsersController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
+    [Authorize]
     [HttpGet("{id:long}")]
     public async Task<ActionResult<ValueResult<string>>> GetUserProfile(long id)
     {
@@ -45,7 +47,7 @@ public class UsersController(ISender sender) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ValueResult<UserDetailedResponse>>> GetUsersByLogin(string login)
+    public async Task<ActionResult<ValueResult<UsersSearchResponse>>> GetUsersByLogin(string login)
     {
         var query = new GettingUsersByLoginQuery(login);
 
@@ -55,7 +57,21 @@ public class UsersController(ISender sender) : ControllerBase
 
     }
 
-    [HttpPatch("update")]
+    [Authorize]
+    [HttpGet("profile")]
+    public async Task<ActionResult<ValueResult<string>>> GetCurrentUserProfile()
+    {
+        var query = new GetCurrentUserProfileQuery();
+
+        var response = await sender.Send(query);
+
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
+
+    }
+
+    [Authorize]
+    [Route("update")]
+    [HttpPatch]
     public async Task<ActionResult<Result>> UpdateUser(UpdateUserRequest request)
     {
         var query = new UpdateUserCommand(request);
@@ -63,15 +79,17 @@ public class UsersController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 
+    [Authorize]
     [Route("update_profile_picture")]
     [HttpPut]
-    public async Task<ActionResult<Result>> UpdateProfilePictureUser([Required]IFormFile request)
+    public async Task<ActionResult<Result>> UpdateProfilePictureUser(UserUpdateProfilePicture request)
     {
-        var query = new UpdateProfilePictureUserCommand(request);
+        var query = new UpdateProfilePictureUserCommand(request.File);
         var response = await sender.Send(query);
         return response.IsSuccess ? Ok(response) : BadRequest(response.Error);
     }
 
+    [Authorize]
     [Route("update_password")]
     [HttpPut]
     public async Task<ActionResult<Result>> UpdatePasswordUser([Required] UserUpdatePasswordRequest request)

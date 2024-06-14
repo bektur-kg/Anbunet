@@ -4,4 +4,4 @@ using Anbunet.Domain.Abstractions;
 
 namespace Anbunet.Application.Features.Comments.Update;
 
-public record UpdateCommentCommand(long CommentId, UpdateCommentRequest Data) : ICommand<Result>;
+public record UpdateCommentCommand(UpdateCommentRequest Data) : ICommand<Result>;

@@ -1,4 +1,12 @@
-﻿namespace Anbunet.Application.Contracts.Comments;
+﻿using Anbunet.Domain.Modules.Comments;
+using System.ComponentModel.DataAnnotations;
 
-public record UpdateCommentRequest(string Text);
+namespace Anbunet.Application.Contracts.Comments;
 
+public record UpdateCommentRequest
+{
+    public required long CommentId { get; set; }
+
+    [MaxLength(CommentAttributeConstants.MAX_TEXT_LENGTH)]
+    public required string Text { get; set; }
+}

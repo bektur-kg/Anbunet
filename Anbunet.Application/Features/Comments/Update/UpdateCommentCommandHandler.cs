@@ -1,7 +1,9 @@
 ﻿using Anbunet.Application.Abstractions;
+using Anbunet.Application.Features.Posts;
 using Anbunet.Application.Services;
 using Anbunet.Domain.Abstractions;
 using Anbunet.Domain.Modules.Comments;
+using Anbunet.Domain.Modules.Posts;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -15,20 +17,18 @@ public class UpdateCommentCommandHandler
     )
     : ICommandHandler<UpdateCommentCommand, Result>
 {
-    private readonly HttpContext httpContext = httpContextAccessor.HttpContext;
-
+    private readonly HttpContext _httpContext = httpContextAccessor.HttpContext!;
+    
     public async Task<Result> Handle(UpdateCommentCommand request, CancellationToken cancellationToken)
     {
-        var userId = long.Parse(httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var comment = await commentRepository.GetByIdWithInclude(request.CommentId);
+        var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        if (comment is null) return Result.Failure(CommentErrors.CommentNotFound);
-
-        var isUserCommentAuthor = comment.UserId == userId;
-
-        if (!isUserCommentAuthor) return Result.Failure(CommentErrors.UserIsNotCommentAuthor);
+        var comment = await commentRepository.GetByIdWithInclude(request.Data.CommentId);
+        if (comment is null || comment.UserId != userId) return Result.Failure(CommentErrors.CommentNotFound);
 
         comment.Text = request.Data.Text;
+
+        commentRepository.Update(comment);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

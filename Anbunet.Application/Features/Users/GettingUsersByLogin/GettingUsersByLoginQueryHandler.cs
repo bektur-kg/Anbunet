@@ -11,16 +11,16 @@ public class GettingUsersByLoginQueryHandler
         IUserRepository userRepository,
         IMapper mapper
     )
-    : IQueryHandler<GettingUsersByLoginQuery, ValueResult<List<UserDetailedResponse>>>
+    : IQueryHandler<GettingUsersByLoginQuery, ValueResult<List<UsersSearchResponse>>>
 {
-    public async Task<ValueResult<List<UserDetailedResponse>>> Handle(GettingUsersByLoginQuery request, CancellationToken cancellationToken)
+    public async Task<ValueResult<List<UsersSearchResponse>>> Handle(GettingUsersByLoginQuery request, CancellationToken cancellationToken)
     {
         var users = await userRepository.GetUsersByLoginAsync(request.Login);
 
-        if (users.Count == 0) return ValueResult<List<UserDetailedResponse>>.Failure(UserErrors.UserNotFound);
+        if (users.Count == 0) return ValueResult<List<UsersSearchResponse>>.Failure(UserErrors.UserNotFound);
 
-        var mappedUsers = mapper.Map<List<UserDetailedResponse>>(users);
+        var mappedUsers = mapper.Map<List<UsersSearchResponse>>(users);
 
-        return ValueResult<List<UserDetailedResponse>>.Success(mappedUsers);
+        return ValueResult<List<UsersSearchResponse>>.Success(mappedUsers);
     }
 }

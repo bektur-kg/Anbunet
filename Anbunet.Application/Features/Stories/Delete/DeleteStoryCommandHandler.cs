@@ -7,25 +7,25 @@ using System.Security.Claims;
 
 namespace Anbunet.Application.Features.Stories.Delete;
 
-public class DeleteStoriesCommandHandler
+public class DeleteStoryCommandHandler
     (
         IStoryRepository storyRepository,
         IUnitOfWork unitOfWork,
         IHttpContextAccessor httpContextAccessor
     )
-    : ICommandHandler<DeleteStoriesCommand, Result>
+    : ICommandHandler<DeleteStoryCommand, Result>
 {
     private readonly HttpContext _httpContext = httpContextAccessor.HttpContext!;
 
-    public async Task<Result> Handle(DeleteStoriesCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(DeleteStoryCommand request, CancellationToken cancellationToken)
     {
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var stories = await storyRepository.GetByIdAsync(request.Id);
+        var story = await storyRepository.GetByIdAsyncAndTracking(request.Id);
 
-        if (stories == null) return Result.Failure(StoriesErrors.StoriesNotFound);
-        if (stories.UserId != userId) return Result.Failure(StoriesErrors.YouCanDeleteOnlyYourStory);
+        if (story == null) return Result.Failure(StoriesErrors.StoriesNotFound);
+        if (story.UserId != userId) return Result.Failure(StoriesErrors.YouCanDeleteOnlyYourStory);
 
-        storyRepository.Remove(stories);
+        storyRepository.Remove(story);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

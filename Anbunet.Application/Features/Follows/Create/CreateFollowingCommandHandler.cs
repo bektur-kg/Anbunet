@@ -1,11 +1,8 @@
 ﻿using Anbunet.Application.Abstractions;
-using Anbunet.Application.Contracts.Follows;
-using Anbunet.Application.Features.Follows.GetFollowers;
 using Anbunet.Application.Features.Users;
 using Anbunet.Application.Services;
 using Anbunet.Domain.Abstractions;
 using Anbunet.Domain.Modules.Users;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -26,6 +23,8 @@ public class CreateFollowingCommandHandler
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         var currentUser = await userRepository.GetByIdAsync(userId);
 
+        if (userId == request.userId) return Result.Failure(FollowErrors.CurrentUserCantFollowToHimself);
+                
         var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(request.userId, includeFollowers: true);
         if (user == null || currentUser == null) return Result.Failure(UserErrors.UserNotFound);
 

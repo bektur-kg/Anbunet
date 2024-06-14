@@ -7,7 +7,7 @@ namespace Anbunet.Application.Contracts.Users;
 
 public record UserDetailedResponse
 {
-    public long UserId { get; set; }
+    public long Id { get; set; }
 
     public required string Login { get; set; }
 
@@ -30,7 +30,5 @@ public record UserDetailedResponse
     public List<ProfilePostResponse> Posts { get; set; } = [];
 
     public List<ProfileActualResponse> Actuals { get; set; } = [];
-
-    public List<ProfileStoryResponse> Stories { get; set; } = [];
 }
 

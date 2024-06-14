@@ -35,7 +35,6 @@ public class CreateActualsCommmandHandler
             Name = request.Data.Name
         };
 
-        user.Actuals.Add(actual);
         actualRepository.Add(actual);
         await unitOfWork.SaveChangesAsync();
 

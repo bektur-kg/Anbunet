@@ -13,5 +13,6 @@ public interface IActualRepository : IRepository<Actual>
     /// <param name="includeStories">Whether to include related stories data.</param>
     /// <returns>The task result contains the entity if found otherwise, <c>null</c>.</returns>
     Task<Actual?> GetByIdWithInclude(long id, bool includeUser = false, bool includeStories = false);
+    Task<List<Actual>> GetActualsByUserIdWithInclude(long id, bool includeUser = false, bool includeStories = false);
     Task<Actual?> GetByIdWithIncludeAndTracked(long id, bool includeUser = false, bool includeStories = false);
 }

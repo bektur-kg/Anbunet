@@ -4,4 +4,4 @@ using Anbunet.Domain.Abstractions;
 
 namespace Anbunet.Application.Features.Stories.GetAllStories;
 
-public record GetAllStoriesCommand : IQuery<ValueResult<List<ProfileStoryResponse>>>;
+public record GetFollowingStoriesQuery : IQuery<ValueResult<List<FollowingStoriesResponse>>>;

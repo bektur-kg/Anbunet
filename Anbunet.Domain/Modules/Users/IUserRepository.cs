@@ -7,7 +7,7 @@ public interface IUserRepository : IRepository<User>
     /// </summary>
     /// <param name="login">The login of the user to retrieve.</param>
     /// <returns>The task result contains the user if found; otherwise, <c>null</c>.</returns>
-    Task<User?> GetUserByLoginAsync(string login);
+    Task<User?> GetByLoginAsync(string login);
 
     /// <summary>
     /// Asynchronously retrieves a list of users with logins similar to the specified login.
@@ -28,8 +28,10 @@ public interface IUserRepository : IRepository<User>
     /// <param name="includeActuals">Whether to include related actuals data.</param>
     /// <param name="includeStories">Whether to include related stories data.</param>
     /// <returns>The task result contains the user if found; otherwise, <c>null</c>.</returns>
-    Task<User?> GetByIdWithIncludeAsync(long userId, bool includePosts = false, bool includeFollowers = false, bool includeFollowings = false,
+    Task<User?> GetByIdWithIncludeAndTrackingAsync(long userId, bool includePosts = false, bool includeFollowers = false, bool includeFollowings = false,
         bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false);
+    Task<User?> GetByIdWithIncludeAsync(long userId, bool includePosts = false, bool includeFollowers = false, bool includeFollowings = false,
+    bool includeLikes = false, bool includeComments = false, bool includeActuals = false, bool includeStories = false);
 
     Task<List<long>> GetFollowingsIds(long userId);
 }

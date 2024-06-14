@@ -15,8 +15,6 @@ public class GetAllCommentsByPostIdQueryHandler(
     {
         var comments = await commentRepository.GetPostCommentsWithInclude(request.PostId, includeUser:true);
 
-        if (comments.Count == 0) return ValueResult<List<CommentResponse>>.Failure(CommentErrors.CommentNotFound);
-
         var mappedComment = mapper.Map<List<CommentResponse>>(comments);
 
         return ValueResult<List<CommentResponse>>.Success(mappedComment);

@@ -24,15 +24,13 @@ public class UpdateActualCommandHandler(
     {
         var userId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        var user = await userRepository.GetByIdWithIncludeAsync(userId, includeActuals: true);
+        var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(userId, includeActuals: true);
         if (user == null) return Result.Failure(UserErrors.UserNotFound);
 
         var actual = user.Actuals.FirstOrDefault(a => a.Id == request.Data.ActualId);
         if (actual == null) return Result.Failure(ActualErrors.ActualNotFound);
 
         actual.Name = request.Data.Name;
-
-        actualRepository.Update(actual);
 
         await unitOfWork.SaveChangesAsync();
 
