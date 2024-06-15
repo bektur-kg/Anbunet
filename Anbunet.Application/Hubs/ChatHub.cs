@@ -18,6 +18,8 @@ public interface IChatClient
     public Task SendMessageUser(string userName, string message);
     public Task Contacts(List<ContactResponse> chats);
     public Task Chat(ChatResponse chat);
+    public Task Chats(List<ChatResponse> chat);
+    public Task Update();
 }
 
 public class ChatHub(
@@ -79,6 +81,7 @@ public class ChatHub(
         chat.Messages.Add(resultMessage);
         await unitOfWork.SaveChangesAsync();
         await GetChat(chatId);
+        await GetChats();
 
     }
 
@@ -121,9 +124,67 @@ public class ChatHub(
 
 
         await Clients
-          .Groups(chatId.ToString())
+          .Caller
           .Chat(resultChat);
     }
+
+    public async Task GetChats()
+    {
+        var userCurrentId = long.Parse(httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var userCurrent = await userRepository.GetByIdWithIncludeAndTrackingAsync(userCurrentId, includeChats: true);
+
+        List<ChatResponse> chats = new List<ChatResponse>();
+
+        foreach (var chat in userCurrent.Chats)
+        {
+            var chatInclude = await chatRepository.GetByIdWithIncludeAndTrackingAsync(chat.Id, includeUsers: true, includeMessage: true);
+
+            ChatResponse resultChat = new ChatResponse() { };
+            resultChat.Messages = new List<MessageInfoResponse>();
+
+            if (chatInclude.Users.FirstOrDefault().Id == userCurrentId)
+            {
+                resultChat.Login = chatInclude.Users.LastOrDefault().Login;
+            }
+            else
+            {
+                resultChat.Login = chatInclude.Users.FirstOrDefault().Login;
+            }
+
+            resultChat.ChatId = chat.Id;
+
+            foreach (var item in chatInclude.Messages)
+            {
+                MessageInfoResponse message = new MessageInfoResponse() { };
+
+                message.Text = item.Text;
+                message.DateTime = item.DateTime;
+
+                var user = await userRepository.GetByIdAsync(item.SenderId);
+
+                message.User = mapper.Map<UserChatResponse>(user);
+
+                resultChat.Messages.Add(message);
+            }
+
+            chats.Add(resultChat);
+        }
+
+
+
+        await Clients
+          .Caller
+          .Chats(chats);
+
+    }
+
+    public async Task GetChatsGroup(long chatId)
+    {
+        await Clients
+            .Group(chatId.ToString())
+            .Update();
+    }
+
 
     public async Task GetContactsAsync()
     {
@@ -145,7 +206,7 @@ public class ChatHub(
                 resultChat.LastMessage = item.Messages.LastOrDefault().Text;
                 resultChat.LastMessageDate = item.Messages.LastOrDefault().DateTime;
             }
-                resultChat.ChatId = chat.Id;
+            resultChat.ChatId = chat.Id;
 
             if (item.Users.FirstOrDefault().Id == userId)
             {
