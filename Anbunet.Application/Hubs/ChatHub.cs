@@ -180,9 +180,14 @@ public class ChatHub(
 
     public async Task GetChatsGroup(long chatId)
     {
+        var chatInclude = await chatRepository.GetByIdWithIncludeAndTrackingAsync(chatId, includeUsers: true, includeMessage: true);
+        var userFirst = chatInclude.Users.FirstOrDefault().Id.ToString();
+        var userSecond = chatInclude.Users.LastOrDefault().Id.ToString();
+
         await Clients
-            .Group(chatId.ToString())
-            .Update();
+           .Users(new[] { userFirst, userSecond })
+           .Update();
+
     }
 
 
@@ -201,7 +206,7 @@ public class ChatHub(
             var item = await chatRepository.GetByIdWithIncludeAndTrackingAsync(chat.Id, includeMessage: true, includeUsers: true);
 
             ContactResponse resultChat = new ContactResponse() { };
-            if (resultChat.LastMessage != null)
+            if (item.Messages != null)
             {
                 resultChat.LastMessage = item.Messages.LastOrDefault().Text;
                 resultChat.LastMessageDate = item.Messages.LastOrDefault().DateTime;
