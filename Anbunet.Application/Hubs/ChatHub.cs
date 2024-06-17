@@ -206,7 +206,7 @@ public class ChatHub(
             var item = await chatRepository.GetByIdWithIncludeAndTrackingAsync(chat.Id, includeMessage: true, includeUsers: true);
 
             ContactResponse resultChat = new ContactResponse() { };
-            if (item.Messages != null)
+            if (item.Messages.Count != 0)
             {
                 resultChat.LastMessage = item.Messages.LastOrDefault().Text;
                 resultChat.LastMessageDate = item.Messages.LastOrDefault().DateTime;
@@ -225,6 +225,8 @@ public class ChatHub(
 
             resultChats.Add(resultChat);
         }
+
+        resultChats = resultChats.OrderByDescending(chat => chat.LastMessageDate).ToList();
         if (resultChats.Count == 0)
         {
             await Clients

@@ -20,13 +20,13 @@ public class ChatsController(ISender sender,IHubContext<ChatHub> hubContext) : C
     }
 
     [HttpPost]
-    public async Task<ActionResult<Result>> CreateChat(CreateChatRequest request)
+    public async Task<ActionResult<ValueResult<CreateChatResponse>>> CreateChat(CreateChatRequest request)
     {
         var command = new CreateChatCommand(request.UserId);
 
         var response = await sender.Send(command);
 
-        return response.IsSuccess ? Created() : BadRequest(response.Error);
+        return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
 }

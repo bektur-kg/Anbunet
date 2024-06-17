@@ -1,4 +1,5 @@
 ﻿using Anbunet.Application.Abstractions;
+using Anbunet.Application.Contracts.Chats;
 using Anbunet.Application.Features.Comments.CreateComment;
 using Anbunet.Application.Features.Posts;
 using Anbunet.Application.Features.Users;
@@ -20,17 +21,17 @@ public class CreateChatCommandHandler
         IUserRepository userRepository,
         IUnitOfWork unitOfWork
     )
-    : ICommandHandler<CreateChatCommand, Result>
+    : ICommandHandler<CreateChatCommand, ValueResult<CreateChatResponse>>
 {
     private readonly HttpContext _httpContext = httpContextAccessor.HttpContext!;
 
-    public async Task<Result> Handle(CreateChatCommand request, CancellationToken cancellationToken)
+    public async Task<ValueResult<CreateChatResponse>> Handle(CreateChatCommand request, CancellationToken cancellationToken)
     {
         var currentUserId = long.Parse(_httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
         var currentUser = await userRepository.GetByIdAsyncAndTracking(currentUserId);
         var foundUser = await userRepository.GetByIdAsyncAndTracking(request.userId);
-        if (foundUser == null) return Result.Failure(UserErrors.UserNotFound);
+        if (foundUser == null) return ValueResult<CreateChatResponse>.Failure(UserErrors.UserNotFound);
 
         Chat chat = new Chat
         {
@@ -39,7 +40,11 @@ public class CreateChatCommandHandler
 
         chatRepository.Add(chat);
         await unitOfWork.SaveChangesAsync();
-        return Result.Success();
+        CreateChatResponse response = new CreateChatResponse()
+        {
+            ChatId = chat.Id,
+        };
+        return ValueResult<CreateChatResponse>.Success(response);
 
     }
 }
