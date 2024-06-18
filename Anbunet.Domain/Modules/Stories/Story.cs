@@ -13,6 +13,6 @@ public class Story : Entity
 
     public DateTime ExpiryDate { get; set; } = DateTime.UtcNow.AddHours(24);
 
-    public User? User { get; set; }
+    public User? User { get; set; } 
 
 }

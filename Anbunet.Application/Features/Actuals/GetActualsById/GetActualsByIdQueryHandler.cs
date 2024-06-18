@@ -1,6 +1,7 @@
 ﻿namespace Anbunet.Application.Features.Actuals.GetActualsById;
 
-public class GetActualsByIdQueryHandler(
+public class GetActualsByIdQueryHandler
+    (
         IActualRepository actualRepository,
         IMapper _mapper
     ) : IQueryHandler<GetActualsByIdQuery, ValueResult<ProfileActualResponse>>

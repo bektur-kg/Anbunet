@@ -1,4 +1,4 @@
-﻿namespace Anbunet.Application.Features.Follows.CreateFollowers;
+﻿namespace Anbunet.Application.Features.Follows.Create;
 
 public class CreateFollowingCommandHandler
 (
@@ -16,7 +16,7 @@ public class CreateFollowingCommandHandler
         var currentUser = await userRepository.GetByIdAsync(userId);
 
         if (userId == request.UserId) return Result.Failure(FollowErrors.CurrentUserCantFollowToHimself);
-                
+
         var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(request.UserId, includeFollowers: true);
         if (user == null || currentUser == null) return Result.Failure(UserErrors.UserNotFound);
 

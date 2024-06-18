@@ -12,11 +12,11 @@ public class LoginUserQueryHandler
     {
         var user = await userRepository.GetByLoginAsync(request.Data.Login);
 
-        if (user is null) return ValueResult<UserTokenResponse>.Failure(UserErrors.UserNotFound);
+        if (user is null) return ValueResult<UserTokenResponse>.Failure(UserErrors.WrongCredentials);
 
         var isPasswordVerified = passwordManager.Verify(request.Data.Password, user.PasswordHash);
 
-        if (!isPasswordVerified) return ValueResult<UserTokenResponse>.Failure(UserErrors.WrongPassword);
+        if (!isPasswordVerified) return ValueResult<UserTokenResponse>.Failure(UserErrors.WrongCredentials);
 
         var token = jwtProvider.Generate(user);
 

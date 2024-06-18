@@ -64,7 +64,7 @@ public class PostsController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("followings/posts")]
+    [HttpGet("following-users/posts")]
     public async Task<ActionResult<ValueResult<List<PostDetailedResponse>>>> GetFollowersByPagination(int page, int quantity)
     {
         var query = new GetFollowingPostsByPaginationQuery(page, quantity);

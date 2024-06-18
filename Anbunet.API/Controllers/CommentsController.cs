@@ -50,14 +50,4 @@ public class CommentsController(ISender sender) : ControllerBase
 
         return response.IsSuccess ? NoContent() : BadRequest(response.Error);
     }
-
-    [HttpPatch("posts/comment/{id:long}")]
-    public async Task<ActionResult> Update(long id, UpdateCommentRequest dto)
-    {
-        var command = new UpdateCommentCommand(id, dto);
-
-        var response = await sender.Send(command);
-
-        return response.IsSuccess ? NoContent() : BadRequest(response.Error);
-    }
 }

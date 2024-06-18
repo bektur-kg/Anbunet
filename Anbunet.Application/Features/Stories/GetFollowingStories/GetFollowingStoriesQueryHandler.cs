@@ -1,4 +1,4 @@
-﻿namespace Anbunet.Application.Features.Stories.GetAllStories;
+﻿namespace Anbunet.Application.Features.Stories.GetFollowingStories;
 
 public class GetFollowingStoriesQueryHandler
     (
@@ -16,15 +16,16 @@ public class GetFollowingStoriesQueryHandler
 
         List<FollowingStoriesResponse> followingStories = new();
 
-        foreach ( var user in currentUser.Followings )
+        foreach (var user in currentUser.Followings)
         {
             var userIncludeStories = await userRepository.GetByIdWithIncludeAsync(user.Id, includeStories: true);
-            userIncludeStories.Stories = userIncludeStories.Stories.OrderByDescending(s=>s.CreatedDate).ToList();
+            if (userIncludeStories.Stories.Count == 0) continue;
+            userIncludeStories.Stories = userIncludeStories.Stories.OrderByDescending(s => s.CreatedDate).ToList();
             var userResponse = mapper.Map<FollowingStoriesResponse>(userIncludeStories);
             followingStories.Add(userResponse);
         }
 
-        followingStories = followingStories.OrderByDescending( f => f.Stories.Max(s=>s.Id)).ToList();
+        followingStories = followingStories.OrderByDescending(f => f.Stories.Max(s => s.Id)).ToList();
 
         return ValueResult<List<FollowingStoriesResponse>>.Success(followingStories);
     }

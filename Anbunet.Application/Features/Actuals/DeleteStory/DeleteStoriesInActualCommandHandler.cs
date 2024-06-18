@@ -18,16 +18,17 @@ public class DeleteStoriesInActualCommandHandler(
         var user = await userRepository.GetByIdWithIncludeAndTrackingAsync(userId, includeActuals: true);
         if (user == null) return Result.Failure(UserErrors.UserNotFound);
 
-        var userActual = user.Actuals.FirstOrDefault(a => a.Id == request.Data.ActualId);
+        var userActual = user.Actuals.FirstOrDefault(a => a.Id == request.ActualId);
         if (userActual == null) return Result.Failure(ActualErrors.ActualNotFound);
-        var actual = actualRepository.GetByIdWithIncludeAndTrackedAsync(request.Data.ActualId, includeStories: true).Result;
+
+        var actual = actualRepository.GetByIdWithIncludeAndTrackedAsync(request.ActualId, includeStories: true).Result;
         if (actual == null) return Result.Failure(ActualErrors.ActualNotFound);
 
-        var story = await storyRepository.GetByIdAsyncAndTracking(request.Data.StoryId);
+        var story = await storyRepository.GetByIdAsyncAndTracking(request.StoryId);
         if (story == null) return Result.Failure(ActualErrors.ActualNotFound);
+
         var result = actual.Stories.Remove(story);
         if (!result) return Result.Failure(StoriesErrors.StoriesNotFound);
-
 
         await unitOfWork.SaveChangesAsync();
 

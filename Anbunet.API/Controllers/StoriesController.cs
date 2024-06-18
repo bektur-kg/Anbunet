@@ -1,9 +1,9 @@
 ﻿using Anbunet.Application.Contracts.Stories;
 using Anbunet.Application.Features.Stories.Create;
 using Anbunet.Application.Features.Stories.Delete;
-using Anbunet.Application.Features.Stories.GetAllStories;
+using Anbunet.Application.Features.Stories.GetAllCurrentUserStories;
 using Anbunet.Application.Features.Stories.GetById;
-using Anbunet.Application.Features.Stories.GetMyselfStories;
+using Anbunet.Application.Features.Stories.GetFollowingStories;
 using Anbunet.Application.Features.Stories.GetUserStories;
 
 namespace Anbunet.API.Controllers;
@@ -23,17 +23,17 @@ public class StoriesController(ISender sender) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("users/stories")]
-    public async Task<ActionResult<List<ProfileStoryResponse>>> GetMyselfStories()
+    [HttpGet("users/current/available-stories")]
+    public async Task<ActionResult<List<ProfileStoryResponse>>> GetAvailableCurrentUserStories()
     {
-        var query = new GetMyselfStoriesQuery();
+        var query = new GetAvailableCurrentUserStoriesQuery();
 
         var response = await sender.Send(query);
 
         return response.IsSuccess ? Ok(response.Value) : BadRequest(response.Error);
     }
 
-    [HttpGet("users/stories/{id:long}")]
+    [HttpGet("stories/{id:long}")]
     public async Task<ActionResult<List<ProfileStoryResponse>>> GetById(long id)
     {
         var query = new GetStoriesByIdQuery(id);

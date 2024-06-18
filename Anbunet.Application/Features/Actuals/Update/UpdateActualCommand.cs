@@ -1,3 +1,3 @@
 ﻿namespace Anbunet.Application.Features.Actuals.Update;
 
-public record UpdateActualCommand(UpdateActualRequest Data) : ICommand<Result>;
+public record UpdateActualCommand(long ActualId, UpdateActualRequest Data) : ICommand<Result>;

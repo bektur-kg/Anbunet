@@ -3,5 +3,5 @@
 public record AddStoriesRequest
 {
     [Required]
-    public long ActualId { get; set; }
+    public long StoryId { get; set; }
 }

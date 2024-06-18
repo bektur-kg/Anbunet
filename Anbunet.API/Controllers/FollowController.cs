@@ -1,5 +1,5 @@
 ﻿using Anbunet.Application.Contracts.Follows;
-using Anbunet.Application.Features.Follows.CreateFollowers;
+using Anbunet.Application.Features.Follows.Create;
 using Anbunet.Application.Features.Follows.Delete;
 using Anbunet.Application.Features.Follows.GetFollowers;
 using Anbunet.Application.Features.Follows.GetFollowings;

@@ -9,6 +9,8 @@ public class ActualMappings : Profile
         CreateMap<Actual, CreateActualRequest>();
 
         CreateMap<Actual, AddStoriesRequest>();
+
+        CreateMap<Actual, CreateActualResponse>();
     }
 }
 
