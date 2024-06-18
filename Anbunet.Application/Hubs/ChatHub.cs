@@ -15,7 +15,6 @@ namespace Anbunet.Application.Hubs;
 
 public interface IChatClient
 {
-    public Task SendMessageUser(string userName, string message);
     public Task Contacts(List<ContactResponse> chats);
     public Task Chat(ChatResponse chat);
     public Task Chats(List<ChatResponse> chat);
@@ -43,9 +42,6 @@ public class ChatHub(
             foreach (var chat in chats)
             {
                 await Groups.AddToGroupAsync(Context.ConnectionId, chat.Id.ToString());
-                await Clients
-                    .Group(chat.Id.ToString())
-                    .SendMessageUser("Admin", $"{user.Login} connected to chat number {chat.Id}");
             }
         }
 
