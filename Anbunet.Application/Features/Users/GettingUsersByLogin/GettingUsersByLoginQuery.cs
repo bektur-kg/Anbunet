@@ -1,3 +1,3 @@
 ﻿namespace Anbunet.Application.Features.Users.GettingUsersByLogin;
 
-public record GettingUsersByLoginQuery(string Login) : IQuery<ValueResult<List<UsersSearchResponse>>>;
+public record GettingUsersByLoginQuery(string? Login) : IQuery<ValueResult<List<UsersSearchResponse>>>;

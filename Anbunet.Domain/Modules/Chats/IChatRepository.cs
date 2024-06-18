@@ -1,6 +1,7 @@
 ﻿namespace Anbunet.Domain.Modules.Chats;
 
-public interface IChatRepository : IRepository<PrivateMessage>
+public interface IChatRepository : IRepository<Chat>
 {
-    Task<PrivateMessage?> GetPrivateChatByUsersAsync(string userId1, string userId2);
+    Task<Chat?> GetByIdWithIncludeAndTrackingAsync(long chatId, bool includeUsers= false, bool includeMessage= false);
+
 }

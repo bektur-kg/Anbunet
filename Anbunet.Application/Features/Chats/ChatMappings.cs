@@ -4,6 +4,7 @@ public class ChatMappings : Profile
 {
     public ChatMappings() 
     {
-    
+        CreateMap<Chat, ContactResponse>();
+
     }
 }

@@ -9,6 +9,7 @@ public class UserMappings : Profile
         CreateMap<User, UserLikeResponse>();
         CreateMap<User, UserDetailedResponse>();
         CreateMap<User, UsersSearchResponse>();
+        CreateMap<User, UserChatResponse>();
 
         CreateMap<UpdateUserRequest, User>()
            .ForMember(dest => dest.CreatedDate, opt => opt.Ignore())

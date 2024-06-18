@@ -37,4 +37,6 @@ public class User : Entity
     public List<Actual> Actuals { get; set; } = [];
 
     public List<Story> Stories { get; set; } = [];
+    public List<Chat> Chats { get; set; } = [];
 }
+

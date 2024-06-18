@@ -1,12 +1,12 @@
 ﻿namespace Anbunet.Infrastructure.Modules.Chats;
 
-public class ChatConfiguration : IEntityTypeConfiguration<PrivateMessage>
+public class ChatConfiguration : IEntityTypeConfiguration<Chat>
 {
-    public void Configure(EntityTypeBuilder<PrivateMessage> builder)
+    public void Configure(EntityTypeBuilder<Chat> builder)
     {
         builder
             .HasMany(p => p.Messages)
-            .WithOne(c => c.PrivateMessage)
-            .HasForeignKey(c => c.PrivateMessageId);
+            .WithOne(c => c.Chat)
+            .HasForeignKey(c => c.ChatId);
     }
 }

@@ -9,6 +9,8 @@ public class GettingUsersByLoginQueryHandler
 {
     public async Task<ValueResult<List<UsersSearchResponse>>> Handle(GettingUsersByLoginQuery request, CancellationToken cancellationToken)
     {
+        if(request.Login.IsNullOrEmpty()) return ValueResult<List<UsersSearchResponse>>.Success(new());
+
         var users = await userRepository.GetUsersByLoginAsync(request.Login);
 
         var mappedUsers = mapper.Map<List<UsersSearchResponse>>(users);
