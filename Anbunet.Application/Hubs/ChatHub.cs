@@ -1,14 +1,10 @@
 ﻿using Anbunet.Application.Contracts.Chats;
-using Anbunet.Application.Features.Chats.GetChats;
 using Anbunet.Application.Services;
-using Anbunet.Domain.Abstractions;
 using Anbunet.Domain.Modules.Chats;
 using Anbunet.Domain.Modules.Users;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Net.Http;
 using System.Security.Claims;
 
 namespace Anbunet.Application.Hubs;
