@@ -46,7 +46,8 @@ public interface IUserRepository : IRepository<User>
         bool includeLikes = false,
         bool includeComments = false,
         bool includeActuals = false,
-        bool includeStories = false);
+        bool includeStories = false,
+        bool includeChats = false);
 
     /// <summary>
     /// Retrieves a user by their ID with optional includes for related data.
@@ -71,7 +72,8 @@ public interface IUserRepository : IRepository<User>
         bool includeLikes = false,
         bool includeComments = false,
         bool includeActuals = false,
-        bool includeStories = false);
+        bool includeStories = false,
+        bool includeChats = false);
 
     /// <summary>
     /// Retrieves a list of IDs of the users that the specified user is following.

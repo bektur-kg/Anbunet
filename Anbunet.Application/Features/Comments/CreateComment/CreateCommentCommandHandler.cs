@@ -26,7 +26,7 @@ public class CreateCommentCommandHandler
         };
 
         post.Comments.Add(newComment);
-        commentRepository.AddAsync(newComment);
+        commentRepository.Add(newComment);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

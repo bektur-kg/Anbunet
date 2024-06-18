@@ -22,7 +22,7 @@ public class RegisterUserCommandHandler
             PasswordHash = hashedPassword
         };
 
-        userRepository.AddAsync(newUser);
+        userRepository.Add(newUser);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

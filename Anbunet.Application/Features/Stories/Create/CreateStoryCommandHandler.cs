@@ -25,7 +25,7 @@ public class CreateStoryCommandHandler
             UserId = userId,
         };
 
-        storyRepository.AddAsync(newStory);
+        storyRepository.Add(newStory);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

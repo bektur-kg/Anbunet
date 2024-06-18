@@ -6,7 +6,7 @@ public interface IWriteRepository<TEntity> where TEntity : Entity
     /// Adds a new entity of type <typeparamref name="TEntity"/> to the database.
     /// </summary>
     /// <param name="entity">The entity to add.</param>
-    void AddAsync(TEntity entity);
+    void Add(TEntity entity);
 
     /// <summary>
     /// Removes an existing entity of type <typeparamref name="TEntity"/> from the database.

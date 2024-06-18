@@ -24,7 +24,7 @@ public class CreateActualsCommmandHandler
             Name = request.Data.Name
         };
 
-        actualRepository.AddAsync(actual);
+        actualRepository.Add(actual);
         await unitOfWork.SaveChangesAsync();
 
         var mappedActual = mapper.Map<CreateActualResponse>(actual);

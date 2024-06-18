@@ -1,4 +1,6 @@
-﻿namespace Anbunet.Domain.Modules.Users;
+﻿using Anbunet.Domain.Modules.Chats;
+
+namespace Anbunet.Domain.Modules.Users;
 
 public class User : Entity
 {

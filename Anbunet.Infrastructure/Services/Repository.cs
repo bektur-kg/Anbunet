@@ -6,7 +6,7 @@ public abstract class Repository<TEntity>(AppDbContext dbContext) : IRepository<
     protected AppDbContext DbContext = dbContext;
 
     /// <inheritdoc />
-    public void AddAsync(TEntity entity) => DbContext.Add(entity);
+    public void Add(TEntity entity) => DbContext.Add(entity);
 
     /// <inheritdoc />
     public Task<List<TEntity>> GetAllAsync() => DbContext

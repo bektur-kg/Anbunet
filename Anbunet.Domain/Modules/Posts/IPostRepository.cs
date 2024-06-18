@@ -48,7 +48,7 @@ public interface IPostRepository : IRepository<Post>
     /// A Task that represents the asynchronous operation. The task result contains a list of posts for
     /// the specified page and quantity.
     /// </returns>
-    Task<List<Post>?> GetPostsByPaginationWithIncludeAsync(
+    Task<List<Post>> GetPostsByPaginationWithIncludeAsync(
         int page, 
         int quantity, 
         bool includeComments, 

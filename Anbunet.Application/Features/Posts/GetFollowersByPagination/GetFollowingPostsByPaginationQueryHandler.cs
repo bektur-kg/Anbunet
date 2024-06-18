@@ -21,7 +21,8 @@ public class GetFollowingPostsByPaginationQueryHandler
             return ValueResult<List<PostDetailedResponse>>.Success(new List<PostDetailedResponse> { });
         }
 
-        var followingPosts = await postRepository.GetPostsByUserIdsWithIncludeAsync(request.Page, request.Quantity, followingIds, includeComments:true, includeLikes:true, includeUser:true);
+        var followingPosts = await postRepository.GetPostsByUserIdsWithIncludeAsync(request.Page, request.Quantity,
+            followingIds, includeComments: true, includeLikes: true, includeUser: true);
         var mappedPosts = mapper.Map<List<PostDetailedResponse>>(followingPosts);
 
         return ValueResult<List<PostDetailedResponse>>.Success(mappedPosts);

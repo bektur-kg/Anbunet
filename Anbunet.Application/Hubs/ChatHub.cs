@@ -1,4 +1,5 @@
-﻿using Anbunet.Domain.Modules.Chats;
+﻿using Anbunet.Application.Contracts.Chats;
+using Anbunet.Domain.Modules.Chats;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Anbunet.Application.Hubs;

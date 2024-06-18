@@ -26,7 +26,7 @@ public class CreatePostCommandHandler
             Description = request.Data.Description
         };
 
-        postRepository.AddAsync(newPost);
+        postRepository.Add(newPost);
         await unitOfWork.SaveChangesAsync();
 
         return Result.Success();

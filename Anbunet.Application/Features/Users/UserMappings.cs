@@ -1,4 +1,6 @@
-﻿namespace Anbunet.Application.Features.Users;
+﻿using Anbunet.Application.Contracts.Chats;
+
+namespace Anbunet.Application.Features.Users;
 
 public class UserMappings : Profile
 {
