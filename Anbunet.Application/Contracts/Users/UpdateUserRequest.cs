@@ -12,5 +12,5 @@ public record UpdateUserRequest
     [MaxLength(UserAttributeConstants.MAX_BIO_LENGTH)]
     public string? Bio { get; set; }
 
-    public Gender Gender { get; set; }
+    public Gender? Gender { get; set; }
 }
